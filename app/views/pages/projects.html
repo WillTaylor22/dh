@@ -1,0 +1,81 @@
+<div class="projects-box cf">
+  
+  <p class="hire-label">Looking to Hire?
+    <%= link_to post_project_path do %>
+      <button class="btn btn-default orange-button">Post a Project</button>
+    <% end %>
+  </p>
+
+  <h1>Projects and Contests</h1>
+  <div class="project-search cf">
+    <div id="search-bar" class="input-group input-group-sm">
+      <input type="text" class="form-control" placeholder="Enter project id, contest name, etc.">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+      </span>
+    </div><!-- /input-group -->
+    <select class="form-control select-sm">
+      <option>5</option>
+      <option selected="selected">10</option>
+      <option>20</option>
+      <option>100</option>
+    </select>
+    <p>Show</p>
+  </div>
+
+  <div id="project-table" role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#open" aria-controls="open" role="tab" data-toggle="tab">Open for Bidding</a></li>
+      <li role="presentation"><a href="#wip" aria-controls="wip" role="tab" data-toggle="tab">Work in Progress</a></li>
+      <li role="presentation"><a href="#past-project" aria-controls="past-project" role="tab" data-toggle="tab">Past Projects</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content cf">
+      <div role="tabpanel" class="tab-pane active" id="open-for-bidding">
+        <div class="row header">
+          <div class="name">Name</div>
+          <div class="bids">Bids</div>
+          <div class="avg-bid">Avg Bid</div>
+          <div class="bid-end-date">Bid End Date</div>
+          <div class="action">Action</div>
+        </div>
+        <div class="row">
+          <div class="name">Build a website -- 2</div>
+          <div class="bids">73</div>
+          <div class="avg-bid">$989 USD</div>
+          <div class="bid-end-date">in 6 days</div>
+          <div class="action">
+            <select class="form-control select-sm">
+              <option selected="selected">Select</option>
+            </select>
+          </div>
+        </div>
+        <div class="row odd">
+          <div class="name">Build a website</div>
+          <div class="bids">73</div>
+          <div class="avg-bid">$989 USD</div>
+          <div class="bid-end-date">in 6 days</div>
+          <div class="action">
+            <select class="form-control select-sm">
+              <option selected="selected">Select</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="pagination">
+          <li><a href="#">1</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+
+  </div>
+
+  <p class="feedback"><a href="#">Withdraw Feedback</a> you've left previously for a freelancer. <a href=""></a>Reply to Feedback about you. <a href="">View Contest Feedback</a> you've left for a freelancer.</p>
+</div>

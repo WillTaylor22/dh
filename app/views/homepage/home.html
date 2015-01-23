@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driverhunt</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+<div class="fixed-top">
+  <div class="container">
+    <header>
+      <a href="#" class="home-link"><%= image_tag 'logo.jpeg', class: 'logo' %></a>
+
+      <section class="login-prompt">
+        <a class="header-text login-link" href="#">LOGIN</a>
+        <a class="header-text signup-link" href="#">SIGN UP</a>
+        <%= link_to post_project_path do %>
+          <button class="btn btn-default orange-button header-button">Post a Project</button>
+        <% end %>
+      </section>
+
+    </header>
+  </div>
+</div>
+
+<div id="carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" role="listbox">
+    <div id="carousel-1" class="item active">
+      <div class="container">
+        <h1>Work Done Easy</h1>
+        <h2>Tell us what you need done and discover talented freelancers within minutes for just a fraction of the cost!</h2>
+        <button class="btn btn-default hire-work-buttons hire-link">Hire</button>
+        <button class="btn btn-default hire-work-buttons signup-link">Work</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hire section -->
+
+<section id="hire">
+  <div class="container">
+    <h1 class="homepage-header">Hire freelancers for a fraction of the cost!</h1>
+
+    
+    <div id="method-box-wrap">
+      <div id="method-box" class="cf">
+        <div class="method-item">
+          <%= image_tag 'hire/job.png' %>
+          <p>Post your project within seconds</p>
+        </div>
+        <div class="chevron">></div>
+        <div class="method-item">
+          <%= image_tag 'hire/people.png' %>
+          <p>Compare prices & select bidders</p>
+        </div>
+        <div class="chevron">></div>
+        <div class="method-item">
+          <%= image_tag 'hire/money.png' %>
+          <p>Pay only once satisfied</p>
+        </div>
+      </div>
+    </div>
+
+    <form action="post-project" method="GET">
+
+      <select class="form-control">
+        <option>
+          Select a category
+          <span class="caret"></span>
+        </option>
+        <option>Websites IT & Software</option>
+        <option>Mobile</option>
+        <option>Writing</option>
+        <option>Design</option>
+        <option>Data Entry</option>
+        <option>Other</option>
+      </select>
+
+      <div id="second-select-wrap">
+        <select id="second-select" class="form-control">
+          <option>
+            Select a category
+            <span class="caret"></span>
+          </option>
+          <option>Websites IT & Software</option>
+          <option>Mobile</option>
+          <option>Writing</option>
+          <option>Design</option>
+          <option>Data Entry</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <%= link_to post_project_path do %>
+        <button type="submit" id="hire-button" class="btn btn-default orange-button">Post Project Now</button>
+      <% end %>
+    </form>
+
+
+    <a id="looking-for-work" class="signup-link" href="#">Looking for work?</a>
+  </div>
+</section>
+
+<!-- Work Sign Up section -->
+<section id="work-signup">
+  <div class="container">
+    <h1 class="homepage-header">Sign up for free today!</h1>
+    <button class="btn facebook-button">
+      <%= image_tag "facebook.png" %>
+      &nbsp;Sign up with Facebook
+    </button>
+    <div class="or-line cf">
+      <div class="line"></div>
+      <div class="or">or</div>
+      <div class="line"></div>
+    </div>
+    <form action="" class="email-signup">
+      <div class="form-group">
+        <i class="glyphicon glyphicon-envelope"></i>
+        <input type="email" class="form-control" id="email" placeholder="Email Address">
+      </div>
+      <div class="form-group">
+        <i class="glyphicon glyphicon-user"></i>
+        <input type="text" class="form-control" id="username" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <i class="glyphicon glyphicon-lock"></i>
+        <input type="password" class="form-control" id="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <i class="glyphicon glyphicon-lock"></i>
+        <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password">
+      </div>
+
+      <div id="work-type">
+        <label for="work">I am looking to</label><br>
+        <div id="hire-work-radios" class="cf">
+          <label>
+            <input type="radio" name="work-type" id="hire-radio" value="hire" checked>
+            Hire
+          </label>
+          <label>
+            <input type="radio" name="work-type" id="work-radio" value="work" checked="checked">
+            Work
+          </label>
+        </div>
+      </div>
+
+      <%= link_to dashboard_path do %>
+        <button class="btn green-button">Create account</button>
+      <% end %>
+      <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+
+    </form>
+
+  </div>
+
+</section>
+
+<!-- Sign In section -->
+<section id="login">
+  <div class="container">
+    <button class="btn facebook-button">
+      <%= image_tag "facebook.png" %>
+      &nbsp;Login with Facebook
+    </button>
+    <div class="or-line cf">
+      <div class="line"></div>
+      <div class="or">or</div>
+      <div class="line"></div>
+    </div>
+    <form action="" class="email-signup cf">
+      <div class="form-group">
+        <i class="glyphicon glyphicon-user"></i>
+        <input type="text" class="form-control" id="username" placeholder="Username or Email">
+      </div>
+      <div class="form-group">
+        <i class="glyphicon glyphicon-lock"></i>
+        <input type="password" class="form-control" id="password" placeholder="Password">
+      </div>
+
+      <div id="remember-me" class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+
+      <div class="cf">
+        <%= link_to dashboard_path do %>
+          <button id="create-account" class="btn orange-button">Login</button>
+        <% end %>
+        <a id="forgot-password" href="">Forgot password?</a>
+      </div>
+    </form>
+
+    <hr>
+
+    <p id="no-account">Don't have an account? <a class="signup-link" href="">Sign up now!</a></p>
+
+  </div>
+
+</section>
+
+
+<!-- How it works section -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="how-text">
+      <h1 class="homepage-header">How Freelancer United Kingdom Works</h1>
+      <p>Post any project you need done and receive bids from our talented freelancers within minutes. Compare their proposals and price, then select the best freelancer to complete your project. Easy!</p>
+      <p class="benefits">What are your benefits?</p>
+      <ul>
+        <li>Receive hundreds of proposals to compare within minutes</li>
+        <li>Realtime chat, project collaboration and tracking of tasks</li>
+        <li>Pay for work safely and securely. Only release payment when 100% satisfied with the work provided!</li>
+      </ul>
+
+    </div>
+
+    <div class="how-gif hire-link">
+      <%= image_tag 'gif.png', id: 'explainer' %>
+    </div>
+  </div>
+</section>
+
+<!-- Examples section -->
+
+<section id="examples">
+  <div class="container">
+    <h1 class="homepage-header">Hire Freelancers and Find Freelance Jobs Online</h1>    
+    <div class="row">
+      <div class="col-sm-4"><%= image_tag 'examples/example-1.jpg' %></div>
+      <div class="col-sm-4"><%= image_tag 'examples/example-2.jpg' %></div>
+      <div class="col-sm-4"><%= image_tag 'examples/example-3.jpg' %></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4"><%= image_tag 'examples/example-4.jpg' %></div>
+      <div class="col-sm-4"><%= image_tag 'examples/example-5.jpg' %></div>
+      <div class="col-sm-4"><%= image_tag 'examples/example-6.jpg' %></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-push-2"><%= image_tag 'examples/example-7.jpg' %></div>
+      <div class="col-sm-4 col-sm-push-2"><%= image_tag 'examples/example-8.jpg' %></div>
+    </div>
+  </div>
+</section>
+
+<!-- Get started section -->
+
+<section id="get-started">
+  <div class="container">
+    <h1 class="homepage-header">Get your project started now...</h1>    
+    <div class="row">
+      <div class="col-sm-3">
+        <%= link_to post_project_path do %>
+        <div class="icon-wrap">
+          <%= image_tag 'get-started/web.jpg', class: 'icon'  %>
+        </div>
+        <% end %>
+        <p>Website Development</p>
+        <p class="price">Starting from £ 70</p>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to post_project_path do %>
+          <div class="icon-wrap">
+            <%= image_tag 'get-started/design.jpg', class: 'icon'  %>
+          </div>
+        <% end %>
+        <p>Website Design</p>
+        <p class="price">Starting from £ 60</p>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to post_project_path do %>
+          <div class="icon-wrap">
+            <%= image_tag 'get-started/seo.jpg', class: 'icon'  %>
+          </div>
+        <% end %>
+        <p>SEO Marketing</p>
+        <p class="price">Starting from £ 100</p>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to post_project_path do %>
+          <div class="icon-wrap">
+            <%= image_tag 'get-started/mobile.jpg', class: 'icon'  %>
+          </div>
+        <% end %>
+        <p>Mobile App</p>
+        <p class="price">Starting from £ 130</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+
+<section id="footer">
+  
+  <!-- Counter -->
+
+  <section id="counter">
+    <div class="counter-left"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <h1>23,776</h1>
+          <p>Users Online</p>
+        </div>
+        <div class="col-sm-4">
+          <h1>14,229,454</h1>
+          <p>Users</p>
+        </div>
+        <div class="col-sm-4">
+          <h1>6,986,530</h1>
+          <p>Projects</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2 col-sm-push-1">Find freelancers</div>
+      <div class="col-sm-2 col-sm-push-1">Freelance projects</div>
+      <div class="col-sm-2 col-sm-push-1">Freelance jobs</div>
+      <div class="col-sm-2 col-sm-push-1">Freelance contests</div>
+      <div class="col-sm-2 col-sm-push-1">Hire Freelancers</div>
+    </div>
+    <div class="row">
+      <div class="com-sm-2 col-sm-push-5">Freelance work</div>
+      
+    </div>
+    <div class="row">
+      Copyright 2015
+    </div>
+  </div>
+
+</section>
+
+
+</body>
+</html>

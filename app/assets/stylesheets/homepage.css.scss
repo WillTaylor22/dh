@@ -1,0 +1,393 @@
+$xlarge: 60px;
+$large: 22px;
+$medium: 18px;
+
+
+// Shared
+
+
+select{
+  font-size:15px;
+  height: 50px;
+}
+#second-select-wrap{
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+
+
+h1.homepage-header{
+  font-size: 36px;
+  color: #333333;
+  font-weight: normal;
+}
+
+// End Shared
+
+// Header
+
+.logo{
+  width: 164px;
+  margin-top: 15px;
+}
+
+.fixed-top{
+  height: 72px;
+  background: white;
+  background: rgba(255,255,255,.97);
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+}
+.login-prompt{
+  float: right;
+  display: block;
+  position: relative;
+  .header-text{
+    text-transform: capitalize;
+    font-size: 12px;
+    color: #4d515a;
+    display: inline-block;
+    margin-top: 21px;
+    margin-right: 14px;
+    padding: 10px;
+  }
+  .header-button{
+    display: inline-block;
+    float: right;
+    margin-top: 22px;
+  }
+  
+}
+
+// End Header
+
+// Carousel
+
+#carousel{
+  margin-top: 72px;
+  height: 578px;
+  width: 100%;
+  color: white;
+  h1{
+    width: 50%;
+    margin-top: 126px;
+    margin-bottom: 0px;
+    font-size: $xlarge;
+  }
+  h2{
+    width: 50%;
+    margin-top: 14px;
+    margin-bottom: 30px;
+    font-weight: lighter;
+    font-size: $medium;
+    letter-spacing: 2px;
+    line-height: 30px;
+  }
+  .carousel-inner{
+    height: 100%;
+    .item{
+      height: 100%;
+    }
+  }
+  .hire-work-buttons{
+    height: 60px;
+    width: 140px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: $large;
+    margin-right: 12px;
+    border-radius: 6px;
+  }
+}
+
+#carousel-1{
+  background-image:url("above_fold.png");
+}
+
+// End Carousel
+
+// Hire section
+
+#hire{
+  display: none;
+  background-color: #F4F4F4;
+  margin-top: 72px;
+  h1{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-weight: normal;
+  }
+  #method-box-wrap{
+    text-align: center;
+    #method-box{
+      display: inline-block;
+      margin: 0 auto 43px;
+      .method-item{
+        float: left;
+        text-align: center;
+        img{
+          display: inline-block;
+        }
+        p{
+          text-align: center;
+          font-size: 15px;
+          font-weight: lighter;
+        }
+      }
+      .chevron{
+        float: left;
+        color: #434343;
+        font-size: 54px;
+      }
+    }
+  }
+  form{
+    width: 320px;
+    margin: 0 auto 60px;
+    button{
+      width: 100%;
+    }
+    
+    #hire-button{
+      margin-top: 20px;
+      height: 55px;
+      font-size: 18px;
+      border-radius: 4px;
+    }
+  }
+  a#looking-for-work{
+    display: block;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+}
+
+// End hire section
+
+// Work signup Section
+
+#work-signup, #login{
+  display: none;
+  margin-top: 72px;
+  text-align: center;
+  h1{
+    margin-top: 50px;
+    margin-bottom: 45px;
+  }
+  .facebook-button{
+    height: 56px;
+    width: 295px;
+    border:none;
+    background-color: #3B5998;
+    -webkit-box-shadow: 0px 2px 0px 0px rgba(53, 79, 136, 1);
+    -moz-box-shadow: 0px 2px 0px 0px rgba(53, 79, 136, 1);
+    box-shadow: 0px 2px 0px 0px rgba(53, 79, 136, 1);
+    color: white;
+    font-size: 20px;
+  }
+  .or-line{
+    margin-top: 27px;
+    .line{
+      float: left;
+      height: 11px;
+      border-bottom: 1px solid #cecfd1;
+      width: 48%;
+    }
+    .or{
+      float: left;
+      font-size: 16px;
+      color: #6c6f78;
+      width: 3%;
+      font-style: italic;
+      font-family: serif;
+      margin-right: 1px;
+    }
+  }
+  form.email-signup{
+    width: 320px;
+    margin: 30px auto 0;
+    .form-group{
+      position: relative;
+      i{
+        color: #a9a9a9;
+        position: absolute;
+        top: 8px;
+        left: 9px;
+        font-size: 18px;
+      }
+      input{
+        padding-left: 34px;
+      }
+    }
+    #work-type{
+      color: #6c6f78;
+      margin-top: 26px;
+      #hire-work-radios{
+        display: inline-block;
+        width: 165px;
+        margin-top: 7px;
+        border: 1px solid #898989;
+        label{
+          float: left;
+          width: 80px;
+          height: 100%;
+          margin-bottom: 0;
+          padding: 10px 0;
+          &:first-of-type{
+            border-right: 1px solid #898989;
+          }
+        }
+      }
+    }
+    .green-button{
+      margin-top: 28px;
+      height: 50px;
+      width: 210px;
+      font-size: 18px;
+    }
+    #terms-create-account{
+      margin-top: 28px;
+      color: #71757c;
+      font-size: 14px;
+    }
+  }
+
+  #remember-me.checkbox{
+    padding-top: 6px;
+    text-align: left;
+    color: #70737c;
+    margin-bottom: 5px;
+  }
+
+  #create-account{
+    margin-top: 18px;
+    float: left;
+    height: 58px;
+    width: 50%;
+    font-size: 18px;
+  }
+
+  #forgot-password{
+    margin-top: 37px;
+    margin-left: 20px;
+    display: inline-block;
+  }
+
+  hr{
+    border-color: #cecfd1;
+    margin: 30px 0;
+  }
+
+  #no-account{
+    color: #70737c;
+  }
+
+}
+
+#login{
+  padding-top: 45px;
+}
+
+// End Work Signup section
+
+// How it works
+
+#how-it-works{
+  height: 704px;
+
+  .how-text{
+    width: 40%;
+    float: left;
+    h1{
+      margin-top: 142px;
+      margin-bottom: 0;
+    }
+    p{
+      color: #5a5d66;
+      margin-top: 20px;
+      font-size: 15px;
+      .benefits{
+        font-weight: bold;
+      }
+    }
+  }
+  .how-gif{
+    width: 60%;
+    float: left;
+    padding-left: 100px;
+    padding-top: 200px;
+    #explainer{
+      width: 100%;
+    }
+  }
+}
+
+// End how it works
+
+// Examples
+
+#examples{
+  background-color: #eaeff3;
+  padding-bottom: 80px;
+  h1{
+    margin-top: 82px;
+    text-align: center;
+    margin-bottom: 46px;
+  }
+  img{
+    border-radius:0;
+    border: 7px solid white;
+  }
+  .row{
+    margin-bottom: 25px;
+  }
+}
+
+// End Examples
+
+// Get started
+
+#get-started{
+  padding-bottom: 115px;
+  h1{
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 75px;
+  }
+  .col-sm-3{
+    text-align: center;
+    .icon-wrap{
+      margin: auto;
+      height: 152px;
+      width: 152px;
+      border: 2px solid #c8c9cc;
+      border-radius: 76px;
+      text-align: center;
+      margin-bottom: 46px;
+      img{
+        display: inline-block;
+        margin-top: 52px;
+      }
+    }
+    p{
+      margin: 0 0 5px 0;
+      font-size: 20px;
+      color: #4b4e55;
+    }
+    p.price{
+      margin: 0;
+      font-size: 15px;
+      color: #5cb8e4;
+    }
+  }
+}
+
+// End get started
+
+
+

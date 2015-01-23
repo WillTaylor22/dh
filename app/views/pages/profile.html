@@ -1,0 +1,198 @@
+<div id="profile" class="row">
+  <div class="col-sm-4 left">
+    
+    <div class="profile-picture">
+      <div class="change-picture"><i class="glyphicon glyphicon-pencil"></i>Change Picture</div>
+         <%= image_tag "profile/me.jpg" %>
+      <div class="online">online</div>
+    </div>
+
+
+    <button class="btn hire-me">
+      <div class="icon-wrap">
+        <%= image_tag "profile/logo.png" %>
+      </div>
+      <p>Hire Me!</p>
+    </button>
+
+    <div class="rate">
+      Rate: <strong>$17 USD</strong>/hour <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a>
+    </div>
+
+    <div class="follow-invite-box cf">
+      <button id="follow" class="btn btn-default grey-button"><i class="glyphicon glyphicon-plus-sign"></i> Follow</button>
+      <button id="invite" class="btn btn-default grey-button">Invite to Project</button>
+    </div>
+
+    <ul id="profile-controls" class="nav nav-pills nav-stacked" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">
+          Overview 
+          <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+      </li>
+      <li role="presentation"><a href="#feedback" aria-controls="feedback" role="tab" data-toggle="tab">Feedback
+        <i class="glyphicon glyphicon-chevron-right"></i>
+      </a></li>
+      <li role="presentation"><a href="#resume" aria-controls="resume" role="tab" data-toggle="tab">
+        Résumé
+        <i class="glyphicon glyphicon-chevron-right"></i>
+      </a></li>
+    </ul>
+
+  </div>
+
+  <div class="col-sm-8 tab-content right">
+    <div role="tabpanel" class="tab-pane fade in active" id="overview">
+      <div class="row">
+        <div id="summary" class="col-sm-9">
+          <h1 class="top-title">wrftaylor <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></h1>
+          <h2>Fast & Friendly London Web Designer <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></h2>
+          <p class="username"><strong>Username:</strong> wrftaylor <%= image_tag "profile/trust_symbols.png" %></p>
+          <p><strong>Location:</strong> London, United Kingdom <%= image_tag "profile/greatbritian.png" %> <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></p>
+          <p><strong>Member since:</strong> July 2014</p>
+          <p class="personal-summary">I built www.60secondlaundry.com</p>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;<a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></p>
+        </div>
+        <div id="reputation" class="col-sm-3">
+          <h2 class="standard">Reputation</h2>
+          <h1 class="rating">0.0 <span class="rating-max">/5</span></h1>
+          <%= image_tag "profile/rating.png" %><br>
+          <a href="">(0 reviews)</a><br><br>
+          <p>No user has<br>recommended this<br>freelancer</p>
+        </div>
+      </div>
+      <div class="row second-row">
+        <div class="col-sm-4" id="activity">
+          <h2 class="standard">My activity:</h2>
+          <p>Open Projects: <strong class="pull-right">2</strong></p>
+          <p>Active Projects: <strong class="pull-right">0</strong></p>
+          <p>Past Projects: <strong class="pull-right">2</strong></p>
+        </div>
+        <div class="col-sm-8" id="projects">
+          <h2 class="standard">My projects:</h2>
+          <div class="pie">
+            <p>This user has not yet received feedback</p>
+          </div>
+        </div>
+      </div>
+      <div class="resume">
+        <h1 class="subtitle">Résumé</h1>
+        <h2 class="standard">Experience</h2>
+        <div class="experience-item">
+          <h3 class="standard">CTO <span class="dates">Nov 2013 - Present (1 year)</span></h3>
+          <h4 class="standard">60 Second Laundry.com</h4>
+          <p>I was CTO</p>
+        </div>
+        <div class="experience-item">
+          <h3 class="standard">Managing Director <span class="dates">Jan 2013 - Present (2 years)</span></h3>
+          <h4 class="standard">Well Written CV Ltd</h4>
+          <p>Built the site quickly</p>
+        </div>
+        <h2 class="standard">Education</h2>
+        <h3 class="standard">Physics Masters (1st Class)</span></h3>
+        <p>University of Oxford</p>
+        <p>2008 - 2012</p>
+      </div>      
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="feedback">
+      <h1 class="top-title">Feedback</h1>
+      <h2 class="standard">Average Rating <%= image_tag "profile/rating.png" %> <span class="star-rating">0.0</span>
+
+        <select class="form-control select-md">
+          <option>All Time</option>
+          <option>3 Months</option>
+          <option>12 Months</option>
+        </select>
+      </h2>
+      
+      <div class="row">
+        <div class="col-sm-6 star-breakdown">
+          <p class="item">
+            Clarity in Specification
+            <span class="star-rating">0.0</span>
+            <%= image_tag "profile/rating.png" %>
+          </p>
+          <p class="item">
+            Communication
+            <span class="star-rating">0.0</span>
+            <%= image_tag "profile/rating.png" %>
+          </p>
+          <p class="item">
+            Payment Promptness
+            <span class="star-rating">0.0</span>
+            <%= image_tag "profile/rating.png" %>
+          </p>
+          <p class="item">
+            Professionalism
+            <span class="star-rating">0.0</span>
+            <%= image_tag "profile/rating.png" %>
+          </p>
+          <p class="item">
+            Would work for Again
+            <span class="star-rating">0.0</span>
+            <%= image_tag "profile/rating.png" %>
+          </p>
+
+        </div>
+        <div class="col-sm-6 activity">
+          <p>Open Projects <strong class="pull-right">2</strong></p>
+          <p>Active Projects <strong class="pull-right">0</strong></p>
+          <p>Past Projects <strong class="pull-right">2</strong></p>
+
+          <p class="total">Total Projects <strong class="pull-right">4</strong></p>
+        </div>
+      </div>
+      
+
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="resume">
+          
+      <h1 class="top-title">wrftaylor's Résumé </h1>
+
+      <div class="resume">
+        <h2 id="resume-summary" class="standard">Summary <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></h2>
+        <p>I built www.60secondlaundry.com</p>
+        
+        <h2 class="standard">Experience
+          <a class="add-item">+ Add Item</a>
+        </h2>
+        <div class="experience-item">
+          <h3 class="standard">
+            CTO
+            <a class="edit">
+              [<i class="glyphicon glyphicon-pencil"></i> edit]
+            </a>
+            <a class="edit">
+              [delete]
+            </a>
+            <span class="dates">Nov 2013 - Present (1 year)</span></h3>
+          <h4 class="standard">60 Second Laundry.com</h4>
+          <p>I was CTO</p>
+        </div>
+        <div class="experience-item">
+          <h3 class="standard">Managing Director <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a> <a class="edit">[delete]</a> <span class="dates">Jan 2013 - Present (2 years)</span></h3>
+          <h4 class="standard">Well Written CV Ltd</h4>
+          <p>Built the site quickly</p>
+        </div>
+
+        <h2 class="standard">Education
+          <a class="add-item">+ Add Item</a>
+        </h2>
+        <h3 class="standard">Physics Masters (1st Class)</span></h3>
+        <p>University of Oxford</p>
+        <p>2008 - 2012</p>
+
+        <h2 class="standard">Certifications
+          <a class="add-item">+ Add Item</a>
+        </h2>
+        <a href="" class="empty-section">
+          <span class="empty-section-text">+ Add certification to your résumé</a>
+        </a>
+
+      </div> 
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driverhunt</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<section class="header blank-header">
+  <div class="pp-container">
+    <%= image_tag 'pp-logo.png', class: 'pp-logo' %>
+  </div>
+</section>
+
+<div class="pp-container cf">
+  
+  <!-- Left: job form -->
+  <div class="job-form">
+
+    <form action="/dashboard" method="GET">
+ 
+      <ol class="numbers">
+        <!-- Work required -->
+        <li>
+          <legend>What work do you require?</legend>
+          <select class="form-control">
+            <option>Websites IT & Software</option>
+            <option>Mobile</option>
+            <option>Writing</option>
+            <option>Design</option>
+            <option>Data Entry</option>
+            <option>Other</option>
+          </select>
+
+          <div id="second-select-wrap">
+            <select id="second-select" class="form-control">
+              <option>Mobile</option>
+              <option>Writing</option>
+              <option>Design</option>
+              <option>Data Entry</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </li>
+        <!-- Job description -->
+        <li>
+          <legend>Tell us more about the project</legend>
+          <div class="form-group">
+            <label for="project-name">Project Name: <a class="info">?</a></label>
+            <input id="project-name" type="text" class="form-control">
+          </div>
+          <div id="skills-input" class="form-group">
+            <label for="project-name">Enter some skills that relate to the project: <a class="info">?</a></label>
+            <input id="project-name" type="text" class="form-control">
+            <div id="skill-helper-box">
+              <p class="header">Skill Suggestions (add 3 more)</p>
+              <ul>
+                <a href=""><li>Book Writing</li></a>
+                <a href=""><li>Articles</li></a>
+                <a href=""><li>Article Rewriting</li></a>
+                <a href=""><li>Copywriting</li></a>
+                <a href=""><li>Blog</li></a>
+                <a href=""><li><i class="glyphicon glyphicon-plus"></i> More</li></a>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="project-name">Describe your project in detail: <a class="info">?</a></label>
+            <textarea class="form-control" rows="4" placeholder="Describe your project here..."></textarea>
+          </div>
+        </li>
+        <!-- Budget -->
+        <li class="budget">
+          <legend>What sort of budget did you have in mind?</legend>
+          <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#fixed" aria-controls="fixed" role="tab" data-toggle="tab">HIRE FOR A FIXED PRICE</a></li>
+              <li role="presentation"><a href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HIRE PER HOUR</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content cf">
+              <div role="tabpanel" class="tab-pane active" id="fixed">
+                <select class="form-control currency">
+                  <option>GBP</option>
+                </select>
+                <select class="form-control project-size">
+                  <option>Very small project (£250 - £750 GBP)</option>
+                </select>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="hour">
+                <div class="block cf">
+                  <select class="form-control currency">
+                    <option>GBP</option>
+                  </select>
+                  <select class="form-control project-size">
+                    <option>Standard (£10 - £15 GBP)</option>
+                  </select>
+                </div>
+
+                <label id="duration-label" class="block" for="duration">Project duration</label>
+                <select name="duration" id="duration" class="form-control">
+                  <option>1 week - 4 weeks</option>
+                </select>
+                <label id="hours-label" class="block" for="hours-required">Hours of work required</label>
+                  <input id="hours-known" type="radio" name="hours-required" value="known">
+                    <input type="text" class="form-control" id="hours-input"><span> Hours of work per </span><select name="hours-required" id="time-select" class="form-control">
+                      <option>Week</option>
+                      <option>Month</option>
+                    </select>
+                  <input type="radio" id="hours-unknown" name="hours-required" value="unknown"><label id="hours-unknown-label" for="hours-unknown">I'm not sure</label>
+
+                
+              </div>
+            </div>
+
+          </div>
+
+        </li>
+        <!-- Upsell -->
+<!--         <li>
+          <legend>Get the most from your project! (optional)</legend>
+        </li> -->
+        <div id="post-project-div">
+        <p id="terms">
+          <button id="post-project" class="btn btn-default blue-button">Post Project Now</button>
+          By clicking 'Post Project Now', you are indicating that you have read and agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
+        </div>
+      </ol>
+    </form>
+  </div>
+
+  <!-- Information to help with the form -->
+  <div class="form-helpers">
+    <div id="info-box">
+        <p class="header"><strong>FREE</strong> TO POST A PROJECT</p>
+
+        <h1>Try it today!</h1>
+        <ul>
+          <li>Get bids from skilled freelancers in minutes.</li>
+          <li>View freelancer profiles and feedback, then instantly chat with them!</li>
+          <li>With only a 3%* commission fee, your favorite freelancer can start working for you today!</li>
+          <li>Pay the freelancer once you're 100% satisfied.</li>
+          
+        </ul>      
+        <p class="minimum-fees">* minimum fees may apply.</p>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<!-- Footer -->
+
+<section id="footer">
+  
+  <!-- Counter -->
+
+  <section id="counter">
+    <div class="counter-left"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <h1>23,776</h1>
+          <p>Users Online</p>
+        </div>
+        <div class="col-sm-4">
+          <h1>14,229,454</h1>
+          <p>Users</p>
+        </div>
+        <div class="col-sm-4">
+          <h1>6,986,530</h1>
+          <p>Projects</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pp-container">
+    <div class="row">
+      <div class="col-sm-2 col-sm-push-1">Find freelancers</div>
+      <div class="col-sm-2 col-sm-push-1">Freelance projects</div>
+      <div class="col-sm-2 col-sm-push-1">Freelance jobs</div>
+      <div class="col-sm-2 col-sm-push-1">Freelance contests</div>
+      <div class="col-sm-2 col-sm-push-1">Hire Freelancers</div>
+    </div>
+    <div class="row">
+      <div class="com-sm-2 col-sm-push-5">Freelance work</div>
+      
+    </div>
+    <div class="row">
+      Copyright 2015
+    </div>
+  </div>
+
+</section>
+
+</body>
+</html>

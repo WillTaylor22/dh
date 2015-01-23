@@ -1,4 +1,13 @@
 Driverhunt::Application.routes.draw do
+
+  root 'homepage#home'
+  get '/post-project', to: 'homepage#postproject', as: "post_project"
+  get '/dashboard', to: 'pages#projects'
+  get '/chat', to: 'pages#chat'
+  get '/drivers', to: 'pages#drivers'
+  get '/jobs', to: 'pages#jobs'
+  get '/help', to: 'homepage#help'
+  get '/u/wrftaylor', to: 'pages#profile'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

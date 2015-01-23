@@ -1,0 +1,57 @@
+#help{
+  .above-fold{
+    margin-top: 72px;
+    background-image: url("help/decking.jpg");
+    height: 400px;
+    text-align: center;
+    color: white;
+    h2{
+      margin-top: 66px;
+      font-size: 48px;
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+    h1{
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 100px;
+    }
+    h3{
+      margin-top: 30px;
+      font-weight: lighter;
+      letter-spacing: 2px;
+    }
+  }
+  .article{
+    margin-top: 52px;
+    border-top: 4px solid #424242;
+    padding: 20px 10px;
+    p.category{
+      text-transform: capitalize;
+      color: #b8b8b8;
+      font-size: 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    h2.title a{
+      color: #424242;
+      font-size: 24px;
+      margin-top: 18px;
+      margin-bottom: 0;
+    }
+    p.author{
+      margin-top: 18px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      color: #b8b8b8;
+    }
+    p.sample{
+      font-size: 12px;
+      margin-bottom: 0;
+      color: #626262;
+    }
+  }
+  #message-heading{
+    padding-top: 95px;
+  }
+}
