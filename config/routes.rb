@@ -1,5 +1,8 @@
 Driverhunt::Application.routes.draw do
 
+
+  devise_for :users, controllers: { sessions: "users/sessions",
+    registrations: 'users/registrations' }
   root 'homepage#home'
   get '/post-project', to: 'homepage#postproject', as: "post_project"
   get '/dashboard', to: 'pages#projects'

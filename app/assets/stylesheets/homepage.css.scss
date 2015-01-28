@@ -293,6 +293,15 @@ h1.homepage-header{
   padding-top: 45px;
 }
 
+#login-errors, #signup-errors{
+  color: #a94442;
+  list-style-type: none;
+  padding: 0;
+  li:first-letter{
+    text-transform: capitalize;
+  }
+}
+
 // End Work Signup section
 
 // How it works

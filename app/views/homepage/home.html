@@ -15,10 +15,17 @@
       <a href="#" class="home-link"><%= image_tag 'logo.jpeg', class: 'logo' %></a>
 
       <section class="login-prompt">
-        <a class="header-text login-link" href="#">LOGIN</a>
-        <a class="header-text signup-link" href="#">SIGN UP</a>
+        <% if user_signed_in? %>
+          <span class="header-text">Logged in as <strong><%= current_user.email %></strong></span>
+          <%= link_to "LOGOUT", destroy_user_session_path, method: :delete, class: 'header-text' %>
+        <% else %>
+          <a href="#" class="header-text login-link">LOGIN</a>
+          <a href="#" class="header-text signup-link">SIGN UP</a>
+          <%#= link_to "LOGIN", new_user_session_path, class: "header-text login-link" %>
+          <%#= link_to "SIGN UP", new_user_registration_path, class: "header-text signup-link" %>
+        <% end %>
         <%= link_to post_project_path do %>
-          <button class="btn btn-default orange-button header-button">Post a Project</button>
+          <button class="btn btn-default orange-button header-button">Post a Job Ad</button>
         <% end %>
       </section>
 
@@ -26,7 +33,11 @@
   </div>
 </div>
 
+
+
 <div id="carousel" class="carousel slide" data-ride="carousel">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
   <div class="carousel-inner" role="listbox">
     <div id="carousel-1" class="item active">
       <div class="container">
@@ -118,10 +129,11 @@
       <div class="or">or</div>
       <div class="line"></div>
     </div>
-    <form action="" class="email-signup">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true) do |f| %>
+      <p id="signup-errors"></p>    
       <div class="form-group">
         <i class="glyphicon glyphicon-envelope"></i>
-        <input type="email" class="form-control" id="email" placeholder="Email Address">
+        <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-user"></i>
@@ -129,11 +141,11 @@
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-lock"></i>
-        <input type="password" class="form-control" id="password" placeholder="Password">
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-lock"></i>
-        <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password">
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
       </div>
 
       <div id="work-type">
@@ -150,18 +162,15 @@
         </div>
       </div>
 
-      <%= link_to dashboard_path do %>
-        <button class="btn green-button">Create account</button>
-      <% end %>
+        <%= f.submit "Create account", class: 'btn green-button' %>
       <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
-
-    </form>
+    <% end %>
 
   </div>
 
 </section>
 
-<!-- Sign In section -->
+<!-- Login section -->
 <section id="login">
   <div class="container">
     <button class="btn facebook-button">
@@ -173,29 +182,29 @@
       <div class="or">or</div>
       <div class="line"></div>
     </div>
-    <form action="" class="email-signup cf">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true ) do |f| %>
+      <p id="login-errors"></p>    
       <div class="form-group">
         <i class="glyphicon glyphicon-user"></i>
-        <input type="text" class="form-control" id="username" placeholder="Username or Email">
+        <%= f.email_field :email, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>
       </div>
-      <div class="form-group">
+      <div class="form-group password-wrap">
         <i class="glyphicon glyphicon-lock"></i>
-        <input type="password" class="form-control" id="password" placeholder="Password">
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12345678' %>    
       </div>
 
       <div id="remember-me" class="checkbox">
         <label>
-          <input type="checkbox"> Remember me
+          <%= f.check_box :remember_me %> Remember me
         </label>
       </div>
 
       <div class="cf">
-        <%= link_to dashboard_path do %>
-          <button id="create-account" class="btn orange-button">Login</button>
-        <% end %>
+        <%= f.submit "Login", id: 'create-account', class: 'btn orange-button'  %>
         <a id="forgot-password" href="">Forgot password?</a>
       </div>
-    </form>
+    <!-- </form> -->
+    <% end %>
 
     <hr>
 
