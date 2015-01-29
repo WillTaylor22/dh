@@ -135,17 +135,19 @@
 <section id="work-signup">
   <div class="container">
     <h1 class="homepage-header">Sign up for free today!</h1>
-    <button class="btn facebook-button">
-      <%= image_tag "facebook.png" %>
-      &nbsp;Sign up with Facebook
-    </button>
+      <%= link_to user_omniauth_authorize_path(:facebook) do %>
+        <button class="btn facebook-button">
+          <%= image_tag "facebook.png" %>
+          &nbsp;Sign up with Facebook
+        </button>
+      <% end %>
     <div class="or-line cf">
       <div class="line"></div>
       <div class="or">or</div>
       <div class="line"></div>
     </div>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true) do |f| %>
-      <p id="signup-errors"></p>    
+      <p id="signup-errors"><%= notice %></p>   
       <div class="form-group">
         <i class="glyphicon glyphicon-envelope"></i>
         <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
@@ -190,17 +192,19 @@
 <!-- Login section -->
 <section id="login">
   <div class="container">
-    <button class="btn facebook-button">
-      <%= image_tag "facebook.png" %>
-      &nbsp;Login with Facebook
-    </button>
+    <%= link_to user_omniauth_authorize_path(:facebook) do %>
+      <button class="btn facebook-button">
+        <%= image_tag "facebook.png" %>
+        &nbsp;Login with Facebook
+      </button>
+    <% end %>
     <div class="or-line cf">
       <div class="line"></div>
       <div class="or">or</div>
       <div class="line"></div>
     </div>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true ) do |f| %>
-      <p id="login-errors"></p>    
+      <p id="login-errors"><%= notice %></p>    
       <div class="form-group">
         <i class="glyphicon glyphicon-user"></i>
         <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>

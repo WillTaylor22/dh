@@ -1,8 +1,13 @@
 Driverhunt::Application.routes.draw do
 
+  # match 'auth/:provider/callback', to: 'users/sessions#create'
+  # match 'auth/failure', to: redirect('/')
+  # match 'signout', to: 'users/sessions#destroy', as: 'signout'
+
 
   devise_for :users, controllers: { sessions: "users/sessions",
-    registrations: 'users/registrations' }
+    registrations: 'users/registrations',
+    omniauth_callbacks: "users/omniauth_callbacks" }
   root 'homepage#home'
   get '/post-project', to: 'homepage#postproject', as: "post_project"
   get '/dashboard', to: 'pages#projects'

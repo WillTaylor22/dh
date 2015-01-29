@@ -45,6 +45,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'jquery-rails'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 
 gem 'devise'
+
+gem 'omniauth-facebook'

@@ -6,6 +6,24 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def twitter
   # end
 
+  def facebook
+    user = User.from_omniauth(request.env["omniauth.auth"])
+
+    # puts "in facebook controller"
+    # puts request.env["omniauth.auth"]
+    # puts "***"
+    # puts user
+
+    if user.persisted?
+      flash.notice =  "Signed in!"
+      sign_in_and_redirect user
+    else
+      session["devise.user_attributes"] = user.attributes
+      flash.notice =  "Facebook sign in failed. Please sign in with your email address."
+      redirect_to root_url
+    end
+  end
+
   # More info at:
   # https://github.com/plataformatec/devise#omniauth
 

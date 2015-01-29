@@ -56,7 +56,6 @@ $( document ).ajaxComplete(function( event, xhr, settings ) {
             $(document.createElement('li')).text( (key + ' ' + item) )
         );
       });
-
       $("#signup-form").addClass("has-error");
     }
   }
