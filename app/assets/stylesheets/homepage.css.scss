@@ -46,7 +46,6 @@ h1.homepage-header{
   display: block;
   position: relative;
   .header-text{
-    text-transform: capitalize;
     font-size: 12px;
     color: #4d515a;
     display: inline-block;
@@ -60,6 +59,32 @@ h1.homepage-header{
     margin-top: 22px;
   }
   
+}
+
+#user-dropdown-wrap{
+  display: inline-block;
+  margin-top: 21px;
+  margin-right: 20px;
+  button{
+    border-radius: 3px;
+    color: grey;
+  }
+  ul{
+    text-align: right;
+    .user-name{
+      color: #6C6F78;
+    }
+    padding: 10px;
+    &:first-letter{
+      text-transform: capitalize;
+    }
+    p{
+      margin-bottom: 10px;
+    }
+    a{
+      padding: 5px 0;
+    }
+  }
 }
 
 // End Header
@@ -182,12 +207,6 @@ h1.homepage-header{
   .facebook-button{
     height: 56px;
     width: 295px;
-    border:none;
-    background-color: #3B5998;
-    -webkit-box-shadow: 0px 2px 0px 0px rgba(53, 79, 136, 1);
-    -moz-box-shadow: 0px 2px 0px 0px rgba(53, 79, 136, 1);
-    box-shadow: 0px 2px 0px 0px rgba(53, 79, 136, 1);
-    color: white;
     font-size: 20px;
   }
   .or-line{

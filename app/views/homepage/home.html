@@ -6,7 +6,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= controller_name %> <%= action_name %>">
 
 
 <div class="fixed-top">
@@ -16,13 +16,28 @@
 
       <section class="login-prompt">
         <% if user_signed_in? %>
-          <span class="header-text">Logged in as <strong><%= current_user.email %></strong></span>
-          <%= link_to "LOGOUT", destroy_user_session_path, method: :delete, class: 'header-text' %>
+        <div class="dropdown" id="user-dropdown-wrap">
+          <button class="btn btn-default dropdown-toggle" type="button" id="user-dropdown" data-toggle="dropdown" aria-expanded="true">
+            <i class="glyphicon glyphicon-user"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user-dropdown">
+            <li role="presentation">
+              <p class="user-name"><%= current_user.email %>  </p>          
+            </li>
+            <li role="presentation">
+              <%= link_to 'My profile', u_wrftaylor_path, role: "menuitem", tabindex: '-1' %>
+            </li>
+            <li role="presentation">
+              <%= link_to "Settings", edit_user_registration_path , role: "menuitem", tabindex: '-1' %>
+            </li>
+            <li role="presentation">
+              <%= link_to "Logout", destroy_user_session_path, :method => :delete, role: "menuitem", tabindex: '-1' %>
+            </li>
+          </ul>
+        </div>
         <% else %>
           <a href="#" class="header-text login-link">LOGIN</a>
           <a href="#" class="header-text signup-link">SIGN UP</a>
-          <%#= link_to "LOGIN", new_user_session_path, class: "header-text login-link" %>
-          <%#= link_to "SIGN UP", new_user_registration_path, class: "header-text signup-link" %>
         <% end %>
         <%= link_to post_project_path do %>
           <button class="btn btn-default orange-button header-button">Post a Job Ad</button>
@@ -137,7 +152,9 @@
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-user"></i>
-        <input type="text" class="form-control" id="username" placeholder="Username">
+        <!-- <input type="text" class="form-control" id="username" placeholder="Username"> -->
+        <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
+
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-lock"></i>
@@ -186,7 +203,7 @@
       <p id="login-errors"></p>    
       <div class="form-group">
         <i class="glyphicon glyphicon-user"></i>
-        <%= f.email_field :email, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>
+        <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>
       </div>
       <div class="form-group password-wrap">
         <i class="glyphicon glyphicon-lock"></i>

@@ -226,7 +226,7 @@ $cyan: #54b4e3;
 div#post-project-div{
   margin-top: 80px;
 
-  button#post-project{
+  button.blue-button{
     font-size: 18px;
     width: 190px;
     height: 40px;
@@ -247,6 +247,10 @@ div#post-project-div{
   }
 
 }
+
+// end Job description
+
+// begin Form Helpers (right side)
 
 .form-helpers{
   float: left;
@@ -302,5 +306,60 @@ div#post-project-div{
     border-top: 10px solid white;
   }
 }
+// end Form Helpers (right side)
 
-// end Job description
+
+// begin Modal Signup
+
+#login-modal{
+  .tiny-title{
+    margin-bottom: 0;
+    color: #555555;
+  }
+  .facebook-button{
+    height: 50px;
+    width: 100%;
+    font-size: 20px;
+    margin-top: 80px;
+  }
+  .grey-border-left{
+    border-left: 1px solid #d1d1d1;
+  }
+  form.email-signup{
+    margin: 0px auto 0;
+    .form-group{
+      position: relative;
+      i{
+        color: #a9a9a9;
+        position: absolute;
+        top: 8px;
+        left: 9px;
+        font-size: 18px;
+      }
+      input{
+        padding-left: 34px;
+      }
+    }
+    #create-account{
+      width: 70px;
+    }
+    #forgot-password{
+      float: right;
+      margin-top: 3px;
+    }
+    #remember-me{
+      color: #555555;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.modal-footer{
+  #terms-create-account{
+    color: #70737c;
+    text-align: center;
+  }
+}
+
+// end Modal Signup
+

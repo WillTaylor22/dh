@@ -1,5 +1,6 @@
-$( document ).ready(function() {
-
+$(".homepage.home").ready(function() {
+  
+  $( document ).ready(function() {
     // TEST
     $("#carousel").hide()
     $("#work-signup").show()
@@ -31,29 +32,30 @@ $( document ).ready(function() {
       $("#hire").hide()
       $("#login").show()
     })
-
+  });
 });
+
 
 $( document ).ajaxComplete(function( event, xhr, settings ) {
   // sign up
   if( settings.url == '/users'){
     if( xhr.status == 201 ){
-      window.location.href = '/dashboard'
+      // Homepage: sign up goes to dashboard
+      if( $(".homepage.home").length ){
+        window.location.href = '/dashboard'
+      }
+      // Postproject: sign up submits the project
+      if( $(".homepage.postproject").length ){
+        $("#post-project-form").submit();
+      }
     } else {
-      // $( "#signup-errors" ).text( xhr.responseText );
-
       var ul = $('<ul id="signup-errors">').prependTo('#signup-form');
       var json = JSON.parse(xhr.responseText);
-      console.log('json')
-      console.log(json)
-      console.log(json.errors)
       $.each( json.errors, function(key, item){
-        console.log('in each')
         ul.append(
             $(document.createElement('li')).text( (key + ' ' + item) )
         );
       });
-
 
       $("#signup-form").addClass("has-error");
     }
@@ -62,7 +64,14 @@ $( document ).ajaxComplete(function( event, xhr, settings ) {
   // Log in
   if( settings.url == '/users/sign_in'){
     if( xhr.status == 201 ){
-      window.location.href = '/dashboard'
+      // Homepage: login goes to dashboard
+      if( $(".homepage.home").length ){
+        window.location.href = '/dashboard'
+      }
+      // Postproject: login submits the project
+      if( $(".homepage.postproject").length ){
+        $("#post-project-form").submit();
+      }
     } else {
       $( "#login-errors" ).text( xhr.responseText );
       $("#login-form").addClass("has-error");
