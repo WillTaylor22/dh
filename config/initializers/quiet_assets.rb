@@ -10,4 +10,4 @@ if Rails.env.development?
     end
     alias_method_chain :call, :quiet_assets
   end
-ends
+end

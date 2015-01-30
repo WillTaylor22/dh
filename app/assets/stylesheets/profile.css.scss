@@ -138,17 +138,21 @@ $cyan: #54b4e3;
 
   } // end Left
   .right{
-    #summary{
+    #personal-info{
       min-height: 355px;
       h1{
         margin-top: 10px;
         margin-bottom: 0;
       }
-      h2{
+      h2#personal-summary{
         margin-top: 14px;
         margin-bottom: 10px;
         font-size: 18px;
         color: #686868;
+        .example{
+          font-size: 12px;
+          font-weight: normal;
+        }
       }
       p{
         color: #424242;
@@ -158,10 +162,22 @@ $cyan: #54b4e3;
       .username{
         margin-bottom: 0;
       }
-      .personal-summary{
+      .description{
         margin-top: 10px;
       }
-    } // end Summary 
+      form{
+        margin-bottom: 5px;
+      }
+      label{
+        color: #424242;
+        font-size: 12px;
+      }
+    } // end Personal-info 
+    .edit-name{
+      input.green-button{
+        margin-top: 25px;
+      }
+    }
     #reputation{
       text-align: center;
       border-left: 1px dotted #d6d6d6;

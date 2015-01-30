@@ -35,7 +35,6 @@ $(".homepage.home").ready(function() {
   });
 });
 
-
 $( document ).ajaxComplete(function( event, xhr, settings ) {
   // sign up
   if( settings.url == '/users'){

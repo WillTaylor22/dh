@@ -6,7 +6,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= controller_name %> <%= action_name %>">
 
 <section class="header">
   <div class="pp-container">
@@ -42,7 +42,7 @@
           <%= link_to "My Projects", dashboard_path %>
         </li>
         <li>
-          <%= link_to "Profile", u_wrftaylor_path %>
+          <%= link_to "Profile", user_path(current_user.username.downcase) %>
         </li>
         <li>
           <%= link_to "Inbox", chat_path %>

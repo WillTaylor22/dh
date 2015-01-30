@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
     :case_sensitive => false
   }
 
+  before_save { |user|
+    user.username = user.username.downcase
+    # user.first_name = nil if user.first_name = ""
+    # user.last_name = nil if user.last_name = ""
+    # user.summary = nil if user.summary = ""
+    # user.long_description = nil if user.long_description = ""
+  }
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -25,24 +33,15 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    puts "in from_omniauth"
-    puts auth.to_yaml
-    puts "*8*"
-    puts auth.info.to_yaml
 
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      puts "in where"
       user.provider = auth.provider
       user.uid = auth.uid
       user.username = auth.info.first_name + auth.info.last_name + Devise.friendly_token[0,5]
       user.email = auth.info.email
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
-      puts user.to_yaml
-      puts "*@£*@"
-      puts "user.username"
-      puts user.username
-      puts user.id.to_s
-
     end
   end
 
@@ -51,7 +50,6 @@ class User < ActiveRecord::Base
 
 
   def self.new_with_session(params, session)
-    puts "running new_with_session"
     if session["devise.user_attributes"]
       new(session["devise.user_attributes"], without_protection: true) do |user|
         user.attributes = params
@@ -63,7 +61,6 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    puts "in password_required"
     super && provider.blank?
   end
 

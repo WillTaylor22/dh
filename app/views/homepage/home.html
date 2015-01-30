@@ -25,7 +25,7 @@
               <p class="user-name"><%= current_user.email %>  </p>          
             </li>
             <li role="presentation">
-              <%= link_to 'My profile', u_wrftaylor_path, role: "menuitem", tabindex: '-1' %>
+              <%= link_to 'My profile', user_path(current_user.username.downcase), role: "menuitem", tabindex: '-1' %>
             </li>
             <li role="presentation">
               <%= link_to "Settings", edit_user_registration_path , role: "menuitem", tabindex: '-1' %>

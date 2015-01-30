@@ -1,8 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   clear_respond_to
-  respond_to :json
-# before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
+  respond_to :json, :html
+  # before_filter :configure_sign_up_params, only: [:create]
+  # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -20,9 +20,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    super
+    puts "in update"
+    puts resource.to_yaml
+  end
 
   # DELETE /resource
   # def destroy
@@ -38,7 +40,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
+  def after_update_path_for(resource)
+    user_path current_user.username
+  end
 
   # You can put the params you want to permit in the empty array.
   # def configure_sign_up_params

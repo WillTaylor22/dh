@@ -1,0 +1,11 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <div class="row edit-name">
+    <div class="col-sm-10">
+      <label for="long-description">Description:</label>
+      <%= f.text_area :long_description, class: 'form-control', id: 'long-description', placeholder: 'Example: "I have 3 years experience, my own car, and a PCO license."', rows: '5', value: current_user.long_description %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.submit "Save", class: 'btn btn-default green-button' %>
+    </div>
+  </div>
+<% end %>

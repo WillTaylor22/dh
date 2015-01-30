@@ -45,18 +45,60 @@
   <div class="col-sm-8 tab-content right">
     <div role="tabpanel" class="tab-pane fade in active" id="overview">
       <div class="row">
-        <div id="summary" class="col-sm-9">
-          <h1 class="top-title">wrftaylor <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></h1>
-          <h2>Fast & Friendly London Web Designer <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></h2>
-          <p class="username"><strong>Username:</strong> wrftaylor <%= image_tag "profile/trust_symbols.png" %></p>
+        <div id="personal-info" class="col-sm-9">
+          <h1 class="top-title">
+            <% if @user == current_user && current_user.first_name %>
+              <%= current_user.first_name %> <%= current_user.last_name %> 
+              <%= link_to edit_name_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> edit]
+              <% end %>
+            <% elsif @user == current_user %>
+              <%= @user.username %> 
+              <%= link_to edit_name_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> edit]
+              <% end %>
+            <% elsif @user.first_name %>
+              <%= @user.first_name %> <%= @user.last_name %>
+            <% else %>
+              <% @user.username %>
+            <% end %>
+          </h1>
+          <h2 id="personal-summary">
+            <% if @user == current_user && current_user.summary %>
+              <%= current_user.summary %> 
+              <%= link_to edit_summary_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> edit]
+              <% end %>
+            <% elsif @user == current_user %>
+              <%= link_to edit_summary_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> Add summary]
+              <% end %> <span class="example">For example: "Taxi Driver"</span>
+            <% elsif @user.summary %>
+              <%= @user.summary %>
+            <% end %>
+          </h2>
+          <p class="username"><strong>Username:</strong> <%= @user.username %> <%= image_tag "profile/trust_symbols.png" %></p>
           <p><strong>Location:</strong> London, United Kingdom <%= image_tag "profile/greatbritian.png" %> <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></p>
-          <p><strong>Member since:</strong> July 2014</p>
-          <p class="personal-summary">I built www.60secondlaundry.com</p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;<a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></p>
+          <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+            
+          <% if current_user == @user && current_user.long_description %>
+            <p class="description"><%= simple_format current_user.long_description %>
+            <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> edit]
+            <% end %></p>
+          <% elsif current_user == @user %>
+            <p class="description">
+              <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> Add description]
+              <% end %>
+             <span class="example">Example: "I have 3 years experience, my own car, and a PCO license."</span></p>
+          <% elsif @user.long_description %>
+            <p class="description"><%= simple_format current_user.long_description %></p>
+          <% end %>
         </div>
         <div id="reputation" class="col-sm-3">
           <h2 class="standard">Reputation</h2>
-          <h1 class="rating">0.0 <span class="rating-max">/5</span></h1>
+          <h1 class="rating">0.0<span class="rating-max">/5</span></h1>
           <%= image_tag "profile/rating.png" %><br>
           <a href="">(0 reviews)</a><br><br>
           <p>No user has<br>recommended this<br>freelancer</p>
