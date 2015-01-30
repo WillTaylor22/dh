@@ -20,5 +20,8 @@ class PagesController < ApplicationController
 
   def edit_description
   end
+  
+  def edit_postcode
+  end
 
 end

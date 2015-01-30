@@ -23,6 +23,22 @@ class User < ActiveRecord::Base
     # user.long_description = nil if user.long_description = ""
   }
 
+  # Getting latitude and longitude
+  geocoded_by :postcode
+  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude do |user,results|
+    if geo = results.first
+      user.city    = geo.city
+      user.country = geo.country_code
+    end
+  end
+  after_validation :reverse_geocode  # auto-fetch address
+   # :address => :postcode
+
+
+
+
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

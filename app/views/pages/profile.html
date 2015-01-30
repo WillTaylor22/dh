@@ -78,23 +78,38 @@
             <% end %>
           </h2>
           <p class="username"><strong>Username:</strong> <%= @user.username %> <%= image_tag "profile/trust_symbols.png" %></p>
-          <p><strong>Location:</strong> London, United Kingdom <%= image_tag "profile/greatbritian.png" %> <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></p>
-          <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
-            
-          <% if current_user == @user && current_user.long_description %>
-            <p class="description"><%= simple_format current_user.long_description %>
-            <%= link_to edit_description_path, remote: true, class: 'edit' do %>
-              [<i class="glyphicon glyphicon-pencil"></i> edit]
-            <% end %></p>
-          <% elsif current_user == @user %>
-            <p class="description">
-              <%= link_to edit_description_path, remote: true, class: 'edit' do %>
-                [<i class="glyphicon glyphicon-pencil"></i> Add description]
+          <p id="location">
+            <% if @user == current_user && current_user.postcode %>
+              <strong>Location:</strong> <%= @user.city %>, <%= @user.country %>
+              <%= link_to edit_postcode_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> edit]
               <% end %>
-             <span class="example">Example: "I have 3 years experience, my own car, and a PCO license."</span></p>
-          <% elsif @user.long_description %>
-            <p class="description"><%= simple_format current_user.long_description %></p>
-          <% end %>
+            <% elsif @user == current_user %>
+              <strong>Location:</strong> <%= link_to edit_postcode_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> Add location]
+              <% end %>
+            <% elsif @user.summary %>
+              <strong>Location:</strong> <%= @user.city %>, <%= @user.country %>
+            <% end %>
+          </p>
+
+          <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+          
+          <div class="description">
+            <% if current_user == @user && current_user.long_description %>
+              <%= simple_format current_user.long_description %>
+              <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> edit]
+              <% end %>
+            <% elsif current_user == @user %>
+                <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+                  [<i class="glyphicon glyphicon-pencil"></i> Add description]
+                <% end %>
+               <span class="example">Example: "I have 3 years experience, my own car, and a PCO license."</span>
+            <% elsif @user.long_description %>
+              <%= simple_format current_user.long_description %>
+            <% end %>
+          </div>
         </div>
         <div id="reputation" class="col-sm-3">
           <h2 class="standard">Reputation</h2>

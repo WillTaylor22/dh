@@ -21,6 +21,7 @@ Driverhunt::Application.routes.draw do
   get '/edit_name', to: 'pages#edit_name', as: 'edit_name'
   get '/edit_summary', to: 'pages#edit_summary', as: 'edit_summary'
   get '/edit_description', to: 'pages#edit_description', as: 'edit_description'
+  get '/edit_postcode', to: 'pages#edit_postcode', as: 'edit_postcode'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
