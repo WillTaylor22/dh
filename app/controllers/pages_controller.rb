@@ -24,4 +24,10 @@ class PagesController < ApplicationController
   def edit_postcode
   end
 
+  def upload_photo
+  end
+
+  def crop
+  end
+
 end

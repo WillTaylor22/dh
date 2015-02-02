@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  ###### LOGIN ###
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable,
@@ -7,36 +10,13 @@ class User < ActiveRecord::Base
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
-  attr_accessor :login
+  attr_accessor :login, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :username,
   :presence => true,
   :uniqueness => {
     :case_sensitive => false
   }
-
-  before_save { |user|
-    user.username = user.username.downcase
-    # user.first_name = nil if user.first_name = ""
-    # user.last_name = nil if user.last_name = ""
-    # user.summary = nil if user.summary = ""
-    # user.long_description = nil if user.long_description = ""
-  }
-
-  # Getting latitude and longitude
-  geocoded_by :postcode
-  after_validation :geocode
-  reverse_geocoded_by :latitude, :longitude do |user,results|
-    if geo = results.first
-      user.city    = geo.city
-      user.country = geo.country_code
-    end
-  end
-  after_validation :reverse_geocode  # auto-fetch address
-   # :address => :postcode
-
-
-
 
 
   def self.find_for_database_authentication(warden_conditions)
@@ -61,8 +41,8 @@ class User < ActiveRecord::Base
     end
   end
 
-      # user.name = auth.info.name   # assuming the user model has a name
-      # user.image = auth.info.image # assuming the user model has an image
+  # user.name = auth.info.name   # assuming the user model has a name
+  # user.image = auth.info.image # assuming the user model has an image
 
 
   def self.new_with_session(params, session)
@@ -79,5 +59,41 @@ class User < ActiveRecord::Base
   def password_required?
     super && provider.blank?
   end
+
+
+  ###### END LOGIN ###
+
+  ###### PROFILE ###
+
+  before_save { |user|
+    user.username = user.username.downcase
+    # user.first_name = nil if user.first_name = ""
+    # user.last_name = nil if user.last_name = ""
+    # user.summary = nil if user.summary = ""
+    # user.long_description = nil if user.long_description = ""
+  }
+
+  # Getting latitude and longitude
+
+  # It's currently saving all of the user, each time.
+  geocoded_by :postcode
+  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude do |user,results|
+    if geo = results.first
+      user.city    = geo.city
+      user.country = geo.country_code
+    end
+  end
+  after_validation :reverse_geocode  # auto-fetch address
+
+  mount_uploader :photo, PhotoUploader
+
+  after_update :crop_avatar
+
+  def crop_avatar
+    photo.recreate_versions! if crop_x.present?
+  end
+
+  ###### END PROFILE ###
 
 end

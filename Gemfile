@@ -52,3 +52,7 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 gem 'geocoder'
+gem 'carrierwave'
+gem "mini_magick"
+
+gem 'pry_debug'

@@ -20,11 +20,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  def update
-    super
-    puts "in update"
-    puts resource.to_yaml
-  end
+  # def update
+  #   super
+  #   puts "in update"
+  #   puts resource.to_yaml
+  # end
 
   # DELETE /resource
   # def destroy
@@ -47,7 +47,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    user_path current_user.username
+    if params[:user][:photo].present?
+      :crop
+    else
+      user_path current_user.username
+    end
   end
 
   # You can put the params you want to permit in the empty array.

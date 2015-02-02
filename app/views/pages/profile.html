@@ -2,8 +2,11 @@
   <div class="col-sm-4 left">
     
     <div class="profile-picture">
-      <div class="change-picture"><i class="glyphicon glyphicon-pencil"></i>Change Picture</div>
-         <%= image_tag "profile/me.jpg" %>
+      <%= link_to upload_photo_path, class: 'change-picture' do %>
+        <i class="glyphicon glyphicon-pencil"></i>Change Picture
+      <% end %>
+      <%= image_tag @user.photo_url(:profile).to_s %>
+      <%#= image_tag "profile/me.jpg" %>
       <div class="online">online</div>
     </div>
 
