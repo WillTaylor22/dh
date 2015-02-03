@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
-  attr_accessor :login, :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :login, :crop_x, :crop_y, :crop_w, :crop_h, :photo
 
   validates :username,
   :presence => true,
@@ -30,20 +30,25 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
 
+
+    puts "Getting user from omniauth"
+    puts auth.info.to_yaml
+
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
-      user.username = auth.info.first_name + auth.info.last_name + Devise.friendly_token[0,5]
+      user.username = auth.info.first_name.downcase + auth.info.last_name.downcase + '-' + Devise.friendly_token[0,4].downcase
       user.email = auth.info.email
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
+      # user.photo = "Banana"
+      user.photo = (auth.info.image + "?type=large").gsub("­http","htt­ps")
     end
+
+    # puts "output is:"
+    # puts where(provider: auth.provider, uid: auth.uid).first
   end
-
-  # user.name = auth.info.name   # assuming the user model has a name
-  # user.image = auth.info.image # assuming the user model has an image
-
 
   def self.new_with_session(params, session)
     if session["devise.user_attributes"]
@@ -65,13 +70,15 @@ class User < ActiveRecord::Base
 
   ###### PROFILE ###
 
-  before_save { |user|
-    user.username = user.username.downcase
-    # user.first_name = nil if user.first_name = ""
-    # user.last_name = nil if user.last_name = ""
-    # user.summary = nil if user.summary = ""
-    # user.long_description = nil if user.long_description = ""
-  }
+  before_save { |user| user.username = user.username.downcase }
+  before_save :normalize_blank_values
+
+
+  def normalize_blank_values
+    attributes.each do |column, value|
+      self[column].present? || self[column] = nil
+    end
+  end
 
   # Getting latitude and longitude
 
@@ -93,6 +100,9 @@ class User < ActiveRecord::Base
   def crop_avatar
     photo.recreate_versions! if crop_x.present?
   end
+
+  has_many :experience_items, dependent: :destroy
+  has_many :qualification_items, dependent: :destroy
 
   ###### END PROFILE ###
 

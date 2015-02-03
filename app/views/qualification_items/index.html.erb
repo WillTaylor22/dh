@@ -1,0 +1,37 @@
+<h1>Listing qualification_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Qualification title</th>
+      <th>Location</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Current</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @qualification_items.each do |qualification_item| %>
+      <tr>
+        <td><%= qualification_item.user_id %></td>
+        <td><%= qualification_item.qualification_title %></td>
+        <td><%= qualification_item.location %></td>
+        <td><%= qualification_item.start_date %></td>
+        <td><%= qualification_item.end_date %></td>
+        <td><%= qualification_item.current %></td>
+        <td><%= link_to 'Show', qualification_item %></td>
+        <td><%= link_to 'Edit', edit_qualification_item_path(qualification_item) %></td>
+        <td><%= link_to 'Destroy', qualification_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Qualification item', new_qualification_item_path %>

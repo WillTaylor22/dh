@@ -1,0 +1,55 @@
+<%= form_for(@qualification_item) do |f| %>
+  <% if @qualification_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@qualification_item.errors.count, "error") %> prohibited this qualification_item from being saved:</h2>
+
+      <ul>
+      <% @qualification_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="field">
+        <%= f.label :qualification_title %><br>
+        <%= f.text_field :qualification_title, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="field">
+        <%= f.label :location, 'Institution' %><br>
+        <%= f.text_field :location, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="field">
+          <%= f.label :start_date %><br>
+          <%= f.date_select :start_date, end_year: Date.today.year, discard_month: true, discard_day: true %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="field">
+          <%= f.label :current, 'Currently studying?' %><br>
+          <%= f.check_box :current %> <%= f.label :current, 'Yes', class: 'light-label' %>
+        </div>
+      </div>
+      <div class="col-sm-4 end-date-wrap">
+        <div class="field">
+          <i>or</i> <%= f.label :end_date %><br>
+          <%= f.date_select :end_date, end_year: Date.today.year, discard_month: true, discard_day: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit "Save", class: 'btn btn-default green-button' %> <a id="cancel-edit-experience">cancel</a>
+
+<% end %>

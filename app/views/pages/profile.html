@@ -17,7 +17,7 @@
       </div>
       <p>Hire Me!</p>
     </button>
-
+    <!-- 
     <div class="rate">
       Rate: <strong>$17 USD</strong>/hour <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a>
     </div>
@@ -25,7 +25,7 @@
     <div class="follow-invite-box cf">
       <button id="follow" class="btn btn-default grey-button"><i class="glyphicon glyphicon-plus-sign"></i> Follow</button>
       <button id="invite" class="btn btn-default grey-button">Invite to Project</button>
-    </div>
+    </div> -->
 
     <ul id="profile-controls" class="nav nav-pills nav-stacked" role="tablist">
       <li role="presentation" class="active">
@@ -58,7 +58,7 @@
             <% elsif @user == current_user %>
               <%= @user.username %> 
               <%= link_to edit_name_path, remote: true, class: 'edit' do %>
-                [<i class="glyphicon glyphicon-pencil"></i> edit]
+                [<i class="glyphicon glyphicon-pencil"></i> add name]
               <% end %>
             <% elsif @user.first_name %>
               <%= @user.first_name %> <%= @user.last_name %>
@@ -110,7 +110,7 @@
                 <% end %>
                <span class="example">Example: "I have 3 years experience, my own car, and a PCO license."</span>
             <% elsif @user.long_description %>
-              <%= simple_format current_user.long_description %>
+              <%= simple_format @user.long_description %>
             <% end %>
           </div>
         </div>
@@ -155,6 +155,7 @@
         <p>2008 - 2012</p>
       </div>      
     </div>
+
     <div role="tabpanel" class="tab-pane fade" id="feedback">
       <h1 class="top-title">Feedback</h1>
       <h2 class="standard">Average Rating <%= image_tag "profile/rating.png" %> <span class="star-rating">0.0</span>
@@ -203,53 +204,77 @@
           <p class="total">Total Projects <strong class="pull-right">4</strong></p>
         </div>
       </div>
-      
-
     </div>
+    
     <div role="tabpanel" class="tab-pane fade" id="resume">
-          
-      <h1 class="top-title">wrftaylor's Résumé </h1>
+
+      <h1 class="top-title">
+        <%= @user.first_name ? @user.first_name + " " + @user.last_name : @user.username %>'s Résumé
+      </h1>
 
       <div class="resume">
-        <h2 id="resume-summary" class="standard">Summary <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a></h2>
-        <p>I built www.60secondlaundry.com</p>
+        <h2 id="resume-summary" class="standard">Summary
+          <% if current_user == @user %>
+            <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> edit]
+            <% end %>
+          <% end %>
+        </h2>
+        <div class="description">
+          <% if @user.long_description %>
+            <%= simple_format current_user.long_description %>
+          <% elsif @user == current_user %>
+            <p>Describe yourself. Where would you like to work?</p>
+          <% end %>
+        </div>
         
         <h2 class="standard">Experience
-          <a class="add-item">+ Add Item</a>
+          <% if @user == current_user %>
+            <%= link_to add_experience_item_path, remote: true, class: 'add-item' do %>
+              + Add Item
+            <% end %>
+          <% end %>
         </h2>
-        <div class="experience-item">
-          <h3 class="standard">
-            CTO
-            <a class="edit">
-              [<i class="glyphicon glyphicon-pencil"></i> edit]
-            </a>
-            <a class="edit">
-              [delete]
-            </a>
-            <span class="dates">Nov 2013 - Present (1 year)</span></h3>
-          <h4 class="standard">60 Second Laundry.com</h4>
-          <p>I was CTO</p>
+        <div class="experience-items">
+          <% if @experience_items.each do |item| %>
+            <%= render 'experience_item', item: item %>
+          <% end.empty? %>
+            <% if @user == current_user %>
+              <%= link_to add_experience_item_path, remote: true, class: 'empty-section' do %>
+                <span class="empty-section-text">+ Add work experience to your résumé</span>
+              <% end %>
+            <% else %>
+              <span class="empty-section">
+                <span class="empty-section-text">Work experience not yet added</span>
+              </span>
+            <% end %>
+          <% end %>
         </div>
-        <div class="experience-item">
-          <h3 class="standard">Managing Director <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a> <a class="edit">[delete]</a> <span class="dates">Jan 2013 - Present (2 years)</span></h3>
-          <h4 class="standard">Well Written CV Ltd</h4>
-          <p>Built the site quickly</p>
+
+        <h2 class="standard">Qualifications
+          <% if @user == current_user %>
+            <%= link_to add_qualification_item_path, remote: true, class: 'add-item' do %>
+              + Add Item
+            <% end %>
+          <% end %>
+        </h2>
+        <div class="qualification-items">
+          <% if @qualification_items.each do |item| %>
+            <%= render 'qualification_item', item: item %>
+           <% end.empty? %>
+            <% if @user == current_user %>
+              <%= link_to add_qualification_item_path, remote: true, class: 'empty-section' do %>
+                <span class="empty-section-text">+ Add qualifications to your résumé</span>
+              <% end %>
+            <% else %>
+              <span class="empty-section">
+                <span class="empty-section-text">Qualifications not yet added</span>
+              </span>
+            <% end %>
+          <% end %>
         </div>
 
-        <h2 class="standard">Education
-          <a class="add-item">+ Add Item</a>
-        </h2>
-        <h3 class="standard">Physics Masters (1st Class)</span></h3>
-        <p>University of Oxford</p>
-        <p>2008 - 2012</p>
-
-        <h2 class="standard">Certifications
-          <a class="add-item">+ Add Item</a>
-        </h2>
-        <a href="" class="empty-section">
-          <span class="empty-section-text">+ Add certification to your résumé</a>
-        </a>
-
+       
       </div> 
     </div>
   </div>

@@ -243,6 +243,18 @@ $cyan: #54b4e3;
           font-size: 14px;
         }
       }
+      .light-label{
+        font-weight: normal;
+      }
+      #cancel-edit-experience{
+        display: inline-block;
+        margin-left: 30px;
+        color: $cyan;
+        cursor: pointer;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
       .experience-item{
         margin-bottom: 45px;
         .dates{

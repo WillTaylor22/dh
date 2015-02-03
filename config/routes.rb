@@ -1,5 +1,7 @@
 Driverhunt::Application.routes.draw do
 
+
+
   # match 'auth/:provider/callback', to: 'users/sessions#create'
   # match 'auth/failure', to: redirect('/')
   # match 'signout', to: 'users/sessions#destroy', as: 'signout'
@@ -24,7 +26,13 @@ Driverhunt::Application.routes.draw do
   get '/edit_postcode', to: 'pages#edit_postcode', as: 'edit_postcode'
   get '/upload_photo', to: 'pages#upload_photo', as: 'upload_photo'
   get '/crop', to: 'pages#crop', as: 'crop'
+  get '/add_experience_item', to: 'pages#add_experience_item', as: 'add_experience_item'
+  get '/edit_experience_item/:id', to: 'pages#edit_experience_item', as: 'edit_experience_item'
+  get '/add_qualification_item', to: 'pages#add_qualification_item', as: 'add_qualification_item'
+  get '/edit_qualification_item/:id', to: 'pages#edit_qualification_item', as: 'edit_qualification_item'
 
+  resources :qualification_items
+  resources :experience_items
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

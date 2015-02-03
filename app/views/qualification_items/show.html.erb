@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Qualification title:</strong>
+  <%= @qualification_item.qualification_title %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @qualification_item.location %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @qualification_item.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @qualification_item.end_date %>
+</p>
+
+<p>
+  <strong>Current:</strong>
+  <%= @qualification_item.current %>
+</p>
+
+<%= link_to 'Edit', edit_qualification_item_path(@qualification_item) %> |
+<%= link_to 'Back', qualification_items_path %>

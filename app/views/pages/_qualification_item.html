@@ -1,0 +1,13 @@
+<div class="qualification-item <%= item.id %>">
+  <h3 class="standard">
+    <%= item.qualification_title %>
+    <% if @user == current_user %>
+      <%= link_to edit_qualification_item_path(item.id), remote: true, class: 'edit' do %>
+        [<i class="glyphicon glyphicon-pencil"></i> edit]
+      <% end %>
+      <%= link_to '[delete]', item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'edit' %>
+    <% end %>    
+  </h3>
+  <p><%= item.location %></p>
+  <p><%= item.start_date.strftime("%Y") %> - <%= item.end_date_or_present %></p>
+</div>

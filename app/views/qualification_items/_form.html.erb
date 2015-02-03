@@ -1,0 +1,41 @@
+<%= form_for(@qualification_item) do |f| %>
+  <% if @qualification_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@qualification_item.errors.count, "error") %> prohibited this qualification_item from being saved:</h2>
+
+      <ul>
+      <% @qualification_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :qualification_title %><br>
+    <%= f.text_field :qualification_title %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.datetime_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.datetime_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :current %><br>
+    <%= f.check_box :current %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

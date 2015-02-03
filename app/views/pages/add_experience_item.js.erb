@@ -1,0 +1,6 @@
+$('.experience-items').before('<%= j render "add_experience_item" %>');
+$('.edit, .add-item, .empty-section').hide()
+$('input:checkbox').change(
+  function(){
+    $(".end-date-wrap").toggle()
+  });

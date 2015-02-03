@@ -1,0 +1,59 @@
+<%= form_for(@experience_item) do |f| %>
+  <% if @experience_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@experience_item.errors.count, "error") %> prohibited this experience_item from being saved:</h2>
+
+      <ul>
+      <% @experience_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="field">
+        <%= f.label :job_title %><br>
+        <%= f.text_field :job_title, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="field">
+        <%= f.label :location, 'Company or location' %><br>
+        <%= f.text_field :location, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="field">
+          <%= f.label :start_date %><br>
+          <%= f.date_select :start_date, end_year: Date.today.year, discard_day: true %>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="field">
+          <%= f.label :current, 'Is this your current job?' %><br>
+          <%= f.check_box :current %> <%= f.label :current, 'Yes', class: 'light-label' %>
+        </div>
+      </div>
+      <div class="col-sm-4 end-date-wrap">
+        <div class="field">
+          <i>or</i> <%= f.label :end_date %><br>
+          <%= f.date_select :end_date, end_year: Date.today.year, discard_day: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit "Save", class: 'btn btn-default green-button' %> <a id="cancel-edit-experience">cancel</a>
+
+<% end %>

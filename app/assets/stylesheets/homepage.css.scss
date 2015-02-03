@@ -74,15 +74,19 @@ h1.homepage-header{
     .user-name{
       color: #6C6F78;
     }
-    padding: 10px;
     &:first-letter{
       text-transform: capitalize;
     }
     p{
       margin-bottom: 10px;
+      padding: 10px;
     }
     a{
-      padding: 5px 0;
+      padding: 5px 10px;
+      &:first-of-type, &:last-of-type{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
     }
   }
 }

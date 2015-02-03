@@ -1,0 +1,2 @@
+module QualificationItemsHelper
+end

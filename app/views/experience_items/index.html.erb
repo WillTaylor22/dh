@@ -1,0 +1,39 @@
+<h1>Listing experience_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Job title</th>
+      <th>Location</th>
+      <th>Description</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Current</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @experience_items.each do |experience_item| %>
+      <tr>
+        <td><%= experience_item.user_id %></td>
+        <td><%= experience_item.job_title %></td>
+        <td><%= experience_item.location %></td>
+        <td><%= experience_item.description %></td>
+        <td><%= experience_item.start_date %></td>
+        <td><%= experience_item.end_date %></td>
+        <td><%= experience_item.current %></td>
+        <td><%= link_to 'Show', experience_item %></td>
+        <td><%= link_to 'Edit', edit_experience_item_path(experience_item) %></td>
+        <td><%= link_to 'Destroy', experience_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Experience item', new_experience_item_path %>
