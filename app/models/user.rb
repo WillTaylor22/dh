@@ -104,6 +104,30 @@ class User < ActiveRecord::Base
   has_many :experience_items, dependent: :destroy
   has_many :qualification_items, dependent: :destroy
 
+  def full_name
+    return first_name + " " + last_name if first_name && last_name
+    return first_name if first_name
+    username
+  end
+
   ###### END PROFILE ###
+
+  # def self.search(query)
+  #   if query && query != ''
+  #     where('first_name LIKE ?', "%#{query}")
+  #   else
+  #     scoped
+  #   end
+  # end
+
+  ###### LIST ###
+
+  searchable do
+    text :summary, :boost => 5
+    text :first_name, :last_name, :long_description
+  end
+
+  ###### END LIST ###
+
 
 end

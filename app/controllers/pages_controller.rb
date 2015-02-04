@@ -16,6 +16,13 @@ class PagesController < ApplicationController
   def chat
   end
 
+  def drivers
+    @search = User.search do
+      fulltext params[:search]
+    end
+    @drivers = @search.results
+  end
+
   def edit_name
   end
 

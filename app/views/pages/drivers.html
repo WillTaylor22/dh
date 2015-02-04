@@ -74,13 +74,15 @@
         <a href="" class="tag"><i class="glyphicon glyphicon-remove"></i> Online users</a>
         <a href="" class="tag"><i class="glyphicon glyphicon-remove"></i> ASP</a>
       </div>
-      <div class="search-freelancers input-group input-group-lg">
-        <input type="text" class="form-control" placeholder="Search for freelancers">
-        <span class="input-group-btn">
-          <button class="btn btn-default green-button" type="button">Search</button>
-        </span>
-      </div><!-- /input-group -->
-      <p class="number-of-results">Showing 69235 Results</p>
+      <%= form_tag drivers_path, method: 'GET' do %>
+        <div class="search-freelancers input-group input-group-lg">
+          <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: "Search for freelancers" %>
+          <span class="input-group-btn">
+            <button class="btn btn-default green-button" type="submit">Search</button>
+          </span>
+        </div><!-- /input-group -->
+      <% end %>
+      <p class="number-of-results">Showing <%= pluralize(@drivers.length, 'Result') %></p>
       <nav>
         <ul class="pagination">
           <li><a href="#">1</a></li>
@@ -99,7 +101,51 @@
       </nav>
       <div class="candidate-list">
         <ul>
-          <li class="candidate cf">
+          <% @drivers.each do |driver| %>
+            <li class="candidate cf">
+              <!-- <a class="profile-photo-container"> -->
+              <%= link_to user_path(driver.username), class: 'profile-photo-container' do %>
+                <%= image_tag driver.photo_url(:profile).to_s, class: 'icon' %>
+              <% end %>
+              <!-- </a> -->
+              <div class="candidate-info">
+                <button class="btn btn-default hire-me">
+                  <div class="logo-wrap">                
+                    <%= image_tag "profile/logo.png" %>
+                  </div>
+                  Hire Me
+                </button>
+                <div class="online-circle online"></div>
+                <p class="name">
+                  <%= link_to driver.full_name, user_path(driver.username) %>
+                  <%= image_tag "profile/greatbritian.png", class: "nationality" %>
+                </p>
+                <div class="info-row">
+                  <span class="rating-number">4.9</span>
+                  <span class="stars">
+                    <i class="glyphicon glyphicon-star"></i>
+                    <i class="glyphicon glyphicon-star"></i>
+                    <i class="glyphicon glyphicon-star"></i>
+                    <i class="glyphicon glyphicon-star"></i>
+                    <i class="glyphicon glyphicon-star"></i>
+                  </span>
+                  <a href="" class="reviews">1628 reviews</a>
+                  <span class="fee">$25 USD/hr</span>
+                </div>
+                <div class="skills-row">
+                  <a href="">PHP</a>
+                  <a href="">MySQL</a>
+                  <a href="">Perl</a>
+                  <a href="">HTML</a>
+                  <a href="">Website Design</a>
+                </div>
+                <p class="description">
+                  <%= driver.long_description %> ... <%= link_to 'more', user_path(driver.username) %>
+                </p>
+              </div>
+            </li>
+          <% end %>
+          <!-- <li class="candidate cf">
             <a class="profile-photo-container">
               <%= image_tag "chat/chat_icon.png", class: "icon" %>
             </a>
@@ -258,7 +304,7 @@
                 We are a team of technocrats with expertise in various domains ranging from Web Applications to Desktop Applications, Mobility solutions to Database and Systems solutions, Driver development to Cloud storage, and even more. We cater for almost all needs using a wide range of software tools. These are a few among ... <a href="">more</a>
               </p>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

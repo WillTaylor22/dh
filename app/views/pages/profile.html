@@ -50,20 +50,11 @@
       <div class="row">
         <div id="personal-info" class="col-sm-9">
           <h1 class="top-title">
-            <% if @user == current_user && current_user.first_name %>
-              <%= current_user.first_name %> <%= current_user.last_name %> 
+            <%= @user.full_name %>
+            <% if @user == current_user %>
               <%= link_to edit_name_path, remote: true, class: 'edit' do %>
-                [<i class="glyphicon glyphicon-pencil"></i> edit]
+                [<i class="glyphicon glyphicon-pencil"></i> <%= current_user.first_name ? 'edit' : 'add name' %>]
               <% end %>
-            <% elsif @user == current_user %>
-              <%= @user.username %> 
-              <%= link_to edit_name_path, remote: true, class: 'edit' do %>
-                [<i class="glyphicon glyphicon-pencil"></i> add name]
-              <% end %>
-            <% elsif @user.first_name %>
-              <%= @user.first_name %> <%= @user.last_name %>
-            <% else %>
-              <% @user.username %>
             <% end %>
           </h1>
           <h2 id="personal-summary">
@@ -209,7 +200,7 @@
     <div role="tabpanel" class="tab-pane fade" id="resume">
 
       <h1 class="top-title">
-        <%= @user.first_name ? @user.first_name + " " + @user.last_name : @user.username %>'s Résumé
+        <%= @user.full_name %>'s Résumé
       </h1>
 
       <div class="resume">
