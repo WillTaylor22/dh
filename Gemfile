@@ -65,3 +65,5 @@ end
 # gem 'mysql2',          '0.3.12b5', :platform => :ruby
 # gem 'thinking-sphinx', '~> 3.1.0'
 
+gem 'acts-as-taggable-on'
+

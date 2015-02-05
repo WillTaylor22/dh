@@ -10,7 +10,6 @@ $cyan: #54b4e3;
 
 
 // Job description
-
   html>/**/body ol { /* Won't be interpreted by IE6/7. */
     list-style-type: none;
     counter-reset: level1;
@@ -26,7 +25,7 @@ $cyan: #54b4e3;
     padding-left: 30px;
     *list-style-type: decimal; /* numbers for IE6 and IE7 */
   
-    >li{
+    >li.numbers-li{
       margin-top: 70px;
       color: white;
       font-weight: normal;
@@ -57,6 +56,11 @@ $cyan: #54b4e3;
         font-size: 14px;
         position: relative;
       }
+
+      span{
+        color: #333333;
+      }
+
       ul.nav-tabs{
 
         border:none;
@@ -107,6 +111,12 @@ $cyan: #54b4e3;
     #location-map{
       border-radius: 4px;
     }
+  }
+
+  
+
+  .select2-container--default .select2-selection--multiple{
+    border: 1px solid #ccc;
   }
 
   

@@ -44,4 +44,9 @@ $(".homepage.post_job").ready(function() {
     find_location_on_map()
   })
 
+  $("#job-skills").select2({
+      tags: true,
+      tokenSeparators: [',']
+  });
+
 });

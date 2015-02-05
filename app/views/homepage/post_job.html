@@ -39,8 +39,8 @@
  
       <ol class="numbers">
         <!-- Work required -->
-        <li>
-          <legend>What work do you require?</legend>
+        <li class="numbers-li">
+          <legend>Who do you need?</legend>
 
           <%= f.select :category, '<option value="Motorcyclist">Motorcyclist</option>
               <option value="Van Driver">Van Driver</option>
@@ -59,7 +59,7 @@
 
           <div class="row" id="address-row">
             <div class="col-sm-8">
-              <%= f.label :postcode, "Near postcode or address:" %>
+              <%= f.label :postcode, "Near this postcode or address:" %>
               <div class="input-group">
               <%= f.text_field :postcode, class: 'form-control', placeholder: 'E.g. SW1 3BH' %>
               <span class="input-group-btn">
@@ -72,29 +72,30 @@
             </div>          
           </div>
 
-          <!-- <div id="second-select-wrap">
-            <select id="second-select" class="form-control">
-              <option>Mobile</option>
-              <option>Writing</option>
-              <option>Design</option>
-              <option>Data Entry</option>
-              <option>Other</option>
-            </select>
-          </div> -->
         </li>
         <!-- Job description -->
-        <li>
-          <legend>Tell us more about the project</legend>
+        <li class="numbers-li">
+          <legend>Tell us more about the job</legend>
           <div class="form-group">
             <%= f.label :name do %>
-              Project Name: <a class="info">?</a>
+              Job Name: <a class="info">?</a>
             <% end %>
             <%= f.text_field :name, class: 'form-control' %>
           </div>
           <div id="skills-input" class="form-group">
-            <label for="project-name">Enter some skills that relate to the project: <a class="info">?</a></label>
-            <input id="project-name" type="text" class="form-control">
-            <div id="skill-helper-box">
+            <label for="project-name">Enter some skills that relate to the job (comma seperated): <a class="info">?</a></label>
+
+
+            <%= f.select :skill_list, '
+              <option value="Driver\'s license">Driver\'s license</option>
+              <option value="Provisional license">Provisional license</option>
+              <option value="GPS">GPS</option>
+              <option value="Knows local area">Knows local area</option>
+              <option value="PCO License">PCO License</option>
+            '.html_safe, {}, {id: 'job-skills', class: 'form-control', multiple: 'multiple'}
+           %>
+
+           <!--  <div id="skill-helper-box">
               <p class="header">Skill Suggestions (add 3 more)</p>
               <ul>
                 <a href=""><li>Book Writing</li></a>
@@ -104,18 +105,18 @@
                 <a href=""><li>Blog</li></a>
                 <a href=""><li><i class="glyphicon glyphicon-plus"></i> More</li></a>
               </ul>
-            </div>
+            </div> -->
           </div>
           
           <div class="form-group">
             <%= f.label :description do %>
-              Describe your project in detail: <a class="info">?</a>
+              Describe your job in detail: <a class="info">?</a>
             <% end %>
             <%= f.text_area :description, class: 'form-control', placeholder: 'Describe your project here...', rows: '4' %>
           </div>
         </li>
         <!-- Budget -->
-        <li class="budget">
+        <li class="numbers-li budget">
           <legend>Who provides the vehicle?</legend>
 
           <div role="tabpanel">

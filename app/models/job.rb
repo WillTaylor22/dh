@@ -1,5 +1,6 @@
 class Job < ActiveRecord::Base
   belongs_to :user
+  acts_as_taggable_on :skills
 
   geocoded_by :postcode
   after_validation :geocode

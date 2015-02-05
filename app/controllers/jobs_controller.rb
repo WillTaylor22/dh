@@ -21,8 +21,11 @@ class JobsController < ApplicationController
   end
 
   def create
+    puts "params"
+    puts params
     @job = Job.new(job_params)
     @job.category = params[:other_category] if job_params[:category] == 'Other'
+    @job.skill_list.add(params[:job][:skill_list])
     @job.save
     respond_with(@job)
   end
@@ -43,6 +46,8 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:category, :other_category, :user_id, :name, :description, :employer_provides_vehicle, :postcode)
+      params.require(:job).permit(:category, :other_category, :user_id, 
+        :name, :description, :employer_provides_vehicle, :postcode,
+        :skill_list)
     end
 end
