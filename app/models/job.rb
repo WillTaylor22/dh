@@ -16,14 +16,14 @@ class Job < ActiveRecord::Base
     if user.latitude
       distance = distance_from([user.latitude, user.longitude])
       if distance == nil
-        value = nil
+        return nil
       else
         value = distance.to_s[0..3] if distance >= 1000
         value = distance.to_s[0..2] if distance >= 100
         value = distance.to_s[0..1] if distance >= 10
         value = distance.to_s[0..2] if distance < 10
       end
-      value
+      return "#{value} miles"
     end
   end
 
@@ -55,6 +55,7 @@ class Job < ActiveRecord::Base
     text :name, :description, :boost => 4
     text :category, :skill_list
     time :created_at
+    latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
   end
 
 

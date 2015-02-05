@@ -3,6 +3,8 @@ Driverhunt::Application.routes.draw do
 
 
 
+  resources :categories
+
   # match 'auth/:provider/callback', to: 'users/sessions#create'
   # match 'auth/failure', to: redirect('/')
   # match 'signout', to: 'users/sessions#destroy', as: 'signout'

@@ -29,25 +29,25 @@ class PagesController < ApplicationController
   end
 
   def jobs
-    if params[:search]
-      @search = Job.search do
-        keywords params[:search]   
-        # with(:created_at).less_than(params[:time]) if params[:time]
-        paginate :page => params[:page], :per_page => params[:per_page] || 10
-      end
-      @jobs = @search.results
-    else
-      if params[:sort] == 'distance'
-        if params[:direction] == 'desc'      
-          @jobs = Job.all.sort {|a,b| a.distance(current_user) <=> b.distance(current_user)}.reverse!
-        else
-          @jobs = Job.all.sort {|a,b| a.distance(current_user) <=> b.distance(current_user)}
-        end
-      else
-        order_string = sort_direction == "desc" ? sort_column : sort_column+ " desc" # ignor the final desc here, seems like the code is 'doing it wrong'.
-        @jobs = Job.order(order_string)
-      end
+    @category = Category.where(vehicle: params[:category]) if params[:category]
+    @category = Category.find(1)
+    lat = current_user.latitude
+    lng = current_user.longitude
+    radius = params[:radius] || 800
+
+    @search = Job.search do
+      keywords params[:search] if params[:search]
+      with(:location).in_radius(lat, lng, radius)
+
+      order_by :created_at if (params[:sort] == 'created_at' && params[:direction] != 'desc')
+      order_by(:created_at, :desc) if (params[:sort] == 'created_at' && params[:direction] == 'desc')
+      order_by_geodist(:location, lat, lng) if params[:sort] == 'distance'
+
+
+      paginate :page => params[:page], :per_page => params[:per_page] || 10
     end
+    @jobs = @search.results
+
   end
 
   def edit_name
@@ -100,3 +100,20 @@ class PagesController < ApplicationController
   end
 
 end
+
+    # http://blog.websolr.com/post/1336392145/spatial-search-in-sunspot
+    # @jobs = @search.results.sort_by { |result| result.distance_to(lat, lng) } if params[:sort] == 'distance'
+
+
+    # if params[:sort] == 'distance'
+    #   if params[:direction] == 'desc'      
+    #     @jobs = @jobs.sort {|a,b| a.distance(current_user) <=> b.distance(current_user)}.reverse!
+    #   else
+    #     @jobs = @jobs.sort {|a,b| a.distance(current_user) <=> b.distance(current_user)}
+    #   end
+    # else
+    #   order_string = sort_direction == "desc" ? sort_column : sort_column+ " desc" # ignor the final desc here, seems like the code is 'doing it wrong'.
+    #   @jobs = @jobs.order(order_string)
+    # end
+
+

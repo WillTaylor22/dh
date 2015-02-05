@@ -13,7 +13,7 @@
   <div id="job-interest">
     <div id="applicants">
       <p>Distance from you</p>
-      <h4><%= @job.distance_from_user(current_user) %> miles <%= @job.bearing_from_user(current_user) %></h4>
+      <h4><%= @job.distance_from_user(current_user) %> <%= @job.bearing_from_user(current_user) %></h4>
     </div>
 
     <div id="average-rating">

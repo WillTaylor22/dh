@@ -1,30 +1,30 @@
 <div id="jobs">
 
-<h1 class="standard">Motorcycle Jobs</h1>
+<h1 class="standard"><%= @category.vehicle %> Jobs</h1>
 
   <div class="row">
     <div class="col-sm-7">
       <p id="breadcrumb">More categories: <%= link_to "Taxi", jobs_path %>, <a href="">Van</a>, <a href="">Car</a>, <a href="">Lorry</a></p>
 
       <p id="job-description">
-        Blackberry is a line of mobile email and smart phone devices. It is a popular platform for mobile operating systems among U.S. business users. You can develop applications that run on Blackberry. If your business involves development for the Blackberry, you may use some programming help which can help you target the Blackberry device. You can find expert Blackberry freelancers in this site. Simply post a job today to start!
+        <%= @category.description %>
       </p>
       <p>
-        <a href="">Hire Blackberry Developers</a> on DriverHunt<br>
-        <a href="">Find Blackberry Developers</a> on DriverHunt
+        <a href="">Hire <%= @category.name_of_user %>s</a> on DriverHunt<br>
+        <a href="">Find <%= @category.name_of_user %>s</a> on DriverHunt
       </p>
     </div>
 
     
 
     <div id="signup" class="col-sm-5">
-      <h2>Are you a Motorcycle Rider?</h2>
+      <h2>Are you a <%= @category.name_of_user.titleize %>?</h2>
       <h3>You could be earning money working on these jobs!</h3>
       <button class="btn btn-default orange-button">Signup Now</button>
-      <p>Our Motorcycle Community:</p>
+      <p>Our <%= @category.vehicle %> Community:</p>
       <ul>
-        <li>19,867 Motorcycle Jobs to date</li>
-        <li>£7,121,771 Motorcycle Jobs value to date</li>
+        <li>19,867 <%= @category.vehicle %> Jobs to date</li>
+        <li>£7,121,771 <%= @category.vehicle %> Jobs value to date</li>
       </ul>
     </div>
   </div>
@@ -64,7 +64,7 @@
   <div id="search-box">
     <div id="first-search-row" class="cf">
       <nav id="pagination-wrap">
-        <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+        <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
       </nav>
 <!--       <div id="showing">
         <p>Show</p>
