@@ -112,14 +112,6 @@ class User < ActiveRecord::Base
 
   ###### END PROFILE ###
 
-  # def self.search(query)
-  #   if query && query != ''
-  #     where('first_name LIKE ?', "%#{query}")
-  #   else
-  #     scoped
-  #   end
-  # end
-
   ###### LIST ###
 
   searchable do
@@ -128,6 +120,15 @@ class User < ActiveRecord::Base
   end
 
   ###### END LIST ###
+
+  ###### JOB ###
+
+  has_many :jobs, dependent: :destroy
+
+  ###### END JOB ###
+
+
+
 
 
 end

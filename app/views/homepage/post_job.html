@@ -19,25 +19,60 @@
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
+  <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+      <% @job.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <!-- Left: job form -->
   <div class="job-form">
-
-    <form id="post-project-form" action="/dashboard" method="GET">
+    <%= form_for(@job) do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
  
       <ol class="numbers">
         <!-- Work required -->
         <li>
           <legend>What work do you require?</legend>
-          <select class="form-control">
-            <option>Websites IT & Software</option>
-            <option>Mobile</option>
-            <option>Writing</option>
-            <option>Design</option>
-            <option>Data Entry</option>
-            <option>Other</option>
-          </select>
 
-          <div id="second-select-wrap">
+          <%= f.select :category, '<option value="Motorcyclist">Motorcyclist</option>
+              <option value="Van Driver">Van Driver</option>
+              <option value="Lorry Driver">Lorry Driver</option>
+              <option value="Taxi Driver">Taxi Driver</option>
+              <option value="Car Driver">Car Driver</option>
+              <option value="Push-Bike Cyclist">Push-Bike Cyclist</option>
+              <option id="other" value="Other">Other...</option>'.html_safe, {}, {class: 'form-control'}
+           %>
+
+          <div id="other-wrap">
+            <br>
+            <label for="other-category">Other type of work:</label>
+            <input type="text" id="other-category" name="other_category" class="form-control">
+          </div>          
+
+          <div class="row" id="address-row">
+            <div class="col-sm-8">
+              <%= f.label :postcode, "Near postcode or address:" %>
+              <div class="input-group">
+              <%= f.text_field :postcode, class: 'form-control', placeholder: 'E.g. SW1 3BH' %>
+              <span class="input-group-btn">
+                <button id="find-postcode" class="btn btn-default" type="button">Find</button>
+              </span>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
+            </div>          
+          </div>
+
+          <!-- <div id="second-select-wrap">
             <select id="second-select" class="form-control">
               <option>Mobile</option>
               <option>Writing</option>
@@ -45,14 +80,16 @@
               <option>Data Entry</option>
               <option>Other</option>
             </select>
-          </div>
+          </div> -->
         </li>
         <!-- Job description -->
         <li>
           <legend>Tell us more about the project</legend>
           <div class="form-group">
-            <label for="project-name">Project Name: <a class="info">?</a></label>
-            <input id="project-name" type="text" class="form-control">
+            <%= f.label :name do %>
+              Project Name: <a class="info">?</a>
+            <% end %>
+            <%= f.text_field :name, class: 'form-control' %>
           </div>
           <div id="skills-input" class="form-group">
             <label for="project-name">Enter some skills that relate to the project: <a class="info">?</a></label>
@@ -71,23 +108,28 @@
           </div>
           
           <div class="form-group">
-            <label for="project-name">Describe your project in detail: <a class="info">?</a></label>
-            <textarea class="form-control" rows="4" placeholder="Describe your project here..."></textarea>
+            <%= f.label :description do %>
+              Describe your project in detail: <a class="info">?</a>
+            <% end %>
+            <%= f.text_area :description, class: 'form-control', placeholder: 'Describe your project here...', rows: '4' %>
           </div>
         </li>
         <!-- Budget -->
         <li class="budget">
-          <legend>What sort of budget did you have in mind?</legend>
+          <legend>Who provides the vehicle?</legend>
+
           <div role="tabpanel">
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active"><a href="#fixed" aria-controls="fixed" role="tab" data-toggle="tab">HIRE FOR A FIXED PRICE</a></li>
-              <li role="presentation"><a href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HIRE PER HOUR</a></li>
+              
+              <li role="presentation" class="active"><a id="vehicle-provided-by-driver" href="#fixed" aria-controls="fixed" role="tab" data-toggle="tab">DRIVER PROVIDES OWN VEHICLE</a></li>
+              <li role="presentation"><a id="vehicle-provided-by-employer" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HUNTER PROVIDES VEHICLE</a></li>
             </ul>
+            <%= f.hidden_field :employer_provides_vehicle, value: 0 %>
 
             <!-- Tab panes -->
-            <div class="tab-content cf">
+            <!-- <div class="tab-content cf">
               <div role="tabpanel" class="tab-pane active" id="fixed">
                 <select class="form-control currency">
                   <option>GBP</option>
@@ -120,19 +162,19 @@
 
                 
               </div>
-            </div>
+            </div> -->
 
           </div>
 
         </li>
         <!-- Upsell -->
-<!--         <li>
+        <!-- <li>
           <legend>Get the most from your project! (optional)</legend>
         </li> -->
         <div id="post-project-div">
           <p id="terms">
           <% if user_signed_in? %>
-            <button class="btn btn-default blue-button">Post Project Now</button>
+            <button class="btn btn-default blue-button">Post Job Now</button>
           <% else %>
             <button type="button" class="btn btn-default blue-button" data-toggle="modal" data-target="#login-modal">
             Post Project Now
@@ -143,10 +185,9 @@
 
         <!-- Button trigger modal -->
         
-
-
       </ol>
-    </form>
+    <!-- </form> -->
+    <% end %>
   </div>
 
 <!-- Modal -->

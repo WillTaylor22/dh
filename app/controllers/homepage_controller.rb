@@ -6,6 +6,7 @@ class HomepageController < ApplicationController
   end
 
   def post_job
+    @job = Job.new
   end
 
   def help

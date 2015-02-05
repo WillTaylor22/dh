@@ -2,6 +2,7 @@ Driverhunt::Application.routes.draw do
 
 
 
+
   # match 'auth/:provider/callback', to: 'users/sessions#create'
   # match 'auth/failure', to: redirect('/')
   # match 'signout', to: 'users/sessions#destroy', as: 'signout'
@@ -15,10 +16,10 @@ Driverhunt::Application.routes.draw do
   get '/dashboard', to: 'pages#projects'
   get '/chat', to: 'pages#chat'
   get '/drivers', to: 'pages#drivers'
-  get '/jobs', to: 'pages#jobs'
+  # get '/jobs', to: 'pages#jobs'
   get '/help', to: 'homepage#help'
   get '/u/:username', to: 'pages#profile', as: 'user'
-  get '/job/:id', to: 'pages#job', as: 'job'
+  # get '/job/:id', to: 'pages#job', as: 'job'
 
   # profile editing
   get '/edit_name', to: 'pages#edit_name', as: 'edit_name'
@@ -32,6 +33,7 @@ Driverhunt::Application.routes.draw do
   get '/add_qualification_item', to: 'pages#add_qualification_item', as: 'add_qualification_item'
   get '/edit_qualification_item/:id', to: 'pages#edit_qualification_item', as: 'edit_qualification_item'
 
+  resources :jobs
   resources :qualification_items
   resources :experience_items
 

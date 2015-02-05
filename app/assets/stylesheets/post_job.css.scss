@@ -95,6 +95,20 @@ $cyan: #54b4e3;
 
   }
 
+  #other-wrap{
+    display: none;
+  }
+
+  #address-row{
+    margin-top: 15px;
+    label{
+      margin-top: 35px;
+    }
+    #location-map{
+      border-radius: 4px;
+    }
+  }
+
   
   .info{
     background-color: #333333;
