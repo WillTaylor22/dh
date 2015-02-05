@@ -63,12 +63,16 @@
 
   <div id="search-box">
     <div id="first-search-row" class="cf">
-      <div id="search-projects" class="input-group">
-        <input type="text" class="form-control" placeholder="Search for projects and contests">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
-        </span>
-      </div>
+      <form action="/jobs" method="get">
+        <div id="search-projects" class="input-group">
+          <input type="text" name="search" class="form-control" placeholder="Search for jobs">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+        </div>
+      </form>
       <nav id="pagination-wrap">
         <ul class="pagination">
           <li>
@@ -107,30 +111,32 @@
     </div>
     <div id="third-search-row" class="row">
       <div class="col-sm-6">
-        <div id="project-type-wrap" class="search-item">
+        <!-- <div id="project-type-wrap" class="search-item">
           <label class="main-label" for="project-type">Project type</label>
           <label class="checkbox-label">
-            <input type="checkbox"> Fixed
+            <input type="checkbox"> Full Time
           </label>
           <label class="checkbox-label">
-            <input type="checkbox"> Hourly
+            <input type="checkbox"> Part Time
           </label>
           <label class="checkbox-label">
-            <input type="checkbox"> Contests
+            <input type="checkbox"> Freelance
           </label>
-        </div>
+        </div> -->
         <div id="duration" class="search-item">
-          <label class="main-label" for="duration">Duration</label>
+          <label class="main-label" for="duration">Distance</label>
           <div class="right-box">
             <select class="form-control">
-              <option>All durations</option>
-              <option>10</option>
-              <option>20</option>
-              <option>100</option>
+              <option>1 mile</option>
+              <option>3 miles</option>
+              <option selected="selected">5 miles</option>
+              <option>10 miles</option>
+              <option>20 miles</option>
+              <option>All</option>
             </select>
           </div>
         </div>
-        <div id="listing-types" class="search-item">
+        <!-- <div id="listing-types" class="search-item">
           <label class="main-label" for="listing-type">Listing types</label>
           <div class="input-group tab-search">
             <input id="listing-type" type="text" class="form-control" placeholder="Type to filter project listing types">
@@ -138,10 +144,21 @@
               <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
             </span>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-sm-6">
-        <div class="search-item">
+        <div id="duration" class="search-item">
+          <label class="main-label" for="duration">Job Ad Age</label>
+          <div class="right-box">
+            <select class="form-control">
+              <option value="all">All time</option>
+              <option value="month">Last month</option>
+              <option value="week">Last week</option>
+              <option value="day">Last 24 hours</option>
+            </select>
+          </div>
+        </div>
+        <!-- <div class="search-item">
           <label for="avg-price" class="main-label">Avg Price</label>
           <div class="right-box">
             <select id="avg-price" class="form-control">
@@ -151,8 +168,8 @@
               <option>100</option>
             </select>
           </div>
-        </div>
-        <div class="search-item">
+        </div> -->
+        <!-- <div class="search-item">
           <label for="avg-hourly-rate" class="main-label">Avg Hourly Rate</label>
           <div class="right-box">
             <select id="avg-hourly-rate"class="form-control">
@@ -162,8 +179,8 @@
               <option>100</option>
             </select>
           </div>
-        </div>
-        <div class="search-item">
+        </div> -->
+        <!-- <div class="search-item">
           <label for="languages" class="main-label">Languages</label>
           <div class="right-box">
             <div class="input-group tab-search">
@@ -173,56 +190,32 @@
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <p class="cf"><a href="" class="pull-right">Clear</a></p>
   </div>
 
+<!-- <i class="glyphicon glyphicon-chevron-down"></i> -->
+
   <div id="jobs-table">
       
     <div class="row jt-header cf">
-      <div class="name">Project Name</div>
-      <div class="bids">Bids</div>
+      <div class="name">Job Name</div>
+      <div class="bids"><%= sortable 'distance' %></div>
       <div class="skills">Skills</div>
-      <div class="started">Started <i class="glyphicon glyphicon-chevron-down"></i></div>
-      <div class="price">Price (GBP)</div>
+      <div class="started"><%= sortable 'created_at', 'Started' %></div>
+      <div class="price">Who provides vehicle?</div>
     </div>
-    <div class="row cf">
-      <div class="name">How to increase adsense CPC</div>
-      <div class="bids">4</div>
-      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
-      <div class="started">Today</div>
-      <div class="price">£165 - 498</div>
+    <% @jobs.each_with_index do |job, index| %>
+    <div class="row cf <%= "odd" if index % 2 == 1 %>">
+      <div class="name"><%= job.name %> - <%= job.category %> - <%= job.description %></div>
+      <div class="bids"><%= job.distance_from_user(current_user) || (current_user.latitude ? "location not given" : "add your location") %></div>
+      <div class="skills"><%= job.skill_list %></div>
+      <div class="started"><%= time_ago_in_words(job.created_at) %> ago</div>
+      <div class="price"><%= job.employer_provides_vehicle ? 'Them' : 'You' %></div>
     </div>
-    <div class="row cf odd">
-      <div class="name">How to increase adsense CPC</div>
-      <div class="bids">4</div>
-      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
-      <div class="started">Today</div>
-      <div class="price">£165 - 498</div>
-    </div>
-    <div class="row cf">
-      <div class="name">How to increase adsense CPC</div>
-      <div class="bids">4</div>
-      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
-      <div class="started">Today</div>
-      <div class="price">£165 - 498</div>
-    </div>
-    <div class="row cf odd">
-      <div class="name">How to increase adsense CPC</div>
-      <div class="bids">4</div>
-      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
-      <div class="started">Today</div>
-      <div class="price">£165 - 498</div>
-    </div>
-    <div class="row cf">
-      <div class="name">How to increase adsense CPC</div>
-      <div class="bids">4</div>
-      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
-      <div class="started">Today</div>
-      <div class="price">£165 - 498</div>
-    </div>
+    <% end %>
 
   </div>
 

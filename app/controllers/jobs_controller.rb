@@ -21,8 +21,6 @@ class JobsController < ApplicationController
   end
 
   def create
-    puts "params"
-    puts params
     @job = Job.new(job_params)
     @job.category = params[:other_category] if job_params[:category] == 'Other'
     @job.skill_list.add(params[:job][:skill_list])

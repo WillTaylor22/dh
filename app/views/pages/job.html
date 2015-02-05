@@ -1,25 +1,24 @@
 <div id="job">
-
 <div class="cf">
-  <button class="btn orange-button pull-right">Bid on This Project</button>
+  <button class="btn orange-button pull-right">Apply for Job</button>
 </div>
-<h1 id="job-title" class="h1-28">Wordpress Content NEXT & Previous button</h1>
-
+<h1 id="job-title" class="h1-28"><%= @job.name %></h1>
+<h2 id="category"><%= @job.category %></h2>
 <div id="job-activity">
   <div id="time-left">
-    <p>6 days, 23 hours left</p>
+    <p><%= time_ago_in_words(@job.created_at) %> ago</p>
     <h4>OPEN</h4>
   </div>
 
   <div id="job-interest">
     <div id="applicants">
-      <p>Bids</p>
-      <h4>12</h4>
+      <p>Distance from you</p>
+      <h4><%= @job.distance_from_user(current_user) %> miles <%= @job.bearing_from_user(current_user) %></h4>
     </div>
 
     <div id="average-rating">
-      <p>Avg Bid (USD)</p>
-      <h4>$30</h4>
+      <p>Who provides vehicle</p>
+      <h4><%= @job.employer_provides_vehicle ? 'Us' : 'You' %></h4>
     </div>
 
     <div id="job-budget">
@@ -31,35 +30,30 @@
 
 </div>
 
-<h2 id="job-description-title" class="h2-24">Project Description</h2>
+<h2 id="job-description-title" class="h2-24">Job Description</h2>
 
 <div class="row">
   <div class="col-sm-8">
-    <p>I am looking for a simply way to add PREVIOUS & Continue Reading buttons in my wordpress blog's content to divide long contents.</p>
-
-    <p>I want something exactly as done on this website:</p>
-
-    <p>http://www.kamairgists.com/8-signals-that-a-woman-needs-sx/5/</p>
+    <%= simple_format @job.description %>
   </div>
 </div>
 
 <h2 class="standard">Skills required:</h2>
 <ul id="skills-list">
-  <li><a href="">CSS</a></li>
-  <li><a href="">Graphic Design</a></li>
-  <li><a href="">PHP</a></li>
-  <li><a href="">Wordpress</a></li>
+  <% @job.skill_list.each do |s| %>
+    <li><%= link_to s, '#' %></li>
+  <% end %>
 </ul>
 
 <div class="cf">
-  <button class="btn orange-button">Post a Project like this</button>
-  <span class="pull-right"><strong>Project ID:</strong> 7084660</span>
+  <button class="btn orange-button">Post a Job like this</button>
+  <span class="pull-right"><strong>Job ID:</strong> <%= @job.id %></span>
 </div>
 
 <div class="thick-line"></div>
 
 <div class="cf">
-  <button class="btn orange-button pull-right">Bid on This Project</button>
+  <button class="btn orange-button pull-right">Apply for Job</button>
 </div>
 
 <div class="applicant-table">

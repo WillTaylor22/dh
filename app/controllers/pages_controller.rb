@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
 
   before_action :authenticate_user!
+  helper_method :sort_column, :sort_direction
 
   def projects
   end
@@ -24,6 +25,29 @@ class PagesController < ApplicationController
   end
 
   def job
+    @job = Job.find(params[:id])
+  end
+
+  def jobs
+    if params[:search]
+      @search = Job.search do
+        keywords params[:search]   
+        # with(:created_at).less_than(params[:time]) if params[:time]
+        paginate :page => params[:page], :per_page => 5
+      end
+      @jobs = @search.results
+    else
+      if params[:sort] == 'distance'
+        if params[:direction] == 'desc'      
+          @jobs = Job.all.sort {|a,b| a.distance(current_user) <=> b.distance(current_user)}.reverse!
+        else
+          @jobs = Job.all.sort {|a,b| a.distance(current_user) <=> b.distance(current_user)}
+        end
+      else
+        order_string = sort_direction == "desc" ? sort_column : sort_column+ " desc" # ignor the final desc here, seems like the code is 'doing it wrong'.
+        @jobs = Job.order(order_string)
+      end
+    end
   end
 
   def edit_name
@@ -60,6 +84,19 @@ class PagesController < ApplicationController
   def edit_qualification_item
     @id = params[:id]
     @qualification_item = QualificationItem.find(@id.to_i)
+  end
+
+  private
+
+  def sort_column
+    # if 'no column', it's created_at
+    %w[created_at distance].include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    # if 'no attribute': it's going from smallest to biggest, ascending
+    # if params[:direction], and params[:direction] == desc, it's decending
+    params[:direction] == 'desc' ? 'desc' : 'asc'
   end
 
 end

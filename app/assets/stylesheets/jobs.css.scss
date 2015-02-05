@@ -146,6 +146,9 @@ $blue: #379cd4;
         height: 33px;
         min-height: 33px;
         color: white;
+        a{
+          color: white;
+        }
         background-color: $darkblue;
         text-align: center;
         padding-top: 5px;
@@ -156,12 +159,33 @@ $blue: #379cd4;
         .price{
           text-align: center;
         }
+        .current_asc{
+          position: relative;
+          padding-right: 10px;
+          &:after{
+            font-family: 'Glyphicons Halflings';
+            content: '\e094';
+            position: absolute;
+            right: -8px;
+          }
+        }
+        .current_desc{
+          position: relative;
+          padding-right: 8px;
+          &:after{
+            font-family: 'Glyphicons Halflings';
+            content: '\e093';
+            position: absolute;
+            right: -8px;
+          }
+        }
       }
       &.odd{
         background-color: #e4f3fc;
       }
       div{
         float: left;
+        min-height: 1px;
       }
       .name{
         text-align: left;
