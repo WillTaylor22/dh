@@ -33,7 +33,7 @@ class PagesController < ApplicationController
       @search = Job.search do
         keywords params[:search]   
         # with(:created_at).less_than(params[:time]) if params[:time]
-        paginate :page => params[:page], :per_page => 5
+        paginate :page => params[:page], :per_page => params[:per_page] || 10
       end
       @jobs = @search.results
     else

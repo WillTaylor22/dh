@@ -67,3 +67,6 @@ end
 
 gem 'acts-as-taggable-on'
 
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+

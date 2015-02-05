@@ -75,7 +75,6 @@ $blue: #379cd4;
     margin-top: 5px;
     #search-projects{
       float: left;
-      width: 274px;
       input{
         font-size: 12px;
       }
@@ -99,6 +98,14 @@ $blue: #379cd4;
       float: right;
       ul{
         margin: 0;
+      }
+      .active span{
+        background-color: white;
+        color: #777;
+        border-color: #ccc;
+      }
+      .prev.disabled{
+        display: none;
       }
     }
     #third-search-row{

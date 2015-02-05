@@ -1,35 +1,35 @@
 <div id="jobs">
 
-<h1 class="standard">Blackberry Jobs and Contests</h1>
+<h1 class="standard">Motorcycle Jobs</h1>
 
   <div class="row">
     <div class="col-sm-7">
-      <p id="breadcrumb"><a href="">Jobs</a> > <a href="">Blackberry</a></p>
+      <p id="breadcrumb">More categories: <%= link_to "Taxi", jobs_path %>, <a href="">Van</a>, <a href="">Car</a>, <a href="">Lorry</a></p>
 
       <p id="job-description">
         Blackberry is a line of mobile email and smart phone devices. It is a popular platform for mobile operating systems among U.S. business users. You can develop applications that run on Blackberry. If your business involves development for the Blackberry, you may use some programming help which can help you target the Blackberry device. You can find expert Blackberry freelancers in this site. Simply post a job today to start!
       </p>
       <p>
-        <a href="">Hire Blackberry Developers</a> on Freelancer United Kingdom<br>
-        <a href="">Find Blackberry Developers</a> on Freelancer United Kingdom
+        <a href="">Hire Blackberry Developers</a> on DriverHunt<br>
+        <a href="">Find Blackberry Developers</a> on DriverHunt
       </p>
     </div>
 
     
 
     <div id="signup" class="col-sm-5">
-      <h2>Are you a Blackberry Developer?</h2>
-      <h3>You could be earnin money working on these jobs!</h3>
+      <h2>Are you a Motorcycle Rider?</h2>
+      <h3>You could be earning money working on these jobs!</h3>
       <button class="btn btn-default orange-button">Signup Now</button>
-      <p>Our Blackberry Community:</p>
+      <p>Our Motorcycle Community:</p>
       <ul>
-        <li>19,867 Blackberry Projects to date</li>
-        <li>7,121,771 Blackberry projects value to date</li>
+        <li>19,867 Motorcycle Jobs to date</li>
+        <li>£7,121,771 Motorcycle Jobs value to date</li>
       </ul>
     </div>
   </div>
 
-  <div class="row">
+  <!-- <div class="row">
     <div id="see-more-searches" class="col-xs-12">      
         <ul>
           <span>See more: </span>
@@ -58,41 +58,15 @@
           <li><a href="">sip blackberry</a></li>
         </ul>
     </div>
-  </div>
+  </div> -->
   
 
   <div id="search-box">
     <div id="first-search-row" class="cf">
-      <form action="/jobs" method="get">
-        <div id="search-projects" class="input-group">
-          <input type="text" name="search" class="form-control" placeholder="Search for jobs">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-default">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </span>
-        </div>
-      </form>
       <nav id="pagination-wrap">
-        <ul class="pagination">
-          <li>
-            <a href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li>
-            <a href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
+        <%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
       </nav>
-      <div id="showing">
+<!--       <div id="showing">
         <p>Show</p>
         <select class="form-control">
           <option>5</option>
@@ -100,15 +74,15 @@
           <option>20</option>
           <option>100</option>
         </select>
-      </div>
+      </div> -->
       
     </div>
-    <div class="input-group tab-search">
+    <!-- <div class="input-group tab-search">
       <input type="text" class="form-control" placeholder="Type to filter projects and contests by skills">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
       </span>
-    </div>
+    </div> -->
     <div id="third-search-row" class="row">
       <div class="col-sm-6">
         <!-- <div id="project-type-wrap" class="search-item">
@@ -123,6 +97,21 @@
             <input type="checkbox"> Freelance
           </label>
         </div> -->
+        <div class="search-item cf">
+          <label class="main-label" for="duration">Search</label>
+          <div class="right-box">
+            <form action="/jobs" method="get">
+              <div id="search-projects" class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search for jobs" value="<%= params[:search] %>">
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </span>
+              </div>
+            </form>
+          </div>
+        </div>
         <div id="duration" class="search-item">
           <label class="main-label" for="duration">Distance</label>
           <div class="right-box">
@@ -148,13 +137,13 @@
       </div>
       <div class="col-sm-6">
         <div id="duration" class="search-item">
-          <label class="main-label" for="duration">Job Ad Age</label>
+          <label class="main-label" for="duration">Advert Age</label>
           <div class="right-box">
             <select class="form-control">
-              <option value="all">All time</option>
-              <option value="month">Last month</option>
-              <option value="week">Last week</option>
-              <option value="day">Last 24 hours</option>
+              <option value="all">From all time</option>
+              <option value="month">In the last month</option>
+              <option value="week">In the last week</option>
+              <option value="day">In the last 24 hours</option>
             </select>
           </div>
         </div>
@@ -195,8 +184,6 @@
     </div>
     <p class="cf"><a href="" class="pull-right">Clear</a></p>
   </div>
-
-<!-- <i class="glyphicon glyphicon-chevron-down"></i> -->
 
   <div id="jobs-table">
       
