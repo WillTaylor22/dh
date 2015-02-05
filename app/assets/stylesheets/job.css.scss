@@ -1,0 +1,182 @@
+$blue: #379cd4;
+$green: #74a212;
+
+#job{
+  h1.h1-28{
+    font-size: 28px;
+    color: #424242;
+  }
+  h2.h2-24{
+    font-size: 24px;
+    color: #424242;
+  }
+  .orange-button{
+    font-size: 18px;
+    padding: 16px 22px;
+    border-radius: 5px;
+  }
+
+  #job-title{
+    margin-bottom: 20px;
+  }
+
+  #job-activity{
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+    padding: 10px;
+    h4{
+      padding: 0;
+      margin: 0;
+      color: $blue;
+    }
+    p{
+      margin-bottom: 6px;
+    }
+    #job-interest{
+    display: inline-block;
+      background-color: white;
+      border-radius: 4px;
+      border: 1px solid #cccccc;
+      padding: 10px;
+      #applicants, #average-rating, #job-budget{
+        display: inline-block;
+        text-align: center;
+        padding: 0 10px;
+      }
+      #applicants, #average-rating{
+        border-right: 1px solid #cccccc;
+      }
+    }
+    #time-left{
+      display: inline-block;
+      float: right;
+      color: $green;
+      h4{ color: $green; }
+      width: 214px;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid #cccccc;
+      padding: 10px;
+      background-color: white;
+    }
+  }
+
+  #job-description-title{
+    margin-top: 40px;
+    margin-bottom: 38px;
+  }
+
+  ul#skills-list{
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 25px;
+    li{
+      display: inline-block;
+      padding-left: 0;
+      &:after{
+        content: ',';
+      }
+      &:last-of-type:after{
+        content: '';
+      }
+    }
+  }
+
+  .thick-line{
+    margin: 20px 0;
+    height: 4px;
+    width: 100%;
+    background-color: #e9e9e9;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .applicant-table{
+    margin-top: 20px;
+    width: 100%;
+    .applicant-table-header{
+      background-color: $blue;
+      color: white;
+      height: 40px;
+      padding: 10px;
+    }
+    .applicant{
+      width: 69%;
+      float: left;
+    }
+    .reputation, .bid{
+      width: 15%;
+      float: left;
+      text-align: center;
+    }
+    .applicant-table-row{
+      padding: 5px;
+      border-bottom: 1px solid #e4e4e4;
+      .photo{
+        display: inline-block;
+        width: 92px;
+        height: 92px;
+        padding: 2px;
+        margin-right: 5px;
+        border: 1px solid #e4e4e4;
+        border-radius: 2px;
+        img{
+          width: 100%;
+        }
+      }
+      .details{
+        vertical-align: top;
+        display: inline-block;
+        padding-top: 3px;
+        a{
+          font-size: 17px;
+          color: $blue;
+          margin-right: 5px;
+        }
+        img{
+          vertical-align: none;
+          margin-right: 5px;
+        }
+        .application-time-ago{
+          color: #939393;
+          font-size: 12px;
+        }
+      }
+      .reputation{
+        padding-top: 10px;
+        img{
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 20px;
+        }
+        .rating-number{
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 20px;
+          color: #424242; 
+        }
+        .reviews{
+          margin-top: 1px;
+          margin-bottom: 0;
+          a{
+            color: $blue;
+          }
+        }
+        .completion-rate{
+          color: #424242; 
+          margin-bottom: 0;
+          font-size: 12px;
+        }
+      }
+      .bid{
+        h4{
+          color: #424242; 
+          font-size: 22px;
+          margin-top: 16px;
+          margin-bottom: 2px;
+        }
+      }
+    }
+  }
+  
+}

@@ -5,7 +5,7 @@ class HomepageController < ApplicationController
   def home
   end
 
-  def postproject
+  def post_job
   end
 
   def help

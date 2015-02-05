@@ -11,13 +11,14 @@ Driverhunt::Application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: "users/omniauth_callbacks" }
   root 'homepage#home'
-  get '/post-project', to: 'homepage#postproject', as: "post_project"
+  get '/post-job', to: 'homepage#post_job', as: "post_job"
   get '/dashboard', to: 'pages#projects'
   get '/chat', to: 'pages#chat'
   get '/drivers', to: 'pages#drivers'
   get '/jobs', to: 'pages#jobs'
   get '/help', to: 'homepage#help'
   get '/u/:username', to: 'pages#profile', as: 'user'
+  get '/job/:id', to: 'pages#job', as: 'job'
 
   # profile editing
   get '/edit_name', to: 'pages#edit_name', as: 'edit_name'

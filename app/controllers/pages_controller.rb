@@ -23,6 +23,9 @@ class PagesController < ApplicationController
     @drivers = @search.results
   end
 
+  def job
+  end
+
   def edit_name
   end
 
