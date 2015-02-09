@@ -1,55 +1,76 @@
-<div class="row">
-Breadcrumb
+<div class="onboarding cf">
+  <div class="main-form">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= hidden_field :onboarding, true %>
+      <ol class="numbers">
+        <h2>Job Search: </h2>
 
-  <div class="col-sm-6">
-    <%= form_for(current_user) do |f| %>
-
-    <ol class="numbers">
-
-      <h2>The Job Finder. We only need two things:</h2>
-      <li class="numbers-li">
-        <legend>Contact Details for Employer</legend>
-        <p><i>Kept secret and secure. Provided to an employer if they hire you.</i></p>
-      
-        <label for="">Email</label>
-        <input type="text" class="form-control" value="example@example.com" disabled="disabled">
-
-        <label for="">Phone number</label>
-        <input type="text" class="form-control">
-      </li>
-
-      <!-- Work required -->
-      <li class="numbers-li category-and-address-section">
-        <legend>What type of job do you want?</legend>
-
-        <%= f.select :category,
-        options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil]), {}, {class: 'form-control', id: 'job_category'} %>
-
-        <div id="other-wrap">
-          <br>
-          <label for="other-category">Other type of work:</label>
-          <input type="text" id="other-category" name="other_category" class="form-control">
-        </div>          
-
-        <div class="row" id="address-row">
-          <div class="col-sm-8">
-            <%= f.label :postcode, "Near this postcode or address:" %>
-            <div class="input-group">
-            <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
-            <span class="input-group-btn">
-              <button id="find-postcode" class="btn btn-default" type="button">Find</button>
-            </span>
+        <li class="numbers-li">
+          <legend class="no-bottom">Contact details for employers</legend>
+          <p class="secret"><i>Kept secret. Only provided to a hunter if they hire you.</i></p>
+        
+          <div class="row">
+            <div class="col-sm-6">
+              <%= f.label :email %>
+              <% if current_user.email %>
+                <%= f.text_field :email, name: nil, value: current_user.email, class: 'form-control', disabled: true %>
+              <% else %>
+                <%= f.text_field :email, class: 'form-control' %>
+              <% end %>
+            </div>
+            <div class="col-sm-6">
+              <%= f.label :phone_number %>
+              <%= f.text_field :phone_number, class: 'form-control', placeholder: "Enter your phone number", value: current_user.phone_number %>
             </div>
           </div>
-          <div class="col-sm-4">
-            <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
-          </div>          
-        </div>
 
-      </li>
-      <%= f.submit "Find Jobs", class: 'btn btn-orange' %>
-    </ol>
+        </li>
+
+        <!-- Work required -->
+        <li class="numbers-li category-and-address-section">
+          <legend>What type of job do you want?</legend>
+
+          <%= f.select :category_id,
+          options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil], :selected => resource.category_id), {}, {class: 'form-control', id: 'job_category'} %>
+
+          <div id="other-wrap">
+            <br>
+            <label for="other-category">Other type of work:</label>
+            <input type="text" id="other-category" name="other_category" class="form-control">
+          </div>          
+
+          <div class="row" id="address-row">
+            <div class="col-sm-8">
+              <%= f.label :postcode, "Near this postcode or address:" %>
+              <div class="input-group">
+              <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH', value: resource.postcode %>
+              <span class="input-group-btn">
+                <button id="find-postcode" class="btn btn-default" type="button">Find</button>
+              </span>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
+            </div>          
+          </div>
+
+        </li>
+        <%= f.submit "Find Jobs", class: 'btn orange-button' %>
+      </ol>
     <% end %>
   </div>
-</div>
 
+  <div class="form-helpers">
+    <div id="info-box">
+        <p class="header"><strong>FREE</strong> TO JOIN</p>
+        <h1>Try it today!</h1>
+        <ul>
+          <li>Find all the employers in your area.</li>
+          <li>Full Time, Part Time, Freelance Jobs.</li>
+          <li>£400 - £1500+/week</li>
+          <li>Student, Entry Level & Pro Jobs!</li>
+          <li>No CV Needed. Totally free.</li>
+        </ul>      
+    </div>
+  </div>
+</div>

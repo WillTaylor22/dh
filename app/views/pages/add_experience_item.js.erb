@@ -1,6 +1,16 @@
 $('.experience-items').before('<%= j render "add_experience_item" %>');
 $('.edit, .add-item, .empty-section').hide()
+
 $('input:checkbox').change(
   function(){
-    $(".end-date-wrap").toggle()
+    if ($('input:checkbox').is(':checked')){
+      $(".end-date-wrap").hide()
+    } else {
+      $(".end-date-wrap").show()
+    }
   });
+
+$('.cancel-edit-experience').click(function() {
+  $('.experience-item, .edit, .add-item').show()
+  $('.new-experience-item').hide()
+});

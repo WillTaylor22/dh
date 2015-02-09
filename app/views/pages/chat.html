@@ -39,6 +39,11 @@
     </div>
     <div class="col-sm-4">
       <h2 class="standard">Details Purchased</h2>
+      <ul id="folder-select" class="nav nav-pills nav-stacked" role="tablist">
+        <% @purchased.each_with_index do |user, index| %>
+          <%= render "profile_item", user: user %>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

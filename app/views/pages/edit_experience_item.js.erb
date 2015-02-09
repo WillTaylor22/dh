@@ -1,6 +1,14 @@
 $('.experience-item.<%= @id %>').hide().after('<%= j render "experience_item_form" %>');
 $('.edit, .add-item').hide()
-$('#cancel-edit-experience').click(function() {
+$('.cancel-edit-experience').click(function() {
   $('.experience-item, .edit, .add-item').show()
   $('form.edit_experience_item').hide()
 });
+$('input:checkbox').change(
+  function(){
+    if ($('input:checkbox').is(':checked')){
+      $(".end-date-wrap").hide()
+    } else {
+      $(".end-date-wrap").show()
+    }
+  });

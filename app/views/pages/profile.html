@@ -18,6 +18,7 @@
       <p>Hire Me!</p>
     </button>
     <% end %>
+
     <!-- 
     <div class="rate">
       Rate: <strong>$17 USD</strong>/hour <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a>
@@ -89,6 +90,12 @@
           </p>
 
           <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+          <% if current_user.owns(@user) %>
+            <div class="contact-details">
+              <p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+              <p><strong>Email address:</strong> <%= @user.email %></p>
+            </div>
+          <% end %>
           
           <div class="description">
             <% if current_user == @user && current_user.long_description %>
@@ -130,22 +137,56 @@
       </div>
       <div class="resume">
         <h1 class="subtitle">Résumé</h1>
-        <h2 class="standard">Experience</h2>
-        <div class="experience-item">
-          <h3 class="standard">CTO <span class="dates">Nov 2013 - Present (1 year)</span></h3>
-          <h4 class="standard">60 Second Laundry.com</h4>
-          <p>I was CTO</p>
+
+        <div class="resume">
+          
+          <h2 class="standard">Experience
+            <% if @user == current_user %>
+              <%= link_to add_experience_item_path, remote: true, class: 'add-item' do %>
+                + Add Item
+              <% end %>
+            <% end %>
+          </h2>
+          <div class="experience-items">
+            <% if @experience_items.each do |item| %>
+              <%= render 'experience_item', item: item %>
+            <% end.empty? %>
+              <% if @user == current_user %>
+                <%= link_to add_experience_item_path, remote: true, class: 'empty-section' do %>
+                  <span class="empty-section-text">+ Add work experience to your résumé</span>
+                <% end %>
+              <% else %>
+                <span class="empty-section">
+                  <span class="empty-section-text">Work experience not yet added</span>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
+
+          <h2 class="standard">Qualifications
+            <% if @user == current_user %>
+              <%= link_to add_qualification_item_path, remote: true, class: 'add-item' do %>
+                + Add Item
+              <% end %>
+            <% end %>
+          </h2>
+          <div class="qualification-items">
+            <% if @qualification_items.each do |item| %>
+              <%= render 'qualification_item', item: item %>
+             <% end.empty? %>
+              <% if @user == current_user %>
+                <%= link_to add_qualification_item_path, remote: true, class: 'empty-section' do %>
+                  <span class="empty-section-text">+ Add qualifications to your résumé</span>
+                <% end %>
+              <% else %>
+                <span class="empty-section">
+                  <span class="empty-section-text">Qualifications not yet added</span>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-        <div class="experience-item">
-          <h3 class="standard">Managing Director <span class="dates">Jan 2013 - Present (2 years)</span></h3>
-          <h4 class="standard">Well Written CV Ltd</h4>
-          <p>Built the site quickly</p>
-        </div>
-        <h2 class="standard">Education</h2>
-        <h3 class="standard">Physics Masters (1st Class)</span></h3>
-        <p>University of Oxford</p>
-        <p>2008 - 2012</p>
-      </div>      
+      </div>       
     </div>
 
     <div role="tabpanel" class="tab-pane fade" id="feedback">
@@ -265,9 +306,7 @@
             <% end %>
           <% end %>
         </div>
-
-       
-      </div> 
+      </div>
     </div>
   </div>
 

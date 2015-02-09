@@ -173,6 +173,12 @@ $cyan: #54b4e3;
         color: #424242;
         font-size: 12px;
       }
+      .contact-details{
+        margin-left: -5px;
+        padding: 2px 5px;
+        background-color: #D3AF37;
+        border-radius: 4px;
+      }
     } // end Personal-info 
     .edit-name{
       input.green-button{
@@ -246,7 +252,7 @@ $cyan: #54b4e3;
       .light-label{
         font-weight: normal;
       }
-      #cancel-edit-experience{
+      .cancel-edit-experience, .cancel-edit-qualification{
         display: inline-block;
         margin-left: 30px;
         color: $cyan;
@@ -260,6 +266,14 @@ $cyan: #54b4e3;
         .dates{
           font-weight: normal;
           float: right;
+        }
+      }
+      .new-experience-item, .new-qualification-item{
+        margin-bottom: 100px;
+        margin-top: 50px;
+        h4{
+          color: #424242;
+          margin-bottom: 20px
         }
       }
       p{

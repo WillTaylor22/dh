@@ -20,11 +20,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  #   puts "in update"
-  #   puts resource.to_yaml
-  # end
+  def update
+    super
+    if params[:onboarding]
+      if resource.category
+        resource.summary = resource.category.name_of_user
+      else
+        resource.summary =  params[:other_category]
+      end
+      resource.save!
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -49,8 +55,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     if params[:user][:photo].present?
       :crop
+    elsif params[:onboarding]
+      flash[:notice] = "Great! Here are the jobs near you."
+      resource.category ? jobs_path(category: resource.category.vehicle) : jobs_path
     else
-      user_path current_user.username
+      user_path resource.username
     end
   end
 

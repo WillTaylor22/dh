@@ -138,16 +138,16 @@ class User < ActiveRecord::Base
 
   has_many :conversations, :foreign_key => :sender_id
 
-  def self.viewed_by user
-    where(id: Profileview.where(viewer: user).map(&:viewee_id)).order(updated_at: :desc)
+  def viewed
+    User.where(id: Profileview.where(viewer: self).map(&:viewee_id)).order(updated_at: :desc)
   end
 
-  def self.conversed_with user
-    conversations = user.conversations
+  def conversed_with
+    conversations = self.conversations
     conversation_ids = conversations.map(&:sender_id)
     conversation_ids += conversations.map(&:recipient_id)
-    conversation_ids.delete(user.id)
-    find_all_by_id(conversation_ids)
+    conversation_ids.delete(self.id)
+    User.find_all_by_id(conversation_ids)
   end
 
   ###### END CHAT ###
@@ -156,6 +156,10 @@ class User < ActiveRecord::Base
 
   has_many :purchases, :foreign_key => :buyer_id
   has_many :drivers, through: :purchases
+
+  def owns user
+    Purchase.find_by(buyer: self, driver: user).present?
+  end
 
   ###### END BUY ###
 

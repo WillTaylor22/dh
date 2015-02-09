@@ -25,9 +25,9 @@ class PagesController < ApplicationController
   end
 
   def chat
-    @viewed = User.viewed_by(current_user)
-    @conversed_with = User.conversed_with(current_user)
-    @users = User.all_except(current_user)
+    @viewed = current_user.viewed
+    @conversed_with = current_user.conversed_with
+    @purchased = current_user.drivers
   end
 
   def drivers

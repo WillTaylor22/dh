@@ -36,7 +36,7 @@
       <div class="col-sm-4">
         <div class="field">
           <%= f.label :start_date %><br>
-          <%= f.date_select :start_date, end_year: Date.today.year, discard_day: true %>
+          <%= f.date_select :start_date, start_year: Date.today.year - 35, end_year: Date.today.year, discard_day: true %>
         </div>
       </div>
       <div class="col-sm-4">
@@ -48,12 +48,13 @@
       <div class="col-sm-4 end-date-wrap">
         <div class="field">
           <i>or</i> <%= f.label :end_date %><br>
-          <%= f.date_select :end_date, end_year: Date.today.year, discard_day: true %>
+          <%= f.date_select :end_date, start_year: Date.today.year - 35, end_year: Date.today.year, discard_day: true %>
         </div>
       </div>
     </div>
   </div>
 
-  <%= f.submit "Save", class: 'btn btn-default green-button' %> <a id="cancel-edit-experience">cancel</a>
+  <%= f.submit "Save", class: 'btn btn-default green-button' %>
+  <a class="cancel-edit-experience">cancel</a>
 
 <% end %>

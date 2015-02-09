@@ -17,8 +17,8 @@ $(".category-and-address-section").ready(function() {
     search_string = encodeURI(search_string)
     var gmaps_address = 'https://maps.googleapis.com/maps/api/staticmap?center=' +
     search_string +
-    '&size=153x153&markers=color:red|' +
-    search_string
+    '&region=uk&size=153x153&markers=color:red|' +
+    search_string +"&region=uk"
     $("#location-map").attr("src",gmaps_address);
   }
 
