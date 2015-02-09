@@ -79,6 +79,23 @@ $cyan: #54b4e3;
         }
       }
     } // end Hire me
+    .interactions{
+      padding: 10px 0;
+      .hire{
+        padding-right: 3px;
+      }
+      .chat{
+        padding-left: 3px;
+      }
+    }
+    .contact-details{
+      margin: 10px 0px 20px;
+      padding: 10px 10px 1px;
+      background-color: #D3AF37;
+      border-radius: 4px;
+      h2{ margin-top: 0; }
+      input{ cursor: default; }
+    }
     .rate{
       margin-top: 10px;
       border: 1px solid #d6d6d6;
@@ -101,7 +118,7 @@ $cyan: #54b4e3;
       }
     } // end follow-invite
     #profile-controls{
-      margin-top: 44px;
+      margin-top: 0px;
       color: #424242;
       background-color: white;
       li{
@@ -123,10 +140,10 @@ $cyan: #54b4e3;
         font-size: 10px;
         margin-top: 3px;
       }
-      .active{
-        border-radius: 7px;
+      .active a{
+        // border-radius: 7px;
         border: none;
-        background-color: #0fabe0;
+        background-color: $cyan;
         color: white;
         i{
           float: right;
@@ -172,12 +189,6 @@ $cyan: #54b4e3;
       label{
         color: #424242;
         font-size: 12px;
-      }
-      .contact-details{
-        margin-left: -5px;
-        padding: 2px 5px;
-        background-color: #D3AF37;
-        border-radius: 4px;
       }
     } // end Personal-info 
     .edit-name{

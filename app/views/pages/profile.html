@@ -10,14 +10,44 @@
       <div class="online">online</div>
     </div>
 
-    <%= link_to buy_path(@user.username) do %>
-    <button class="btn hire-me">
-      <div class="icon-wrap">
-        <%= image_tag "profile/logo.png" %>
+    <div class="row interactions">
+      <div class="col-sm-6 hire">
+        <%= link_to buy_path(@user.username) do %>
+        <button class="btn hire-me">
+          <div class="icon-wrap">
+            <%= image_tag "profile/logo.png" %>
+          </div>
+          <p>Hire</p>
+        </button>
+        <% end %>
       </div>
-      <p>Hire Me!</p>
-    </button>
+      <div class="col-sm-6 chat">
+        <%= link_to "Send Message", class: "start-conversation",
+          "data-sid" => current_user.id, "data-rip" => @user.id do %>
+          <button class="btn hire-me">
+            <div class="icon-wrap">
+              <%= image_tag "profile/logo.png" %>
+            </div>
+            <p>Chat</p>
+          </button>
+        <% end %>
+      </div>
+    </div>
+
+    <% if current_user.owns(@user) %>
+      <div class="contact-details">
+        <h2>Contact card:</h2>
+        <div class="form-group">
+          <label for="">Phone Number:</label>
+          <input type="text" class="form-control" disabled="disabled" value="<%= @user.phone_number %>">
+        </div>
+        <div class="form-group">
+          <label for="">Email address:</label>
+          <input type="text" class="form-control" disabled="disabled" value="<%= @user.email %>">
+        </div>
+      </div>
     <% end %>
+  
 
     <!-- 
     <div class="rate">
@@ -90,13 +120,7 @@
           </p>
 
           <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
-          <% if current_user.owns(@user) %>
-            <div class="contact-details">
-              <p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-              <p><strong>Email address:</strong> <%= @user.email %></p>
-            </div>
-          <% end %>
-          
+
           <div class="description">
             <% if current_user == @user && current_user.long_description %>
               <%= simple_format current_user.long_description %>
