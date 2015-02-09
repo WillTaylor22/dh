@@ -32,14 +32,14 @@
   <% end %>
 
   <!-- Left: job form -->
-  <div class="job-form">
+  <div class="main-form">
     <%= form_for(@job) do |f| %>
       <%= f.hidden_field :user_id, value: current_user.id %>
     <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
  
       <ol class="numbers">
         <!-- Work required -->
-        <li class="numbers-li">
+        <li class="numbers-li category-and-address-section">
           <legend>Who do you need?</legend>
 
           <%= f.select :category, '<option value="Motorcyclist">Motorcyclist</option>
@@ -61,7 +61,7 @@
             <div class="col-sm-8">
               <%= f.label :postcode, "Near this postcode or address:" %>
               <div class="input-group">
-              <%= f.text_field :postcode, class: 'form-control', placeholder: 'E.g. SW1 3BH' %>
+              <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
               <span class="input-group-btn">
                 <button id="find-postcode" class="btn btn-default" type="button">Find</button>
               </span>
@@ -191,107 +191,107 @@
     <% end %>
   </div>
 
-<!-- Modal -->
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Sign up for free to post!</h4>
-      </div>
-      <div class="modal-body tab-content" role="tabpanel">
+  <!-- Modal -->
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign up for free to post!</h4>
+        </div>
+        <div class="modal-body tab-content" role="tabpanel">
 
 
-        <section role="tabpanel" class="tab-pane active" id="modal-signup">
-          <div class="row">
-            <div class="col-sm-6">
-              <button class="btn facebook-button">
-                <%= image_tag "facebook.png" %>
-                &nbsp;Sign up with Facebook
-              </button>
+          <section role="tabpanel" class="tab-pane active" id="modal-signup">
+            <div class="row">
+              <div class="col-sm-6">
+                <button class="btn facebook-button">
+                  <%= image_tag "facebook.png" %>
+                  &nbsp;Sign up with Facebook
+                </button>
+              </div>
+              <div class="col-sm-6 grey-border-left">
+                <p class="tiny-title">or sign up with email:</p>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true) do |f| %>
+                  <p id="signup-errors"></p>    
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
+                  </div>
+
+                  <%= f.submit "Create account", class: 'btn green-button' %>
+                <% end %>
+                <br>
+                <p class="tiny-title">or do you already have an account?<br><a href="#modal-login" aria-controls="modal-login" role="tab" data-toggle="tab">Login to existing account</a></p>
+
+              </div>
             </div>
-            <div class="col-sm-6 grey-border-left">
-              <p class="tiny-title">or sign up with email:</p>
-              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true) do |f| %>
-                <p id="signup-errors"></p>    
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-envelope"></i>
-                  <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
-                </div>
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-user"></i>
-                  <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
-                </div>
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-lock"></i>
-                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
-                </div>
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-lock"></i>
-                  <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
-                </div>
 
-                <%= f.submit "Create account", class: 'btn green-button' %>
-              <% end %>
-              <br>
-              <p class="tiny-title">or do you already have an account?<br><a href="#modal-login" aria-controls="modal-login" role="tab" data-toggle="tab">Login to existing account</a></p>
+          </section>
 
+          <section role="tabpanel" class="tab-pane" id="modal-login">
+            <div class="row">
+              <div class="col-sm-6">
+                <button class="btn facebook-button">
+                  <%= image_tag "facebook.png" %>
+                  &nbsp;Login with Facebook
+                </button>
+              </div>
+              <div class="col-sm-6 grey-border-left">
+                <p class="tiny-title">or login with email:</p>
+
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true ) do |f| %>
+                  <p id="login-errors"></p>    
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>
+                  </div>
+                  <div class="form-group password-wrap">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12345678' %>    
+                  </div>
+
+                  <div id="remember-me" class="checkbox">
+                    <label>
+                      <%= f.check_box :remember_me %> Remember me
+                    </label>
+                  </div>
+
+                  <div class="cf">
+                    <%= f.submit "Login", id: 'create-account', class: 'btn orange-button'  %>
+                    <a id="forgot-password" href="">Forgot password?</a>
+                  </div>
+                <!-- </form> -->
+                <% end %>
+
+                <hr>
+
+                <p id="no-account">Don't have an account?<a href="#modal-signup" aria-controls="modal-signup" role="tab" data-toggle="tab"> Sign up now!</a></p>
+              </div>
             </div>
-          </div>
-
-        </section>
-
-        <section role="tabpanel" class="tab-pane" id="modal-login">
-          <div class="row">
-            <div class="col-sm-6">
-              <button class="btn facebook-button">
-                <%= image_tag "facebook.png" %>
-                &nbsp;Login with Facebook
-              </button>
-            </div>
-            <div class="col-sm-6 grey-border-left">
-              <p class="tiny-title">or login with email:</p>
-
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true ) do |f| %>
-                <p id="login-errors"></p>    
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-user"></i>
-                  <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>
-                </div>
-                <div class="form-group password-wrap">
-                  <i class="glyphicon glyphicon-lock"></i>
-                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12345678' %>    
-                </div>
-
-                <div id="remember-me" class="checkbox">
-                  <label>
-                    <%= f.check_box :remember_me %> Remember me
-                  </label>
-                </div>
-
-                <div class="cf">
-                  <%= f.submit "Login", id: 'create-account', class: 'btn orange-button'  %>
-                  <a id="forgot-password" href="">Forgot password?</a>
-                </div>
-              <!-- </form> -->
-              <% end %>
-
-              <hr>
-
-              <p id="no-account">Don't have an account?<a href="#modal-signup" aria-controls="modal-signup" role="tab" data-toggle="tab"> Sign up now!</a></p>
-            </div>
-          </div>
 
 
-        </section>
+          </section>
 
-      </div>
-      <div class="modal-footer">
-        <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+        </div>
+        <div class="modal-footer">
+          <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Information to help with the form -->
   <div class="form-helpers">
@@ -310,8 +310,6 @@
 
     </div>
   </div>
-
-
 
 </div>
 

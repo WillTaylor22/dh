@@ -68,11 +68,16 @@ class User < ActiveRecord::Base
 
   ###### END LOGIN ###
 
+  ###### ONBOARDING ###
+
+  belongs_to :category
+
+  ###### END ONBOARDING ###
+
   ###### PROFILE ###
 
   before_save { |user| user.username = user.username.downcase }
   before_save :normalize_blank_values
-
 
   def normalize_blank_values
     attributes.each do |column, value|
@@ -127,8 +132,31 @@ class User < ActiveRecord::Base
 
   ###### END JOB ###
 
+  ###### CHAT ###
 
+  scope :all_except, ->(user) { where.not(id: user) }
 
+  has_many :conversations, :foreign_key => :sender_id
 
+  def self.viewed_by user
+    where(id: Profileview.where(viewer: user).map(&:viewee_id)).order(updated_at: :desc)
+  end
+
+  def self.conversed_with user
+    conversations = user.conversations
+    conversation_ids = conversations.map(&:sender_id)
+    conversation_ids += conversations.map(&:recipient_id)
+    conversation_ids.delete(user.id)
+    find_all_by_id(conversation_ids)
+  end
+
+  ###### END CHAT ###
+
+  ###### BUY ###
+
+  has_many :purchases, :foreign_key => :buyer_id
+  has_many :drivers, through: :purchases
+
+  ###### END BUY ###
 
 end

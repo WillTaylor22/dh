@@ -1,7 +1,9 @@
 Driverhunt::Application.routes.draw do
 
 
-
+  resources :conversations do
+    resources :messages
+  end
 
   resources :categories
 
@@ -15,6 +17,7 @@ Driverhunt::Application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks" }
   root 'homepage#home'
   get '/post-job', to: 'homepage#post_job', as: "post_job"
+  get '/job-finder', to: 'pages#onboarding', as: "onboarding"
   get '/dashboard', to: 'pages#projects'
   get '/chat', to: 'pages#chat'
   get '/drivers', to: 'pages#drivers'
@@ -22,6 +25,8 @@ Driverhunt::Application.routes.draw do
   get '/help', to: 'homepage#help'
   get '/u/:username', to: 'pages#profile', as: 'user'
   get '/job/:id', to: 'pages#job', as: 'job'
+  get '/buy/:username', to: 'pages#buy', as: 'buy'
+  post '/charge', to: 'stripe#charge', as: 'charge'
 
   # profile editing
   get '/edit_name', to: 'pages#edit_name', as: 'edit_name'

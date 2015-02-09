@@ -1,0 +1,74 @@
+<div id="buy" class="cf">
+  <!-- Left: job form -->
+  <div class="main-form">
+      <ol class="numbers">
+        <li class="numbers-li no-lead">
+          <legend>Choose driver <i class="glyphicon glyphicon-ok"></i></legend>
+          <div class="profile-card cf">
+              <%= image_tag @user.photo_url(:profile).to_s %>
+              <div class="details">
+                <h2><%= @user.full_name %></h2>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <% if @user.summary %><p><%= @user.summary %> <i class="glyphicon glyphicon-ok"></i></p><% end %>
+                    <p>3 miles away <i class="glyphicon glyphicon-ok"></i></p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p>Phone number <i class="glyphicon glyphicon-ok"></i></p>
+                    <p>Email address <i class="glyphicon glyphicon-ok"></i></p>
+                  </div>
+                </div>
+              </div>
+          </div>          
+        </li>
+        <li class="numbers-li">
+          <legend>Enter card details</legend>
+            <%= form_tag charge_path, method: "POST", id: 'payment-form' do %>
+              <span class="payment-errors">
+                <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+              </span>
+              <input class="hidden" type="text" name="user" value="<%= params[:username] %>">
+
+              <label>Card Number</label>
+              <input class="form-control" type="text" size="20" data-stripe="number" value="4242424242424242"/>
+              <br>
+
+              <div id="cvc-wrap">
+                <label for="cvc">CVC</label>
+                <input class="form-control vshort pull-right" id="cvc" type="text" size="4" data-stripe="cvc" value="123"/>
+              </div>
+
+              <label for="expiration">Expiration Date</label>
+              <div class="expirations">
+                <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month", class: "form-control", data: {stripe: "exp-month"}} %>
+                <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "form-control", data: {stripe: "exp-year"}} %>
+              </div>
+            <div id="post-project-div">
+              <p id="terms">
+                <button type="submit" class="btn btn-default blue-button">
+                Buy
+                </button>
+                By clicking 'Buy', you are indicating that you have read and agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
+            </div>
+            <% end %>
+      </ol>
+  </div> <!-- end Left -->
+
+  <!-- Right: Information to help with the form -->
+  <div class="form-helpers">
+    <div id="info-box">
+        <p class="header"><strong>FREE</strong> TO POST A PROJECT</p>
+        <h1>Try it today!</h1>
+        <ul>
+          <li>Get bids from skilled freelancers in minutes.</li>
+          <li>View freelancer profiles and feedback, then instantly chat with them!</li>
+          <li>With only a 3%* commission fee, your favorite freelancer can start working for you today!</li>
+          <li>Pay the freelancer once you're 100% satisfied.</li>
+        </ul>      
+        <p class="minimum-fees">* minimum fees may apply.</p>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>

@@ -6,8 +6,18 @@ class PagesController < ApplicationController
   def projects
   end
 
+  def onboarding
+  end
+
   def profile
     @user = User.find_by(:username => params[:username])
+
+    # save the profileview
+    unless current_user == @user
+      pv = Profileview.find_or_create_by(viewee: @user, viewer: current_user) 
+      pv.touch
+    end
+
     @experience_items = @user.experience_items.where(current: true).order(start_date: :desc)
     @experience_items += @user.experience_items.where(current: false).order(end_date: :desc)
     @qualification_items = @user.qualification_items.where(current: true).order(start_date: :desc)
@@ -15,6 +25,9 @@ class PagesController < ApplicationController
   end
 
   def chat
+    @viewed = User.viewed_by(current_user)
+    @conversed_with = User.conversed_with(current_user)
+    @users = User.all_except(current_user)
   end
 
   def drivers
@@ -48,6 +61,11 @@ class PagesController < ApplicationController
     end
     @jobs = @search.results
 
+  end
+
+  def buy
+    @user = User.find_by(:username => params[:username])
+    Purchase.find_or_create_by(:buyer => current_user, :driver => @user)
   end
 
   def edit_name

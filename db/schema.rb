@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205200314) do
+ActiveRecord::Schema.define(version: 20150209133502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20150205200314) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "conversations", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "experience_items", force: true do |t|
     t.integer  "user_id"
@@ -50,6 +60,38 @@ ActiveRecord::Schema.define(version: 20150205200314) do
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.text     "body"
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "profileviews", force: true do |t|
+    t.integer  "viewer_id"
+    t.integer  "viewee_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profileviews", ["viewee_id"], name: "index_profileviews_on_viewee_id", using: :btree
+  add_index "profileviews", ["viewer_id"], name: "index_profileviews_on_viewer_id", using: :btree
+
+  create_table "purchases", force: true do |t|
+    t.integer  "buyer_id"
+    t.integer  "driver_id"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "purchases", ["buyer_id"], name: "index_purchases_on_buyer_id", using: :btree
+  add_index "purchases", ["driver_id"], name: "index_purchases_on_driver_id", using: :btree
 
   create_table "qualification_items", force: true do |t|
     t.integer  "user_id"
@@ -108,8 +150,12 @@ ActiveRecord::Schema.define(version: 20150205200314) do
     t.string   "city"
     t.string   "country"
     t.string   "photo"
+    t.string   "stripe_customer_id"
+    t.string   "phone_number"
+    t.integer  "category_id"
   end
 
+  add_index "users", ["category_id"], name: "index_users_on_category_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

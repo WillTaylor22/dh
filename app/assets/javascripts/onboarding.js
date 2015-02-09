@@ -1,0 +1,3 @@
+$(".pages.onboarding").ready(function() {
+
+});

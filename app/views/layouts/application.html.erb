@@ -3,7 +3,9 @@
 <head>
   <title>Driverhunt</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
   <%= csrf_meta_tags %>
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
@@ -45,7 +47,7 @@
           <%= link_to "Profile", user_path(current_user.username.downcase) %>
         </li>
         <li>
-          <%= link_to "Inbox", chat_path %>
+          <%= link_to "My People", chat_path %>
         </li>
       </ul>
     </div>

@@ -1,0 +1,12 @@
+<li role="presentation">
+  <%= link_to "Send Message", class: "start-conversation",
+          "data-sid" => current_user.id, "data-rip" => user.id do %>
+    <%= image_tag user.photo_url(:profile).to_s %>
+    <div class="online-circle online"></div>
+    <p class="name">
+      <%= user.full_name.titleize %>
+      <span class="last-sent">Just now</span>
+    </p>
+    <p class="topic"><i class="glyphicons glyphicons-folder-open"></i> <%= user.summary %></p>
+  <% end %>
+</li>

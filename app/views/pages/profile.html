@@ -10,13 +10,14 @@
       <div class="online">online</div>
     </div>
 
-
+    <%= link_to buy_path(@user.username) do %>
     <button class="btn hire-me">
       <div class="icon-wrap">
         <%= image_tag "profile/logo.png" %>
       </div>
       <p>Hire Me!</p>
     </button>
+    <% end %>
     <!-- 
     <div class="rate">
       Rate: <strong>$17 USD</strong>/hour <a class="edit">[<i class="glyphicon glyphicon-pencil"></i> edit]</a>

@@ -1,0 +1,50 @@
+#buy{
+  .no-lead{
+    margin-top: 0;
+  }
+  .profile-card{
+    padding: 20px;
+    background-color: #D3AF37;
+    border-radius: 4px;
+    .details{
+      padding-left: 140px;
+      p, h2{ color: #333; }
+      h2{
+        margin-top: 0;
+      }
+    }
+    img{
+      border-radius: 4px;
+      float: left;
+      margin-right: 10px;
+      width: 100px;
+    }
+  }
+  #cvc-wrap{
+    float: right;
+    label{
+      display: block;
+      text-align: right; }
+  }
+  .short{
+    width: 70px;
+    float: left;
+  }
+  .vshort{
+    float: left;
+    width: 50px;
+  }
+  .hidden{
+    display: none;
+  }
+  .expirations{
+    select#card_month{
+      width: 130px;
+      float: left;
+    }
+    select#card_year{
+      float: left;
+      width: 100px;
+    }
+  }
+}
