@@ -3,7 +3,7 @@ $(".homepage.home").ready(function() {
   $( document ).ready(function() {
     // TEST
     $("#carousel").hide()
-    $("#work-signup").show()
+    $("#hire").show()
 
     $(".home-link").click(function(){
       $("#carousel").show()
@@ -33,6 +33,7 @@ $(".homepage.home").ready(function() {
       $("#login").show()
     })
   });
+
 });
 
 $( document ).ajaxComplete(function( event, xhr, settings ) {

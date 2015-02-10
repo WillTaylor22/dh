@@ -39,9 +39,9 @@
           <a href="#" class="header-text login-link">LOGIN</a>
           <a href="#" class="header-text signup-link">SIGN UP</a>
         <% end %>
-        <%= link_to post_job_path do %>
-          <button class="btn btn-default orange-button header-button">Post a Job Ad</button>
-        <% end %>
+        <%#= link_to post_job_path do %>
+          <button class="btn btn-default red-button large-button hire-link header-button">Post a Job Free</button>
+        <%# end %>
       </section>
 
     </header>
@@ -51,15 +51,15 @@
 
 
 <div id="carousel" class="carousel slide" data-ride="carousel">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if notice %><p class="notice"><%= notice %></p><% end %>
+  <% if alert %><p class="alert"><%= alert %></p><% end %>
   <div class="carousel-inner" role="listbox">
     <div id="carousel-1" class="item active">
       <div class="container">
-        <h1>Work Done Easy</h1>
-        <h2>Tell us what you need done and discover talented freelancers within minutes for just a fraction of the cost!</h2>
-        <button class="btn btn-default hire-work-buttons hire-link">Hire</button>
-        <button class="btn btn-default hire-work-buttons signup-link">Work</button>
+        <h1>Find Drivers</h1>
+        <h2>All the drivers in your community. Find in minutes and hire with no agency fees.</h2>
+        <button class="btn dark red-button hire-work-buttons hire-link">Hire</button>
+        <button class="btn dark red-button hire-work-buttons signup-link">Work</button>
       </div>
     </div>
   </div>
@@ -69,19 +69,19 @@
 
 <section id="hire">
   <div class="container">
-    <h1 class="homepage-header">Hire freelancers for a fraction of the cost!</h1>
+    <h1 class="homepage-header">Find drivers in no time!</h1>
 
     
     <div id="method-box-wrap">
       <div id="method-box" class="cf">
         <div class="method-item">
           <%= image_tag 'hire/job.png' %>
-          <p>Post your project within seconds</p>
+          <p>Post your job</p>
         </div>
         <div class="chevron">></div>
         <div class="method-item">
           <%= image_tag 'hire/people.png' %>
-          <p>Compare prices & select bidders</p>
+          <p>Compare drivers</p>
         </div>
         <div class="chevron">></div>
         <div class="method-item">
@@ -91,39 +91,35 @@
       </div>
     </div>
 
-    <form action="post-project" method="GET">
+    <form action="post-job" method="GET" class="category-and-address-section">
 
-      <select class="form-control">
-        <option>
-          Select a category
-          <span class="caret"></span>
-        </option>
-        <option>Websites IT & Software</option>
-        <option>Mobile</option>
-        <option>Writing</option>
-        <option>Design</option>
-        <option>Data Entry</option>
-        <option>Other</option>
+      <label for="other-category">I need...</label>     
+      <select name="category" id="job_category" name="category" class="form-control">
+        <option value="default">Select type</option>
+        <%= options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]} << ["Other...", nil], params[:category]) %>
       </select>
+      
+      <div id="other-wrap">
+        <br>
+        <label for="other-category">Other type of work:</label>
+        <input type="text" id="other-category" name="other_category" class="form-control">
+      </div>          
 
-      <div id="second-select-wrap">
-        <select id="second-select" class="form-control">
-          <option>
-            Select a category
-            <span class="caret"></span>
-          </option>
-          <option>Websites IT & Software</option>
-          <option>Mobile</option>
-          <option>Writing</option>
-          <option>Design</option>
-          <option>Data Entry</option>
-          <option>Other</option>
-        </select>
+      <div class="row" id="address-row">
+        <div class="col-xs-12">
+          <%= label :postcode, "Near this postcode or address:" %>
+          <div class="input-group">
+          <%= text_field_tag :postcode, nil, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
+          <span class="input-group-btn">
+            <button id="find-postcode" class="btn btn-default" type="button">Find</button>
+          </span>
+          </div>
+        </div>       
       </div>
 
-      <%= link_to post_job_path do %>
-        <button type="submit" id="hire-button" class="btn btn-default orange-button">Post Job Now</button>
-      <% end %>
+      <%#= link_to post_job_path do %>
+        <button type="submit" id="hire-button" class="btn btn-default red-button">Post Job</button>
+      <%# end %>
     </form>
 
 
@@ -221,7 +217,7 @@
       </div>
 
       <div class="cf">
-        <%= f.submit "Login", id: 'create-account', class: 'btn orange-button'  %>
+        <%= f.submit "Login", id: 'create-account', class: 'btn red-button'  %>
         <a id="forgot-password" href="">Forgot password?</a>
       </div>
     <!-- </form> -->
@@ -240,13 +236,13 @@
 <section id="how-it-works">
   <div class="container">
     <div class="how-text">
-      <h1 class="homepage-header">How Freelancer United Kingdom Works</h1>
-      <p>Post any project you need done and receive bids from our talented freelancers within minutes. Compare their proposals and price, then select the best freelancer to complete your project. Easy!</p>
+      <h1 class="homepage-header">How Driver Hunt Works</h1>
+      <p>Post any job opening you need done and receive interest from our talented London drivers within minutes. Compare their profiles and chat direct, then select the best driver to join your company. Easy!</p>
       <p class="benefits">What are your benefits?</p>
-      <ul>
-        <li>Receive hundreds of proposals to compare within minutes</li>
-        <li>Realtime chat, project collaboration and tracking of tasks</li>
-        <li>Pay for work safely and securely. Only release payment when 100% satisfied with the work provided!</li>
+      <ul class="tick">
+        <li>Find drivers from your community in London</li>
+        <li>Instant chat, job histories, and proof of passport, right to work and licenses.</li>
+        <li>Pay for your driver's details safely and securely. Only release payment for their contact details when you're 100% satisfied with the driver. Work with them forever at no extra cost!</li>
       </ul>
 
     </div>
@@ -261,20 +257,18 @@
 
 <section id="examples">
   <div class="container">
-    <h1 class="homepage-header">Hire Freelancers and Find Freelance Jobs Online</h1>    
+    <h1 class="homepage-header">Hire Professional and Talented Drivers</h1>    
     <div class="row">
-      <div class="col-sm-4"><%= image_tag 'examples/example-1.jpg' %></div>
-      <div class="col-sm-4"><%= image_tag 'examples/example-2.jpg' %></div>
-      <div class="col-sm-4"><%= image_tag 'examples/example-3.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-1.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-2.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-3.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-3.jpg' %></div>
     </div>
     <div class="row">
-      <div class="col-sm-4"><%= image_tag 'examples/example-4.jpg' %></div>
-      <div class="col-sm-4"><%= image_tag 'examples/example-5.jpg' %></div>
-      <div class="col-sm-4"><%= image_tag 'examples/example-6.jpg' %></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4 col-sm-push-2"><%= image_tag 'examples/example-7.jpg' %></div>
-      <div class="col-sm-4 col-sm-push-2"><%= image_tag 'examples/example-8.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-4.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-5.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-6.jpg' %></div>
+      <div class="col-sm-3"><%= image_tag 'examples/example-6.jpg' %></div>
     </div>
   </div>
 </section>
@@ -283,43 +277,39 @@
 
 <section id="get-started">
   <div class="container">
-    <h1 class="homepage-header">Get your project started now...</h1>    
+    <h1 class="homepage-header">Get your drivers now...</h1>    
     <div class="row">
       <div class="col-sm-3">
         <%= link_to post_job_path do %>
         <div class="icon-wrap">
-          <%= image_tag 'get-started/web.jpg', class: 'icon'  %>
+            <%= image_tag 'home/get-started/icon-1.png', class: 'icon'  %>
         </div>
         <% end %>
-        <p>Website Development</p>
-        <p class="price">Starting from £ 70</p>
+        <p>See their license online</p>
       </div>
       <div class="col-sm-3">
         <%= link_to post_job_path do %>
           <div class="icon-wrap">
-            <%= image_tag 'get-started/design.jpg', class: 'icon'  %>
+            <%= image_tag 'home/get-started/icon-2.png', class: 'icon'  %>
           </div>
         <% end %>
-        <p>Website Design</p>
-        <p class="price">Starting from £ 60</p>
+        <p>Chat to drivers direct</p>
       </div>
       <div class="col-sm-3">
         <%= link_to post_job_path do %>
           <div class="icon-wrap">
-            <%= image_tag 'get-started/seo.jpg', class: 'icon'  %>
+            <%= image_tag 'home/get-started/icon-3.png', class: 'icon'  %>
           </div>
         <% end %>
-        <p>SEO Marketing</p>
-        <p class="price">Starting from £ 100</p>
+        <p>No agency fees</p>
       </div>
       <div class="col-sm-3">
         <%= link_to post_job_path do %>
           <div class="icon-wrap">
-            <%= image_tag 'get-started/mobile.jpg', class: 'icon'  %>
+            <%= image_tag 'home/get-started/icon-4.png', class: 'icon'  %>
           </div>
         <% end %>
-        <p>Mobile App</p>
-        <p class="price">Starting from £ 130</p>
+        <p>Car, Bike, Taxi, Van, Lorry</p>
       </div>
     </div>
   </div>
@@ -336,16 +326,16 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
-          <h1>23,776</h1>
+          <h1><%= 1+rand(User.all.count) %></h1>
           <p>Users Online</p>
         </div>
         <div class="col-sm-4">
-          <h1>14,229,454</h1>
+          <h1><%= User.all.count %></h1>
           <p>Users</p>
         </div>
         <div class="col-sm-4">
-          <h1>6,986,530</h1>
-          <p>Projects</p>
+          <h1><%= Job.all.count %></h1>
+          <p>Jobs</p>
         </div>
       </div>
     </div>
@@ -353,15 +343,12 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-sm-2 col-sm-push-1">Find freelancers</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance projects</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance jobs</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance contests</div>
-      <div class="col-sm-2 col-sm-push-1">Hire Freelancers</div>
-    </div>
-    <div class="row">
-      <div class="com-sm-2 col-sm-push-5">Freelance work</div>
-      
+      <div class="col-sm-2">Find Drivers</div>
+      <div class="col-sm-2">Drivers Jobs</div>
+      <div class="col-sm-2">Post Jobs</div>
+      <div class="col-sm-2">Create Profile</div>
+      <div class="col-sm-2">Hire Drivers</div>
+      <div class="col-sm-2">Find Drivers</div>
     </div>
     <div class="row">
       Copyright 2015

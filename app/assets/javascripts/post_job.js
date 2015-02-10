@@ -12,4 +12,9 @@ $(".homepage.post_job").ready(function() {
     $("#job_employer_provides_vehicle").val(1)
   })
 
+  // for back button
+  if($("#job_employer_provides_vehicle").val() == 1){
+    $("#vehicle-provided-by-employer").trigger('click');
+  }
+
 });

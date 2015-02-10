@@ -34,7 +34,9 @@
   <!-- Left: job form -->
   <div class="main-form">
     <%= form_for(@job) do |f| %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
+      <% if current_user %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      <% end %>
     <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
  
       <ol class="numbers">
@@ -43,19 +45,19 @@
           <legend>Who do you need?</legend>
 
           <%= f.select :category_id,
-          options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil], :selected => resource.category_id), {}, {class: 'form-control', id: 'job_category'} %>
+          options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]} << ["Other...", nil], :selected => resource.category_id || params[:category]), {}, {class: 'form-control', id: 'job_category'} %>
 
           <div id="other-wrap">
             <br>
             <label for="other-category">Other type of work:</label>
-            <input type="text" id="other-category" name="other_category" class="form-control">
+            <input type="text" id="other-category" name="other_category" class="form-control" value="<%= params[:other_category] %>">
           </div>          
 
           <div class="row" id="address-row">
             <div class="col-sm-8">
               <%= f.label :postcode, "Near this postcode or address:" %>
               <div class="input-group">
-              <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
+              <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH', value: params[:postcode] %>
               <span class="input-group-btn">
                 <button id="find-postcode" class="btn btn-default" type="button">Find</button>
               </span>
@@ -74,7 +76,7 @@
             <%= f.label :name do %>
               Job Name: <a class="info">?</a>
             <% end %>
-            <%= f.text_field :name, class: 'form-control' %>
+            <%= f.text_field :name, value: (params[:category] != '' ? params[:category] : params[:other_category]), class: 'form-control' %>
           </div>
           <div id="skills-input" class="form-group">
             <label for="project-name">Enter some skills that relate to the job (comma seperated): <a class="info">?</a></label>
@@ -264,7 +266,7 @@
                   </div>
 
                   <div class="cf">
-                    <%= f.submit "Login", id: 'create-account', class: 'btn orange-button'  %>
+                    <%= f.submit "Login", id: 'create-account', class: 'btn red-button'  %>
                     <a id="forgot-password" href="">Forgot password?</a>
                   </div>
                 <!-- </form> -->

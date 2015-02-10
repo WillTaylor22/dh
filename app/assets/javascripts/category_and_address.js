@@ -33,9 +33,6 @@ $(".category-and-address-section").ready(function() {
   // for back button
   show_other();
   find_location_on_map();
-  if($("#job_employer_provides_vehicle").val() == 1){
-    $("#vehicle-provided-by-employer").trigger('click');
-  }
 
 
 });

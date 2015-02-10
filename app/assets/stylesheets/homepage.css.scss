@@ -2,7 +2,14 @@ $xlarge: 60px;
 $large: 22px;
 $medium: 18px;
 
+$header-height: 80px;
+$fold-height: 529px;
 
+$login-grey: #4d515a;
+$header-grey: #333;
+$how-text-grey: #5a5d66;
+$get-started-grey: #4b4e55;
+$red: #e2585d;
 // Shared
 
 
@@ -18,8 +25,8 @@ select{
 
 
 h1.homepage-header{
-  font-size: 36px;
-  color: #333333;
+  font-size: 32px;
+  color: $header-grey;
   font-weight: normal;
 }
 
@@ -28,12 +35,12 @@ h1.homepage-header{
 // Header
 
 .logo{
-  width: 164px;
+  width: 250px;
   margin-top: 15px;
 }
 
 .fixed-top{
-  height: 72px;
+  height: $header-height; // Also adjust margin-top of carousel
   background: white;
   background: rgba(255,255,255,.97);
   position: fixed;
@@ -46,17 +53,21 @@ h1.homepage-header{
   display: block;
   position: relative;
   .header-text{
-    font-size: 12px;
-    color: #4d515a;
+    font-size: 14px;
+    color: $login-grey;
     display: inline-block;
-    margin-top: 21px;
-    margin-right: 14px;
+    margin-top: 22px;
+    margin-right: 28px;
     padding: 10px;
   }
   .header-button{
     display: inline-block;
     float: right;
-    margin-top: 22px;
+    margin-top: 23px;
+    padding-left: 18px;
+    padding-right: 18px;
+    font-size: 14px;
+    height: 35px;
   }
   
 }
@@ -96,18 +107,18 @@ h1.homepage-header{
 // Carousel
 
 #carousel{
-  margin-top: 72px;
-  height: 578px;
+  margin-top: $header-height;
+  height: $fold-height;
   width: 100%;
   color: white;
   h1{
-    width: 50%;
+    width: 40%;
     margin-top: 126px;
     margin-bottom: 0px;
     font-size: $xlarge;
   }
   h2{
-    width: 50%;
+    width: 40%;
     margin-top: 14px;
     margin-bottom: 30px;
     font-weight: lighter;
@@ -124,8 +135,8 @@ h1.homepage-header{
   .hire-work-buttons{
     height: 60px;
     width: 140px;
-    border: 2px solid white;
-    background-color: transparent;
+    // border: 2px solid white;
+    // background-color: transparent;
     color: white;
     font-size: $large;
     margin-right: 12px;
@@ -144,7 +155,7 @@ h1.homepage-header{
 #hire{
   display: none;
   background-color: #F4F4F4;
-  margin-top: 72px;
+  margin-top: $header-height;
   h1{
     text-align: center;
     margin-top: 50px;
@@ -178,12 +189,27 @@ h1.homepage-header{
   form{
     width: 320px;
     margin: 0 auto 60px;
+
+    // .map-wrap{
+    //   text-align: center      
+    // }
+    #address-row label{
+      margin-top: 10px;
+    }
+    // img{
+    //   border-radius: 2px;
+    //   margin-top: 10px;
+    // }
+
     button{
       width: 100%;
     }
     
     #hire-button{
-      margin-top: 20px;
+      &.btn-default[disabled]{
+        background-color: #aaa;
+      }
+      margin-top: 50px;
       height: 55px;
       font-size: 18px;
       border-radius: 4px;
@@ -202,7 +228,7 @@ h1.homepage-header{
 
 #work-signup, #login{
   display: none;
-  margin-top: 72px;
+  margin-top: $header-height;
   text-align: center;
   h1{
     margin-top: 50px;
@@ -330,29 +356,45 @@ h1.homepage-header{
 // How it works
 
 #how-it-works{
-  height: 704px;
+  padding-top: 60px;
+  padding-bottom: 80px;
+  border-bottom: 1px solid #dadee0;
 
   .how-text{
     width: 40%;
     float: left;
     h1{
-      margin-top: 142px;
+      margin-top: 0;
       margin-bottom: 0;
     }
     p{
-      color: #5a5d66;
-      margin-top: 20px;
+      color: $header-grey;
+      margin-top: 40px;
       font-size: 15px;
-      .benefits{
-        font-weight: bold;
+      line-height: 23px;
+      &.benefits{
+        font-size: 24px;
+        margin-bottom: 20px;
+        // font-weight: bold;
       }
     }
   }
+  ul.tick{
+    padding-left: 15px;
+    list-style-type: none;
+    li {   
+      color: $header-grey;
+      padding-left: 22px;   
+      background:url('tick.png') no-repeat 0 0;
+      margin-bottom: 20px;
+    }
+  }
   .how-gif{
-    width: 60%;
+    width: 50%;
+    margin-left: 10%;
     float: left;
     padding-left: 100px;
-    padding-top: 200px;
+    // padding-top: 200px;
     #explainer{
       width: 100%;
     }
@@ -364,19 +406,30 @@ h1.homepage-header{
 // Examples
 
 #examples{
-  background-color: #eaeff3;
+  background-color: #dfebee;
+  padding-top: 70px;
   padding-bottom: 80px;
   h1{
-    margin-top: 82px;
+    margin-top: 0;
     text-align: center;
     margin-bottom: 46px;
   }
   img{
+    width: 100%;
     border-radius:0;
-    border: 7px solid white;
+    padding: 12px;
+    background-color: white;
+    // border: 120px solid white;
   }
   .row{
     margin-bottom: 25px;
+    .col-sm-3{
+      // padding-top: 10px;
+      // padding-bottom: 10px;
+      // background-color: white;
+      // padding-left: 25px;
+      // padding-right: 25px;
+    }
   }
 }
 
@@ -385,7 +438,6 @@ h1.homepage-header{
 // Get started
 
 #get-started{
-  padding-bottom: 115px;
   h1{
     text-align: center;
     margin-top: 70px;
@@ -393,28 +445,13 @@ h1.homepage-header{
   }
   .col-sm-3{
     text-align: center;
-    .icon-wrap{
-      margin: auto;
-      height: 152px;
-      width: 152px;
-      border: 2px solid #c8c9cc;
-      border-radius: 76px;
-      text-align: center;
-      margin-bottom: 46px;
-      img{
-        display: inline-block;
-        margin-top: 52px;
-      }
+    img{
+      display: inline-block;
     }
     p{
-      margin: 0 0 5px 0;
+      margin: 30px 0 0;
       font-size: 20px;
-      color: #4b4e55;
-    }
-    p.price{
-      margin: 0;
-      font-size: 15px;
-      color: #5cb8e4;
+      color: $get-started-grey;
     }
   }
 }

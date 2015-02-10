@@ -64,9 +64,6 @@ class PagesController < ApplicationController
       max_distance = 5 if params[:max_distance] == '5'
       max_distance = 10 if params[:max_distance] == '10'
       max_distance = 20 if params[:max_distance] == '20'
-      # @jobs = @jobs.where(:latitude != nil && :longitude != nil)
-      # @jobs = Job.all.within(5, :origin => [0, 0])
-      # apple = User.all.within(5, :origin => [0, 0])
       @jobs = @jobs.within(max_distance, origin: current_user)
     end
 
