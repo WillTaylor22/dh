@@ -16,9 +16,9 @@
 
 <div class="pp-container cf">
   
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
+  <% if notice %><p class="notice"><%= notice %></p><% end %>
+  <% if alert %><p class="alert"><%= alert %></p><% end %>
+  <% if !notice && !alert %><div class="filler"></div><% end %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
@@ -42,14 +42,8 @@
         <li class="numbers-li category-and-address-section">
           <legend>Who do you need?</legend>
 
-          <%= f.select :category, '<option value="Motorcyclist">Motorcyclist</option>
-              <option value="Van Driver">Van Driver</option>
-              <option value="Lorry Driver">Lorry Driver</option>
-              <option value="Taxi Driver">Taxi Driver</option>
-              <option value="Car Driver">Car Driver</option>
-              <option value="Push-Bike Cyclist">Push-Bike Cyclist</option>
-              <option id="other" value="Other">Other...</option>'.html_safe, {}, {class: 'form-control'}
-           %>
+          <%= f.select :category_id,
+          options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil], :selected => resource.category_id), {}, {class: 'form-control', id: 'job_category'} %>
 
           <div id="other-wrap">
             <br>

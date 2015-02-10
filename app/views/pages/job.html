@@ -3,7 +3,7 @@
   <button class="btn orange-button pull-right">Apply for Job</button>
 </div>
 <h1 id="job-title" class="h1-28"><%= @job.name %></h1>
-<h2 id="category"><%= @job.category %></h2>
+<h2 id="category"><%= @job.summary %></h2>
 <div id="job-activity">
   <div id="time-left">
     <p><%= time_ago_in_words(@job.created_at) %> ago</p>

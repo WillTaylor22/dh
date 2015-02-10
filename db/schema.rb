@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209133502) do
+ActiveRecord::Schema.define(version: 20150209202200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,12 +53,14 @@ ActiveRecord::Schema.define(version: 20150209133502) do
     t.boolean  "employer_provides_vehicle"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "category"
     t.string   "postcode"
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "category_id"
+    t.string   "summary"
   end
 
+  add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
 
   create_table "messages", force: true do |t|

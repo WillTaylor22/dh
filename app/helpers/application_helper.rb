@@ -11,4 +11,8 @@ module ApplicationHelper
     end
   end
 
+  def time_select time_string
+    'selected="selected"' if params[:age] == time_string
+  end
+
 end

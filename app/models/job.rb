@@ -1,9 +1,34 @@
+# == Schema Information
+#
+# Table name: jobs
+#
+#  id                        :integer          not null, primary key
+#  user_id                   :integer
+#  name                      :string(255)      not null
+#  description               :text
+#  employer_provides_vehicle :boolean
+#  created_at                :datetime
+#  updated_at                :datetime
+#  category                  :string(255)
+#  postcode                  :string(255)
+#  latitude                  :float
+#  longitude                 :float
+#
+
 class Job < ActiveRecord::Base
   belongs_to :user
+  belongs_to :category
   acts_as_taggable_on :skills
+  acts_as_mappable lng_column_name: :longitude, lat_column_name: :latitude
 
-  geocoded_by :postcode
+  geocoded_by :postcode #Fix!
   after_validation :geocode
+
+  # def geocode
+  #   geocoded = Geokit::Geocoders::GoogleGeocoder.geocode postcode
+  #   latitude = geocoded.lat
+  #   longitude = geocoded.lng
+  # end
   # reverse_geocoded_by :latitude, :longitude do |user,results|
   #   if geo = results.first
   #     user.city    = geo.city
@@ -37,6 +62,7 @@ class Job < ActiveRecord::Base
   end
 
   def bearing_from_user(user)
+    # bearing = (([latitude, longitude]).heading_to([user.latitude, user.longitude]) + 180)%360
     bearing = (bearing_to([user.latitude, user.longitude]) + 180)%360
 
     string = 'North' if bearing >= 337.5 && bearing < 22.5
@@ -51,12 +77,12 @@ class Job < ActiveRecord::Base
     string
   end
 
-  searchable do
-    text :name, :description, :boost => 4
-    text :category, :skill_list
-    time :created_at
-    latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
-  end
+  # searchable do
+  #   text :name, :description, :boost => 4
+  #   text :category, :skill_list
+  #   time :created_at
+  #   latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
+  # end
 
 
 end

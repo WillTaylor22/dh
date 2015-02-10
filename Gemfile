@@ -78,9 +78,12 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'state_machine'
 
 gem "better_errors" # better error page
+gem 'binding_of_caller' # errors page has irb
 gem 'annotate' # generates schema
 group :development do
   gem 'bullet'  # notifications about eager loading
 end
 gem 'hirb' # better irb
+
+gem 'geokit-rails'
 

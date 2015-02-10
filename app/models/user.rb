@@ -1,3 +1,38 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  created_at             :datetime
+#  updated_at             :datetime
+#  username               :string(255)
+#  provider               :string(255)
+#  uid                    :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
+#  summary                :string(255)
+#  long_description       :text
+#  postcode               :string(255)
+#  latitude               :float
+#  longitude              :float
+#  city                   :string(255)
+#  country                :string(255)
+#  photo                  :string(255)
+#  stripe_customer_id     :string(255)
+#  phone_number           :string(255)
+#  category_id            :integer
+#
+
 class User < ActiveRecord::Base
 
   ###### LOGIN ###
@@ -119,10 +154,12 @@ class User < ActiveRecord::Base
 
   ###### LIST ###
 
-  searchable do
-    text :summary, :boost => 5
-    text :first_name, :last_name, :long_description
-  end
+  acts_as_mappable lng_column_name: :longitude, lat_column_name: :latitude
+
+  # searchable do
+  #   text :summary, :boost => 5
+  #   text :first_name, :last_name, :long_description
+  # end
 
   ###### END LIST ###
 

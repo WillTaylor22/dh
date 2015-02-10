@@ -46,6 +46,8 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     bullet (4.14.4)
       activesupport (>= 3.0.0)
@@ -65,6 +67,7 @@ GEM
     coffee-script-source (1.8.0)
     cookiejar (0.3.2)
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -97,6 +100,11 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     geocoder (1.2.7)
+    geokit (1.9.0)
+      multi_json (>= 1.3.2)
+    geokit-rails (2.0.1)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     hashie (3.3.2)
     hike (1.2.3)
     hirb (0.7.3)
@@ -244,11 +252,13 @@ DEPENDENCIES
   acts-as-taggable-on
   annotate
   better_errors
+  binding_of_caller
   bullet
   carrierwave
   coffee-rails (~> 4.0.0)
   devise
   geocoder
+  geokit-rails
   hirb
   jbuilder (~> 1.2)
   jquery-rails
