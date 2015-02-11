@@ -1,5 +1,9 @@
 $cyan: #54b4e3;
 $blue: #379cd4;
+$red: #e2585d;
+$dark-red: #bd292d;
+$light-red: #ffdee0;
+
 
 .projects-box{
   margin-top: 60px;
@@ -62,7 +66,7 @@ $blue: #379cd4;
       border-top-right-radius: 7px;
     }
     li.active a{
-      background-color: $blue;
+      background-color: $dark-red;
       color: white;
     }
   } 
@@ -71,10 +75,10 @@ $blue: #379cd4;
     height: 35px;
     font-size: 14px;
     padding-top: 7px;
-    color: $blue;
+    color: $dark-red;
     &.header{
       color: white;
-      background-color: $blue;
+      background-color: $dark-red;
       text-align: center;
       padding-top: 5px;
       height: 30px;
@@ -82,7 +86,7 @@ $blue: #379cd4;
       border-top-right-radius: 7px;
     }
     &.odd{
-      background-color: #e4f3fc;
+      background-color: $light-red;
     }
     div{
       float: left;
@@ -113,7 +117,7 @@ $blue: #379cd4;
 .feedback{
   font-size: 13px;
   a{
-    color: $cyan;
+    color: $red;
   }
   border-bottom: 1px solid #dadada;
 }

@@ -1,18 +1,27 @@
 module ApplicationHelper
 
-  def sortable(column, title = nil)
-    title ||= column.downcase
-    direction = "desc" if column == sort_column && sort_direction == 'asc'
-    css_class = column == sort_column ? "current_#{sort_direction}" : nil
-    if direction && column == "created_at"
-      link_to title.titlecase, { sort: column, direction: direction }, {class: css_class}
+  def sortable(title, column)
+    direction = params[:direction] # asc or desc
+    sort = params[:sort] # distance or date
+
+    if sort == nil && column == "distance"
+      # no params? ascending if column == 'distance'
+      css_class = "link-to-descending active"
+    elsif sort == column && direction == 'asc'
+      # params? 'descending' iff sort == column and direction == ascending
+      css_class = "link-to-descending"
     else
-      link_to title.titlecase, { sort: column} , { class: css_class }
+      # most of the time, you want ascending
+      css_class = "link-to-ascending"
     end
+    css_class += " " + column
+    css_class += " active" if sort == column
+
+    content_tag 'a', title.titlecase, class: css_class
   end
 
-  def time_select time_string
-    'selected="selected"' if params[:age] == time_string
+  def select_me attribute, string
+    'selected="selected"' if params[attribute] == string
   end
 
 end

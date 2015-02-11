@@ -18,7 +18,7 @@
 
       
 
-      <div id="signup" class="col-sm-5">
+      <!-- <div id="signup" class="col-sm-5">
         <h2>Are you a <%= @category.name_of_user.titleize %>?</h2>
         <h3>You could be earning money working on these jobs!</h3>
         <button class="btn btn-default red-button">Signup Now</button>
@@ -27,7 +27,7 @@
           <li>19,867 <%= @category.vehicle %> Jobs to date</li>
           <li>£7,121,771 <%= @category.vehicle %> Jobs value to date</li>
         </ul>
-      </div>
+      </div> -->
     </div>
     <% else %>
   <h1 class="standard">All Jobs</h1>
@@ -65,6 +65,8 @@
   </div> -->
   
   <form id="jobs-filter" action="/jobs" method="get">
+    <input type="hidden" name="direction" value="<%= params[:direction] %>">
+    <input type="hidden" name="sort" value="<%= params[:sort] %>">
     <div id="search-box">
       <div id="first-search-row" class="cf">
         <nav id="pagination-wrap">
@@ -141,9 +143,9 @@
             <div class="right-box">
               <select id="age" name="age" class="form-control">
                 <option value="all">From all time</option>
-                <option value="month" <%= time_select('month') %>>In the last month</option>
-                <option value="week" <%= time_select('week') %>>In the last week</option>
-                <option value="day" <%= time_select('day') %>>In the last 24 hours</option>
+                <option value="month" <%= select_me('age', 'month') %>>In the last month</option>
+                <option value="week" <%= select_me('age', 'week') %>>In the last week</option>
+                <option value="day" <%= select_me('age', 'day') %>>In the last 24 hours</option>
               </select>
             </div>
           </div>
@@ -151,12 +153,12 @@
             <label class="main-label" for="distance">Max Distance</label>
             <div class="right-box">
               <select id="distance" name="max_distance" class="form-control">
-                <option value="1">1 mile</option>
-                <option value="3">3 miles</option>
-                <option value="5" selected="selected">5 miles</option>
-                <option value="10">10 miles</option>
-                <option value="20">20 miles</option>
-                <option value="all">All</option>
+                <option value="1" <%= select_me('max_distance', '1') %>>1 mile</option>
+                <option value="3" <%= select_me('max_distance', '3') %>>3 miles</option>
+                <option value="5" selected="selected" <%= select_me('max_distance', '5') %>>5 miles</option>
+                <option value="10" <%= select_me('max_distance', '10') %>>10 miles</option>
+                <option value="20" <%= select_me('max_distance', '20') %>>20 miles</option>
+                <option value="all" <%= select_me('max_distance', 'all') %>>All</option>
               </select>
             </div>
           </div>
@@ -202,14 +204,16 @@
         
       <div class="row jt-header cf">
         <div class="name">Job Name</div>
-        <div class="bids"><%= sortable 'distance' %></div>
+        <div class="bids"><%= sortable 'Distance', 'distance' %></div>
         <div class="skills">Skills</div>
-        <div class="started"><%= sortable 'created_at', 'Started' %></div>
+        <div class="started"><%= sortable 'Started', 'date' %></div>
         <div class="price">Who provides vehicle?</div>
       </div>
       <% @jobs.each_with_index do |job, index| %>
       <div class="row cf <%= "odd" if index % 2 == 1 %>">
-        <div class="name"><%= job.name %> - <%= job.summary %> - <%= job.description %></div>
+        <div class="name">
+          <%= link_to job.table_name, job_path(job.id) %>
+        </div>
         <div class="bids"><%= job.distance_from_user(current_user) || (current_user.latitude ? "location not given" : "add your location") %></div>
         <div class="skills"><%= job.skill_list %></div>
         <div class="started"><%= time_ago_in_words(job.created_at) %> ago</div>

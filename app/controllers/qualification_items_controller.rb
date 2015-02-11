@@ -36,6 +36,16 @@ class QualificationItemsController < ApplicationController
     redirect_to user_path current_user.username, :anchor => 'resume'
   end
 
+  # These two actions are the ajax ones used in the profile
+  def add
+    @qualification_item = QualificationItem.new
+  end
+
+  def change
+    @id = params[:id]
+    @qualification_item = QualificationItem.find(@id.to_i)
+  end
+
   private
     def set_qualification_item
       @qualification_item = QualificationItem.find(params[:id])

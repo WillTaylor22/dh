@@ -1,6 +1,7 @@
 $cyan: #54b4e3;
 $red: #e2585d;
 $dark-red: #bd292d;
+$light-red: #ffdee0;
 
 $footer-grey: #cecece;
 /**
@@ -33,11 +34,11 @@ $footer-grey: #cecece;
 
 a{
   cursor: pointer;
-  color: $cyan;
+  color: $dark-red;
 }
 
 .edit{
-  color: $cyan;
+  color: $dark-red;
   font-size: 14px;
   font-weight: normal;
 }
@@ -69,6 +70,11 @@ h4.standard{
   margin-bottom: 8px;
 }
 
+.pp-logo{
+  padding-top: 5px;
+  height: 40px;
+}
+
 .orange-button{
   border-radius: 2px;
   background-color: #f39735;
@@ -97,6 +103,12 @@ h4.standard{
     background-color: $red;
     color: white;
   }
+}
+
+.big{
+  font-size: 18px;
+  width: 190px;
+  height: 40px;
 }
 
 .green-button{
@@ -256,7 +268,7 @@ div {
         height: 30px;
         width: 30px;
         position: absolute;
-        background-color: $cyan;
+        background-color: $red;
         left: 0;
         border-radius: 15px;
         z-index: -1;
@@ -285,7 +297,7 @@ div {
           color: #c7c7c7;
           margin-right: 15px;
           &.active{
-            border-bottom: 2px solid $cyan;
+            border-bottom: 2px solid $red;
             &:hover{
               border-bottom: 2px solid #3c3f47;
             }
@@ -303,7 +315,7 @@ div {
             border: none;
             color: #aaa;
             &:hover{
-              color: $cyan;
+              color: $red;
               border:none;
               background-color: white;
             }
@@ -435,11 +447,11 @@ div {
     z-index: 2;
     width: 990px;
     border-bottom: 1px solid #cccccc;
-    ul{
+    ul.left-menu{
       padding-left: 0;
       height: 45px;
       margin-bottom:0;
-      li{
+      li.left-menu{
         height: 100%;
         display: inline-block; 
         list-style-type: none; 
@@ -456,6 +468,14 @@ div {
             background-color: white;
           }
         }
+      }
+    }
+    #user-dropdown-wrap{
+      margin-top: 2px;
+      margin-right: 10px;
+      button{
+        padding-top: 6px;
+        padding-bottom: 6px;
       }
     }
   }
@@ -567,3 +587,39 @@ div {
 }
 
 // End Footer
+
+// Tooltip
+
+[tooltip]:before {
+    /* needed - do not touch */
+    content: attr(tooltip);
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    font-size: 16px;
+    line-height: 20px;
+    width: 300px;
+
+    /* customizable */
+    // transition: all 0.15s fade;
+    padding: 10px;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px silver;    
+}
+
+[tooltip]:hover:before {
+    /* needed - do not touch */
+    opacity: 1;
+    
+    /* customizable */
+    background: $light-red;
+    margin-top: -150px;
+    margin-left: 20px;    
+}
+
+[tooltip]:not([tooltip-persistent]):before {
+    pointer-events: none;
+}
+
+// End tooltip

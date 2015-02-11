@@ -18,7 +18,7 @@ Driverhunt::Application.routes.draw do
   root 'homepage#home'
   get '/post-job', to: 'homepage#post_job', as: "post_job"
   get '/job-finder', to: 'pages#onboarding', as: "onboarding"
-  get '/dashboard', to: 'pages#projects'
+  get '/dashboard', to: 'pages#my_jobs'
   get '/chat', to: 'pages#chat'
   get '/drivers', to: 'pages#drivers'
   get '/jobs', to: 'pages#jobs'
@@ -29,16 +29,18 @@ Driverhunt::Application.routes.draw do
   post '/charge', to: 'stripe#charge', as: 'charge'
 
   # profile editing
-  get '/edit_name', to: 'pages#edit_name', as: 'edit_name'
-  get '/edit_summary', to: 'pages#edit_summary', as: 'edit_summary'
-  get '/edit_description', to: 'pages#edit_description', as: 'edit_description'
-  get '/edit_postcode', to: 'pages#edit_postcode', as: 'edit_postcode'
-  get '/upload_photo', to: 'pages#upload_photo', as: 'upload_photo'
-  get '/crop', to: 'pages#crop', as: 'crop'
-  get '/add_experience_item', to: 'pages#add_experience_item', as: 'add_experience_item'
-  get '/edit_experience_item/:id', to: 'pages#edit_experience_item', as: 'edit_experience_item'
-  get '/add_qualification_item', to: 'pages#add_qualification_item', as: 'add_qualification_item'
-  get '/edit_qualification_item/:id', to: 'pages#edit_qualification_item', as: 'edit_qualification_item'
+  get '/edit_name', to: 'profile#edit_name', as: 'edit_name'
+  get '/edit_summary', to: 'profile#edit_summary', as: 'edit_summary'
+  get '/edit_description', to: 'profile#edit_description', as: 'edit_description'
+  get '/edit_postcode', to: 'profile#edit_postcode', as: 'edit_postcode'
+  get '/upload_photo', to: 'profile#upload_photo', as: 'upload_photo'
+  get '/crop', to: 'profile#crop', as: 'crop'
+
+  # Ajax-interaction-based profile items
+  get '/add_experience_item', to: 'experience_items#add', as: 'add_experience_item'
+  get '/edit_experience_item/:id', to: 'experience_items#change', as: 'edit_experience_item'
+  get '/add_qualification_item', to: 'qualification_items#add', as: 'add_qualification_item'
+  get '/edit_qualification_item/:id', to: 'qualification_items#change', as: 'edit_qualification_item'
 
   resources :jobs
   resources :qualification_items

@@ -12,14 +12,14 @@
 
 <section class="header">
   <div class="pp-container">
-    <%= image_tag 'pp-logo.png', class: 'pp-logo' %>
+    <%= image_tag 'logo-white.png', class: 'pp-logo' %>
     <div id="top-menu">
-      <div class="input-group input-group-sm">
+      <!-- <div class="input-group input-group-sm">
         <input type="text" class="form-control" placeholder="Search">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
         </span>
-      </div><!-- /input-group -->
+      </div> -->
 
 
       <ul>
@@ -27,10 +27,10 @@
           <%= link_to "Post Job", post_job_path %>
         </li>
         <li>
-          <%= link_to "Find Freelancers", drivers_path %>
+          <%= link_to "Find Drivers", drivers_path %>
         </li>
         <li>
-          <%= link_to "Browse Projects", jobs_path %>
+          <%= link_to "Browse Job Posts", jobs_path %>
         </li>
         <li>
           <%= link_to "Help", help_path %>
@@ -39,16 +39,21 @@
       <div id="top-menu-right"></div>
     </div>
     <div id="second-menu">
-      <ul>
-        <li>
-          <%= link_to "My Projects", dashboard_path %>
+      <ul class="left-menu">
+        <li class="left-menu">
+          <%= link_to "My Job Posts", dashboard_path %>
         </li>
-        <li>
+        <li class="left-menu">
           <%= link_to "Profile", user_path(current_user.username.downcase) %>
         </li>
-        <li>
+        <li class="left-menu">
           <%= link_to "My People", chat_path %>
         </li>
+          <%#= link_to "My People", chat_path %>
+
+        <div class="pull-right">
+          <%= render "user_dropdown" %>
+        </div>
       </ul>
     </div>
   </div>

@@ -17,4 +17,10 @@ $(".homepage.post_job").ready(function() {
     $("#vehicle-provided-by-employer").trigger('click');
   }
 
+  $(".facebook-login").click(function(){
+    event.preventDefault();
+    $("#facebook").val("true")
+    $("#new_job").submit();
+  });
+
 });

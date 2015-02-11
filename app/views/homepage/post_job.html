@@ -10,7 +10,7 @@
 
 <section class="header blank-header">
   <div class="pp-container">
-    <%= image_tag 'pp-logo.png', class: 'pp-logo' %>
+    <%= image_tag 'logo-white.png', class: 'pp-logo post-job-logo' %>
   </div>
 </section>
 
@@ -33,10 +33,9 @@
 
   <!-- Left: job form -->
   <div class="main-form">
-    <%= form_for(@job) do |f| %>
-      <% if current_user %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-      <% end %>
+    <%= form_for @job do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.try(:id) %>
+      <input type="hidden" id="facebook" name="facebook">
     <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
  
       <ol class="numbers">
@@ -74,12 +73,12 @@
           <legend>Tell us more about the job</legend>
           <div class="form-group">
             <%= f.label :name do %>
-              Job Name: <a class="info">?</a>
+              Job Name: <a class="info" tooltip="How would you describe the job in a couple of words? For example, you could put 'Pizza Delivery', or 'PCO-Licensed Taxi Driver', or 'Help Me Move House'">?</a>
             <% end %>
-            <%= f.text_field :name, value: (params[:category] != '' ? params[:category] : params[:other_category]), class: 'form-control' %>
+            <%= f.text_field :name, value: (params[:category] != '' ? Category.job_name(params[:category]) : params[:other_category]), class: 'form-control' %>
           </div>
           <div id="skills-input" class="form-group">
-            <label for="project-name">Enter some skills that relate to the job (comma seperated): <a class="info">?</a></label>
+            <label for="project-name">Enter some skills that relate to the job (comma seperated): <a class="info" tooltip="You can type any skill you like here. Seperate skills with commas. To select one of the skills in the list, touch it or click it with your mouse.">?</a></label>
 
 
             <%= f.select :skill_list, '
@@ -106,7 +105,7 @@
           
           <div class="form-group">
             <%= f.label :description do %>
-              Describe your job in detail: <a class="info">?</a>
+              Describe your job in detail:
             <% end %>
             <%= f.text_area :description, class: 'form-control', placeholder: 'Describe your project here...', rows: '4' %>
           </div>
@@ -171,9 +170,9 @@
         <div id="post-project-div">
           <p id="terms">
           <% if user_signed_in? %>
-            <button class="btn btn-default blue-button">Post Job Now</button>
+            <button class="btn btn-default red-button big">Post Job Now</button>
           <% else %>
-            <button type="button" class="btn btn-default blue-button" data-toggle="modal" data-target="#login-modal">
+            <button type="button" class="btn btn-default big red-button" data-toggle="modal" data-target="#login-modal">
             Post Project Now
             </button>
           <% end %>
@@ -201,14 +200,14 @@
           <section role="tabpanel" class="tab-pane active" id="modal-signup">
             <div class="row">
               <div class="col-sm-6">
-                <button class="btn facebook-button">
+                <button class="btn facebook-button facebook-login">
                   <%= image_tag "facebook.png" %>
                   &nbsp;Sign up with Facebook
                 </button>
               </div>
               <div class="col-sm-6 grey-border-left">
                 <p class="tiny-title">or sign up with email:</p>
-                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true) do |f| %>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true, :authenticity_token => true) do |f| %>
                   <p id="signup-errors"></p>    
                   <div class="form-group">
                     <i class="glyphicon glyphicon-envelope"></i>
@@ -220,11 +219,11 @@
                   </div>
                   <div class="form-group">
                     <i class="glyphicon glyphicon-lock"></i>
-                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12341234' %>
                   </div>
                   <div class="form-group">
                     <i class="glyphicon glyphicon-lock"></i>
-                    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
+                    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password', value: '12341234' %>
                   </div>
 
                   <%= f.submit "Create account", class: 'btn green-button' %>
@@ -240,7 +239,7 @@
           <section role="tabpanel" class="tab-pane" id="modal-login">
             <div class="row">
               <div class="col-sm-6">
-                <button class="btn facebook-button">
+                <button class="btn facebook-button facebook-login">
                   <%= image_tag "facebook.png" %>
                   &nbsp;Login with Facebook
                 </button>
@@ -248,15 +247,15 @@
               <div class="col-sm-6 grey-border-left">
                 <p class="tiny-title">or login with email:</p>
 
-                <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true ) do |f| %>
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
                   <p id="login-errors"></p>    
                   <div class="form-group">
                     <i class="glyphicon glyphicon-user"></i>
-                    <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'wrftaylor@gmail.com' %>
+                    <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email', value: 'kilo@g.com' %>
                   </div>
                   <div class="form-group password-wrap">
                     <i class="glyphicon glyphicon-lock"></i>
-                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12345678' %>    
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12341234' %>    
                   </div>
 
                   <div id="remember-me" class="checkbox">
@@ -296,13 +295,13 @@
 
         <h1>Try it today!</h1>
         <ul>
-          <li>Get bids from skilled freelancers in minutes.</li>
-          <li>View freelancer profiles and feedback, then instantly chat with them!</li>
-          <li>With only a 3%* commission fee, your favorite freelancer can start working for you today!</li>
-          <li>Pay the freelancer once you're 100% satisfied.</li>
+          <li>Drivers near you and from your community.</li>
+          <li>View profiles, feedback, and chat direct to them.</li>
+          <li>No on-going agency fees. Once the driver is yours, he's yours!</li>
+          <li>Pay only a finders fee once you're 100% satisfied.</li>
           
         </ul>      
-        <p class="minimum-fees">* minimum fees may apply.</p>
+        <!-- <p class="minimum-fees">* minimum fees may apply.</p> -->
 
     </div>
   </div>

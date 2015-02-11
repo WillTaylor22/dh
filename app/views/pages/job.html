@@ -21,10 +21,10 @@
       <h4><%= @job.employer_provides_vehicle ? 'Us' : 'You' %></h4>
     </div>
 
-    <div id="job-budget">
+<!--     <div id="job-budget">
       <p>Project Budget (USD)</p>
       <h4>$10 - $30</h4>
-    </div>
+    </div> -->
 
   </div>
 
@@ -46,7 +46,9 @@
 </ul>
 
 <div class="cf">
-  <button class="btn red-button">Post a Job like this</button>
+  <%#= link_to post_job_path(name: @job.name, category: @job.category, description: @job.description, summary: @job.summary, skills: @job.skills) do %>
+    <!-- <button class="btn red-button">Post a Job like this</button> -->
+  <%# end %>
   <span class="pull-right"><strong>Job ID:</strong> <%= @job.id %></span>
 </div>
 
@@ -56,7 +58,7 @@
   <button class="btn red-button pull-right">Apply for Job</button>
 </div>
 
-<div class="applicant-table">
+<!-- <div class="applicant-table">
   <div class="applicant-table-header cf">
     <div class="applicant">Freelancers Bidding (12)</div>
     <div class="reputation">Reputation <i class="glyphicon glyphicon-chevron-down"></i></div>
@@ -125,7 +127,7 @@
       <p>in 1 days</p>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- 
@@ -304,8 +306,8 @@
       </div>
     </div>
     <p class="cf"><a href="" class="pull-right">Clear</a></p>
-  </div>
-
+  </div>-->
+<!-- -->
   <div id="jobs-table">
       
     <div class="row jt-header cf">
@@ -354,5 +356,5 @@
   </div>
 
 
- -->
+
 </div>

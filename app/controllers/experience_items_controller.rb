@@ -1,7 +1,7 @@
 class ExperienceItemsController < ApplicationController
   before_action :set_experience_item, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @experience_items = ExperienceItem.all
@@ -34,6 +34,15 @@ class ExperienceItemsController < ApplicationController
   def destroy
     @experience_item.destroy
     redirect_to user_path current_user.username, :anchor => 'resume'
+  end
+
+  def add
+    @experience_item = ExperienceItem.new
+  end
+
+  def change
+    @id = params[:id]
+    @experience_item = ExperienceItem.find(@id.to_i)
   end
 
   private

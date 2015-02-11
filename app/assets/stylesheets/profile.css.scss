@@ -1,4 +1,7 @@
 $cyan: #54b4e3;
+$red: #e2585d;
+$dark-red: #bd292d;
+
 
 #profile{
   margin-top: 22px;
@@ -40,9 +43,9 @@ $cyan: #54b4e3;
       }
     } // end Profile Picture
     .hire-me{
-      border: 1px solid $cyan;
+      border: 1px solid $red;
       padding: 0;
-      background-color: $cyan;
+      background-color: $red;
       height: 64px;
       width: 100%;
       margin-top: 10px;
@@ -58,8 +61,8 @@ $cyan: #54b4e3;
         width: 62px;
         height: 100%;
         background-color: white;
-        padding-left: 7px;
-        padding-top: 18px;
+        padding-left: 2px;
+        padding-top: 14px;
         position: relative;
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
@@ -74,8 +77,8 @@ $cyan: #54b4e3;
           height: 18px;
           width: 9px;
           border-left: 9px solid white;
-          border-top: 9px solid $cyan;
-          border-bottom: 9px solid $cyan;
+          border-top: 9px solid $red;
+          border-bottom: 9px solid $red;
         }
       }
     } // end Hire me
@@ -143,7 +146,7 @@ $cyan: #54b4e3;
       .active a{
         // border-radius: 7px;
         border: none;
-        background-color: $cyan;
+        background-color: $red;
         color: white;
         i{
           float: right;
@@ -266,7 +269,7 @@ $cyan: #54b4e3;
       .cancel-edit-experience, .cancel-edit-qualification{
         display: inline-block;
         margin-left: 30px;
-        color: $cyan;
+        color: $red;
         cursor: pointer;
         &:hover{
           text-decoration: underline;
@@ -293,7 +296,7 @@ $cyan: #54b4e3;
       }
       .add-item{
         float: right;
-        color: $cyan;
+        color: $red;
         font-weight: normal;
       }
       a.empty-section{

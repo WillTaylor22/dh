@@ -65,11 +65,10 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
 
+    puts "In self.from_omniauth"
 
-    puts "Getting user from omniauth"
-    puts auth.info.to_yaml
-
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    # u = User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.username = auth.info.first_name.downcase + auth.info.last_name.downcase + '-' + Devise.friendly_token[0,4].downcase
@@ -78,11 +77,18 @@ class User < ActiveRecord::Base
       user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
       # user.photo = "Banana"
+      puts "auth.info.image"
+      puts user.photo
       user.photo = (auth.info.image + "?type=large").gsub("­http","htt­ps")
+      puts "user.photo right after"
+      puts user.photo
     end
+
+    # puts u.photo
 
     # puts "output is:"
     # puts where(provider: auth.provider, uid: auth.uid).first
+    # u.destroy
   end
 
   def self.new_with_session(params, session)
@@ -118,6 +124,26 @@ class User < ActiveRecord::Base
     attributes.each do |column, value|
       self[column].present? || self[column] = nil
     end
+  end
+
+  def has_been_viewed_by user
+    # self is person being viewed, user does viewing
+    unless user == self
+      pv = Profileview.find_or_create_by(viewee: self, viewer: user) 
+      pv.touch
+    end
+  end
+
+  def ordered_experience_items
+    items = self.experience_items.where(current: true).order(start_date: :desc)
+    items += self.experience_items.where(current: false).order(end_date: :desc)
+    items
+  end
+
+  def ordered_qualification_items
+    items = self.qualification_items.where(current: true).order(start_date: :desc)
+    items += self.qualification_items.where(current: false).order(end_date: :desc)
+    items
   end
 
   # Getting latitude and longitude

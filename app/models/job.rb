@@ -19,23 +19,13 @@ class Job < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   acts_as_taggable_on :skills
-  acts_as_mappable lng_column_name: :longitude, lat_column_name: :latitude
 
   geocoded_by :postcode #Fix!
   after_validation :geocode
 
-  # def geocode
-  #   geocoded = Geokit::Geocoders::GoogleGeocoder.geocode postcode
-  #   latitude = geocoded.lat
-  #   longitude = geocoded.lng
-  # end
-  # reverse_geocoded_by :latitude, :longitude do |user,results|
-  #   if geo = results.first
-  #     user.city    = geo.city
-  #     user.country = geo.country_code
-  #   end
-  # end
-  # after_validation :reverse_geocode  # auto-fetch address
+  acts_as_mappable lng_column_name: :longitude, lat_column_name: :latitude
+
+  #### JOB DETAIL ###
 
   def distance_from_user(user)
     if user.latitude
@@ -57,11 +47,12 @@ class Job < ActiveRecord::Base
     if user.latitude && latitude
       distance_from([user.latitude, user.longitude])
     else
-      99999
+      nil
     end
   end
 
   def bearing_from_user(user)
+    return nil if !latitude
     # bearing = (([latitude, longitude]).heading_to([user.latitude, user.longitude]) + 180)%360
     bearing = (bearing_to([user.latitude, user.longitude]) + 180)%360
 
@@ -77,12 +68,60 @@ class Job < ActiveRecord::Base
     string
   end
 
-  # searchable do
-  #   text :name, :description, :boost => 4
-  #   text :category, :skill_list
-  #   time :created_at
-  #   latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
-  # end
+  ### end JOB DETAILS ###
+
+  ### JOB SEARCH ###
+
+  def table_name
+    string = self.name
+    string += " - " + self.summary if self.summary
+    string += " - " + self.description if self.description
+    return string[0...100] + "..." if string.length > 100
+    string
+  end
+
+  def self.filter_by_params params, user
+    @jobs = self.all
+    if params[:category]
+      category = Category.where("lower(vehicle) = ?", params[:category].downcase).first
+      @jobs = @jobs.where(category: category) if category.present?
+    end
+    if params[:age] && params[:age] != 'all'
+      time_from = 1.month.ago if params[:age] == 'month'
+      time_from = 1.week.ago if params[:age] == 'week'
+      time_from = 1.day.ago if params[:age] == 'day'
+      @jobs = @jobs.where('created_at > ?', time_from) 
+    end
+    if params[:max_distance] && params[:max_distance] != 'all'
+      max_distance = 1 if params[:max_distance] == '1'
+      max_distance = 3 if params[:max_distance] == '3'
+      max_distance = 5 if params[:max_distance] == '5'
+      max_distance = 10 if params[:max_distance] == '10'
+      max_distance = 20 if params[:max_distance] == '20'
+      @jobs = @jobs.within(max_distance, origin: user)
+    end
+    if params[:search] && params[:search] != ""
+      params[:search].split.each do |query|
+        @jobs = @jobs.where("name @@ :q or description @@ :q", q: "#{query}")
+      end
+    end
+    if params[:sort] != 'date' && user.latitude # distance or default
+      # default direction is ascending
+      if params[:direction] == 'desc'      
+        @jobs = @jobs.by_distance(origin: user).reverse_order
+      else
+        @jobs = @jobs.by_distance(origin: user)
+      end
+    end
+    if params[:sort] == "date" || !user.latitude
+      if params[:direction] == 'desc'      
+        @jobs = @jobs.order(:created_at)
+      else
+        @jobs = @jobs.order(:created_at).reverse_order
+      end
+    end
+    @jobs
+  end
 
 
 end

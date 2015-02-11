@@ -12,36 +12,18 @@
 <div class="fixed-top">
   <div class="container">
     <header>
-      <a href="#" class="home-link"><%= image_tag 'logo.jpeg', class: 'logo' %></a>
+      <a href="#" class="home-link"><%= image_tag 'logo.png', class: 'logo' %></a>
 
       <section class="login-prompt">
         <% if user_signed_in? %>
-        <div class="dropdown" id="user-dropdown-wrap">
-          <button class="btn btn-default dropdown-toggle" type="button" id="user-dropdown" data-toggle="dropdown" aria-expanded="true">
-            <i class="glyphicon glyphicon-user"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user-dropdown">
-            <li role="presentation">
-              <p class="user-name"><%= current_user.email %>  </p>          
-            </li>
-            <li role="presentation">
-              <%= link_to 'My profile', user_path(current_user.username.downcase), role: "menuitem", tabindex: '-1' %>
-            </li>
-            <li role="presentation">
-              <%= link_to "Settings", edit_user_registration_path , role: "menuitem", tabindex: '-1' %>
-            </li>
-            <li role="presentation">
-              <%= link_to "Logout", destroy_user_session_path, :method => :delete, role: "menuitem", tabindex: '-1' %>
-            </li>
-          </ul>
-        </div>
+          <%= render "user_dropdown" %>
         <% else %>
           <a href="#" class="header-text login-link">LOGIN</a>
           <a href="#" class="header-text signup-link">SIGN UP</a>
         <% end %>
-        <%#= link_to post_job_path do %>
+        <a href="#">
           <button class="btn btn-default red-button large-button hire-link header-button">Post a Job Free</button>
-        <%# end %>
+        </a>
       </section>
 
     </header>
@@ -95,7 +77,7 @@
 
       <label for="other-category">I need...</label>     
       <select name="category" id="job_category" name="category" class="form-control">
-        <option value="default">Select type</option>
+        <option value="default">Select type of driver</option>
         <%= options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]} << ["Other...", nil], params[:category]) %>
       </select>
       
@@ -110,9 +92,6 @@
           <%= label :postcode, "Near this postcode or address:" %>
           <div class="input-group">
           <%= text_field_tag :postcode, nil, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
-          <span class="input-group-btn">
-            <button id="find-postcode" class="btn btn-default" type="button">Find</button>
-          </span>
           </div>
         </div>       
       </div>
@@ -123,7 +102,7 @@
     </form>
 
 
-    <a id="looking-for-work" class="signup-link" href="#">Looking for work?</a>
+    <a href="#" id="looking-for-work" class="signup-link">Looking for work?</a>
   </div>
 </section>
 
@@ -248,7 +227,7 @@
     </div>
 
     <div class="how-gif hire-link">
-      <%= image_tag 'gif.png', id: 'explainer' %>
+      <%= image_tag 'gif.gif', id: 'explainer' %>
     </div>
   </div>
 </section>

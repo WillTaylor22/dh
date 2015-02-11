@@ -1,5 +1,8 @@
 $darkblue: #005E87;
 $blue: #379cd4;
+$red: #e2585d;
+$dark-red: #bd292d;
+$light-red: #ffdee0;
 
 #jobs{
   h1{
@@ -148,7 +151,7 @@ $blue: #379cd4;
       padding-top: 7px;
       padding-bottom: 7px;
 
-      color: $blue;
+      color: $red;
       &.jt-header{
         height: 33px;
         min-height: 33px;
@@ -156,7 +159,7 @@ $blue: #379cd4;
         a{
           color: white;
         }
-        background-color: $darkblue;
+        background-color: $dark-red;
         text-align: center;
         padding-top: 5px;
         padding-bottom: 0px;
@@ -166,29 +169,31 @@ $blue: #379cd4;
         .price{
           text-align: center;
         }
-        .current_asc{
-          position: relative;
-          padding-right: 10px;
-          &:after{
-            font-family: 'Glyphicons Halflings';
-            content: '\e094';
-            position: absolute;
-            right: -8px;
+        .active{
+          &.link-to-ascending{
+            position: relative;
+            padding-right: 10px;
+            &:after{
+              font-family: 'Glyphicons Halflings';
+              content: '\e093'; // 93 = up arrow (which actually means is currently descending)
+              position: absolute;
+              right: -8px;
+            }
           }
-        }
-        .current_desc{
-          position: relative;
-          padding-right: 8px;
-          &:after{
-            font-family: 'Glyphicons Halflings';
-            content: '\e093';
-            position: absolute;
-            right: -8px;
+          &.link-to-descending{
+            position: relative;
+            padding-right: 8px;
+            &:after{
+              font-family: 'Glyphicons Halflings';
+              content: '\e094';
+              position: absolute;
+              right: -8px;
+            }
           }
         }
       }
       &.odd{
-        background-color: #e4f3fc;
+        background-color: $light-red;
       }
       div{
         float: left;
