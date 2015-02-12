@@ -123,46 +123,98 @@
               <li role="presentation"><a id="vehicle-provided-by-employer" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HUNTER PROVIDES VEHICLE</a></li>
             </ul>
             <%= f.hidden_field :employer_provides_vehicle, value: 0 %>
-
-            <!-- Tab panes -->
-            <!-- <div class="tab-content cf">
-              <div role="tabpanel" class="tab-pane active" id="fixed">
-                <select class="form-control currency">
-                  <option>GBP</option>
-                </select>
-                <select class="form-control project-size">
-                  <option>Very small project (£250 - £750 GBP)</option>
-                </select>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="hour">
-                <div class="block cf">
-                  <select class="form-control currency">
-                    <option>GBP</option>
-                  </select>
-                  <select class="form-control project-size">
-                    <option>Standard (£10 - £15 GBP)</option>
-                  </select>
-                </div>
-
-                <label id="duration-label" class="block" for="duration">Project duration</label>
-                <select name="duration" id="duration" class="form-control">
-                  <option>1 week - 4 weeks</option>
-                </select>
-                <label id="hours-label" class="block" for="hours-required">Hours of work required</label>
-                  <input id="hours-known" type="radio" name="hours-required" value="known">
-                    <input type="text" class="form-control" id="hours-input"><span> Hours of work per </span><select name="hours-required" id="time-select" class="form-control">
-                      <option>Week</option>
-                      <option>Month</option>
-                    </select>
-                  <input type="radio" id="hours-unknown" name="hours-required" value="unknown"><label id="hours-unknown-label" for="hours-unknown">I'm not sure</label>
-
-                
-              </div>
-            </div> -->
-
           </div>
 
         </li>
+
+        <li class="numbers-li budget">
+          <legend>Which days do you need drivers on?</legend>
+
+          <%= hidden_field_tag "job[day_ids][]", nil %>
+          <% for day in Day.all %>
+          <div>
+            <%= check_box_tag "job[day_ids][]", day.id, true, id: dom_id(day) %>
+            <%= label_tag dom_id(day), day.name %>
+          </div>
+          <% end %>
+        </li>
+
+        <li class="numbers-li budget">
+          <legend>Which shifts do you need?</legend>
+
+          <%= hidden_field_tag "job[shiftslot_ids][]", nil %>
+          <% for shiftslot in Shiftslot.all %>
+          <div>
+            <%= check_box_tag "job[shiftslot_ids][]", shiftslot.id, true, id: dom_id(shiftslot) %>
+            <%= label_tag dom_id(shiftslot), shiftslot.name %>
+          </div>
+          <% end %>
+        </li>
+
+        <li class="numbers-li budget">
+          <legend>How much do you pay them?</legend>
+
+          <div role="tabpanel" class="payment-tabs">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active">
+                <a id="hour-button" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">
+                  EXACT WAGE
+                </a>
+              </li>
+              <li role="presentation">
+                <a id="range-button" href="#range" aria-controls="range" role="tab" data-toggle="tab">
+                  RANGE</a>
+                </li>
+              <li role="presentation">
+                <a id="nowage-button" href="#nowage" aria-controls="nowage" role="tab" data-toggle="tab">
+                  DO NOT INCLUDE WAGE
+                </a>
+              </li>
+            </ul>
+            <%= f.hidden_field :rate_not_included, value: '0' %>
+
+            <!-- Tab panes -->
+            <div class="tab-content cf">
+
+              <div role="tabpanel" class="tab-pane active" id="hour">
+                <div class="form-group cf">
+                  <%= label :rate_hourly_pounds, "Hourly wage:" %>
+                  <span>£</span><%= f.text_field :rate_hourly_pounds, class: 'form-control vshort', maxlength: '3' %><span>:</span>
+                  <%= f.text_field :rate_hourly_pence, class: 'form-control vshort', maxlength: '2' %><span>p</span>
+                </div>
+                <div class="form-group cf">
+                  <%= label :rate_commission_pounds, "Commission per delivery:" %>
+                  <span>£</span><%= f.text_field :rate_commission_pounds, class: 'form-control vshort', maxlength: '6' %><span>:</span>
+                  <%= f.text_field :rate_commission_pence, class: 'form-control vshort', maxlength: '2' %><span>p</span>
+                </div>
+              </div>
+
+              <div role="tabpanel" class="tab-pane cf" id="range">
+                <div class="pull-left">
+                  <%= label :rate_min, "Minimum - Maximum:" %>
+                  <span>£</span><%= f.text_field :rate_min, class: 'form-control short' %><span>&nbsp;- £</span><%= f.text_field :rate_max, class: 'form-control short' %>
+                </div>
+                <div class="pull-left each-wrap">
+                  <label for="job[rate_interval]">&nbsp;</label>
+                  <select name="job[rate_interval]" id="job[rate_interval]" class="form-control">
+                    <option value="Day">Daily</option>
+                    <option value="Week" selected="selected">Weekly</option>
+                    <option value="Month">Monthly</option>
+                    <option value="Year">Annually</option>
+                  </select>
+                </div>
+              </div>
+
+              <div role="tabpanel" class="tab-pane cf" id="nowage">
+              </div>
+
+            </div>
+          </div>
+
+        </li>
+        
         <!-- Upsell -->
         <!-- <li>
           <legend>Get the most from your project! (optional)</legend>

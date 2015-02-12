@@ -28,9 +28,9 @@
         <td><%= job.postcode %></td>
         <td><%= job.longitude %></td>
         <td><%= job.latitude %></td>
-        <td><%= link_to 'Show', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-        <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', admin_job_path(job) %></td>
+        <td><%= link_to 'Edit', edit_admin_job_path(job) %></td>
+        <td><%= link_to 'Destroy', admin_job_path(job), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,4 +38,4 @@
 
 <br>
 
-<%= link_to 'New Job', new_job_path %>
+<%= link_to 'New Job', new_admin_job_path %>

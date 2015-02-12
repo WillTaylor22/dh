@@ -112,6 +112,8 @@ class User < ActiveRecord::Base
   ###### ONBOARDING ###
 
   belongs_to :category
+  has_and_belongs_to_many :shiftslots
+  has_and_belongs_to_many :days
 
   ###### END ONBOARDING ###
 
@@ -211,6 +213,10 @@ class User < ActiveRecord::Base
     conversation_ids += conversations.map(&:recipient_id)
     conversation_ids.delete(self.id)
     User.find_all_by_id(conversation_ids)
+  end
+
+  def responsiveness
+    '12 hours'
   end
 
   ###### END CHAT ###

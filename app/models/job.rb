@@ -18,7 +18,11 @@
 class Job < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
+  has_and_belongs_to_many :shiftslots
+  has_and_belongs_to_many :days
   acts_as_taggable_on :skills
+
+  before_save :update_summary
 
   geocoded_by :postcode #Fix!
   after_validation :geocode
@@ -123,5 +127,9 @@ class Job < ActiveRecord::Base
     @jobs
   end
 
+  private
+  def update_summary
+    self.summary = category.name_of_user if !category.nil?
+  end
 
 end

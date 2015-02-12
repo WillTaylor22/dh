@@ -295,46 +295,7 @@
 </section>
 
 <!-- Footer -->
-
-<section id="footer">
-  
-  <!-- Counter -->
-
-  <section id="counter">
-    <div class="counter-left"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-          <h1><%= 1+rand(User.all.count) %></h1>
-          <p>Users Online</p>
-        </div>
-        <div class="col-sm-4">
-          <h1><%= User.all.count %></h1>
-          <p>Users</p>
-        </div>
-        <div class="col-sm-4">
-          <h1><%= Job.all.count %></h1>
-          <p>Jobs</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-2">Find Drivers</div>
-      <div class="col-sm-2">Drivers Jobs</div>
-      <div class="col-sm-2">Post Jobs</div>
-      <div class="col-sm-2">Create Profile</div>
-      <div class="col-sm-2">Hire Drivers</div>
-      <div class="col-sm-2">Find Drivers</div>
-    </div>
-    <div class="row">
-      Copyright 2015
-    </div>
-  </div>
-
-</section>
+<%= render 'footer' %>
 
 
 </body>

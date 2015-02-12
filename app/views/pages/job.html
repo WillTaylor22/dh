@@ -45,11 +45,29 @@
   <% end %>
 </ul>
 
+<h2 class="standard">Shifts required:</h2>
+<% if @job.shiftslots %>
+  <ul>
+    <% @job.shiftslots.each do |ss| %>
+      <li><%= ss.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2 class="standard">Days required:</h2>
+<% if @job.days %>
+  <ul>
+    <% @job.days.each do |d| %>
+      <li><%= d.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class="cf">
   <%#= link_to post_job_path(name: @job.name, category: @job.category, description: @job.description, summary: @job.summary, skills: @job.skills) do %>
     <!-- <button class="btn red-button">Post a Job like this</button> -->
   <%# end %>
-  <span class="pull-right"><strong>Job ID:</strong> <%= @job.id %></span>
+  <span class="pull-right"><strong>Job ID:</strong> <%= @job.id + 11337 %></span>
 </div>
 
 <div class="thick-line"></div>
@@ -307,7 +325,7 @@
     </div>
     <p class="cf"><a href="" class="pull-right">Clear</a></p>
   </div>-->
-<!-- -->
+<!-- 
   <div id="jobs-table">
       
     <div class="row jt-header cf">
@@ -353,7 +371,7 @@
       <div class="price">£165 - 498</div>
     </div>
 
-  </div>
+  </div>-->
 
 
 

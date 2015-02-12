@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209202200) do
+ActiveRecord::Schema.define(version: 20150211233904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,24 @@ ActiveRecord::Schema.define(version: 20150209202200) do
 
   add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+
+  create_table "days", force: true do |t|
+    t.string "name"
+  end
+
+  create_table "days_jobs", id: false, force: true do |t|
+    t.integer "day_id"
+    t.integer "job_id"
+  end
+
+  add_index "days_jobs", ["day_id", "job_id"], name: "index_days_jobs_on_day_id_and_job_id", unique: true, using: :btree
+
+  create_table "days_users", id: false, force: true do |t|
+    t.integer "day_id"
+    t.integer "user_id"
+  end
+
+  add_index "days_users", ["day_id", "user_id"], name: "index_days_users_on_day_id_and_user_id", unique: true, using: :btree
 
   create_table "experience_items", force: true do |t|
     t.integer  "user_id"
@@ -58,10 +76,25 @@ ActiveRecord::Schema.define(version: 20150209202200) do
     t.float    "longitude"
     t.integer  "category_id"
     t.string   "summary"
+    t.integer  "rate_hourly_pounds"
+    t.integer  "rate_hourly_pence"
+    t.integer  "rate_commission_pounds"
+    t.integer  "rate_commission_pence"
+    t.boolean  "rate_not_included"
+    t.integer  "rate_max"
+    t.integer  "rate_min"
+    t.string   "rate_interval"
   end
 
   add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "jobs_shiftslots", id: false, force: true do |t|
+    t.integer "job_id"
+    t.integer "shiftslot_id"
+  end
+
+  add_index "jobs_shiftslots", ["job_id", "shiftslot_id"], name: "index_jobs_shiftslots_on_job_id_and_shiftslot_id", unique: true, using: :btree
 
   create_table "messages", force: true do |t|
     t.text     "body"
@@ -105,6 +138,19 @@ ActiveRecord::Schema.define(version: 20150209202200) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "shiftslots", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shiftslots_users", id: false, force: true do |t|
+    t.integer "shiftslot_id"
+    t.integer "user_id"
+  end
+
+  add_index "shiftslots_users", ["shiftslot_id", "user_id"], name: "index_shiftslots_users_on_shiftslot_id_and_user_id", unique: true, using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -155,6 +201,8 @@ ActiveRecord::Schema.define(version: 20150209202200) do
     t.string   "stripe_customer_id"
     t.string   "phone_number"
     t.integer  "category_id"
+    t.string   "activity_level"
+    t.boolean  "valid_license"
   end
 
   add_index "users", ["category_id"], name: "index_users_on_category_id", using: :btree

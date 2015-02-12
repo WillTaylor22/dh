@@ -5,8 +5,6 @@ Driverhunt::Application.routes.draw do
     resources :messages
   end
 
-  resources :categories
-
   # match 'auth/:provider/callback', to: 'users/sessions#create'
   # match 'auth/failure', to: redirect('/')
   # match 'signout', to: 'users/sessions#destroy', as: 'signout'
@@ -20,8 +18,8 @@ Driverhunt::Application.routes.draw do
   get '/job-finder', to: 'pages#onboarding', as: "onboarding"
   get '/dashboard', to: 'pages#my_jobs'
   get '/chat', to: 'pages#chat'
-  get '/drivers', to: 'pages#drivers'
-  get '/jobs', to: 'pages#jobs'
+  # get '/drivers', to: 'pages#drivers'
+  get '/jobs', to: 'pages#jobs', as: "jobs"
   get '/help', to: 'homepage#help'
   get '/u/:username', to: 'pages#profile', as: 'user'
   get '/job/:id', to: 'pages#job', as: 'job'
@@ -42,9 +40,14 @@ Driverhunt::Application.routes.draw do
   get '/add_qualification_item', to: 'qualification_items#add', as: 'add_qualification_item'
   get '/edit_qualification_item/:id', to: 'qualification_items#change', as: 'edit_qualification_item'
 
-  resources :jobs
   resources :qualification_items
   resources :experience_items
+  resources :jobs
+
+  namespace :admin do
+    resources :jobs
+    resources :categories
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

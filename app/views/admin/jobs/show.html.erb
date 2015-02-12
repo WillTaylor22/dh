@@ -12,7 +12,12 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @job.category %>
+  <%= @job.category.try(:vehicle) %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @job.summary %>
 </p>
 
 <p>
@@ -45,5 +50,16 @@
   <%= @job.latitude %>
 </p>
 
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+  <% if @job.shiftslots %>
+    <p>
+      <strong>Shiftslots:</strong>
+      <ul>
+        <% @job.shiftslots.each do |ss| %>
+          <li><%= ss.name %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
+
+<%= link_to 'Edit', edit_admin_job_path(@job) %> |
+<%= link_to 'Back', admin_jobs_path %>

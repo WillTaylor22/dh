@@ -1,21 +1,21 @@
-class JobsController < ApplicationController
+class Admin::JobsController < AdminController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:create]
-  
+
   respond_to :html
 
   def index
     @jobs = Job.all
-    respond_with(@jobs)
+    respond_with(:admin, @jobs)
   end
 
   def show
-    respond_with(@job)
+    respond_with(:admin, @job)
   end
 
   def new
     @job = Job.new
-    respond_with(@job)
+    respond_with(:admin, @job)
   end
 
   def edit
@@ -29,17 +29,17 @@ class JobsController < ApplicationController
     if params[:facebook] == 'true'
       redirect_to user_omniauth_authorize_path(:facebook, job_id: @job.id) and return 
     end
-    respond_with(@job)
+    respond_with(:admin, @job)
   end
 
   def update
     @job.update(job_params)
-    respond_with(@job)
+    respond_with(:admin, @job)
   end
 
   def destroy
     @job.destroy
-    respond_with(@job)
+    respond_with(:admin, @job)
   end
 
   private

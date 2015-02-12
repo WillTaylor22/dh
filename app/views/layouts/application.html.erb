@@ -26,9 +26,9 @@
         <li>
           <%= link_to "Post Job", post_job_path %>
         </li>
-        <li>
-          <%= link_to "Find Drivers", drivers_path %>
-        </li>
+        <!-- <li>
+          <%#= link_to "Find Drivers", drivers_path %>
+        </li> -->
         <li>
           <%= link_to "Browse Job Posts", jobs_path %>
         </li>
@@ -41,16 +41,14 @@
     <div id="second-menu">
       <ul class="left-menu">
         <li class="left-menu">
-          <%= link_to "My Job Posts", dashboard_path %>
+          <%= link_to "My Jobs", dashboard_path %>
         </li>
         <li class="left-menu">
           <%= link_to "Profile", user_path(current_user.username.downcase) %>
         </li>
         <li class="left-menu">
-          <%= link_to "My People", chat_path %>
+          <%= link_to "Chat", chat_path %>
         </li>
-          <%#= link_to "My People", chat_path %>
-
         <div class="pull-right">
           <%= render "user_dropdown" %>
         </div>
@@ -73,49 +71,8 @@
 </div>
 
 <!-- Footer -->
+<%= render 'footer' %>
 
-<section id="footer">
-  
-  <!-- Counter -->
-
-  <section id="counter">
-    <div class="counter-left"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-          <h1>23,776</h1>
-          <p>Users Online</p>
-        </div>
-        <div class="col-sm-4">
-          <h1>14,229,454</h1>
-          <p>Users</p>
-        </div>
-        <div class="col-sm-4">
-          <h1>6,986,530</h1>
-          <p>Projects</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="pp-container">
-    <div class="row">
-      <div class="col-sm-2 col-sm-push-1">Find freelancers</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance projects</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance jobs</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance contests</div>
-      <div class="col-sm-2 col-sm-push-1">Hire Freelancers</div>
-    </div>
-    <div class="row">
-      <div class="com-sm-2 col-sm-push-5">Freelance work</div>
-      
-    </div>
-    <div class="row">
-      Copyright 2015
-    </div>
-  </div>
-
-</section>
 
 </body>
 </html>

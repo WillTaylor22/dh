@@ -120,6 +120,9 @@
           </p>
 
           <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+          <%= if @user.valid_license %>
+          <p><strong>Valid UK drivers license:</strong> <%= @user.valid_license ? "Yes" : "No" %></p>
+          <% end %>
 
           <div class="description">
             <% if current_user == @user && current_user.long_description %>
@@ -148,9 +151,9 @@
       <div class="row second-row">
         <div class="col-sm-4" id="activity">
           <h2 class="standard">My activity:</h2>
-          <p>Open Projects: <strong class="pull-right">2</strong></p>
-          <p>Active Projects: <strong class="pull-right">0</strong></p>
-          <p>Past Projects: <strong class="pull-right">2</strong></p>
+          <p>Availability: <strong class="pull-right"><%= @user.activity_level || "Available" %></strong></p>
+          <p>Avg. reply time: <strong class="pull-right"><%= @user.responsiveness %></strong></p>
+          <!-- <p>Last log on: <strong class="pull-right">2</strong></p> -->
         </div>
         <div class="col-sm-8" id="projects">
           <h2 class="standard">My Jobs:</h2>

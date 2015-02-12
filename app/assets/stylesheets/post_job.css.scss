@@ -22,7 +22,7 @@ $light-red: #ffdee0;
   margin-top: 13px;
 }
 
-.job-form ol.numbers > li.budget{
+.main-form ol.numbers > li.budget{
   .tab-content{
     padding-top: 20px;
     .block{
@@ -76,6 +76,17 @@ $light-red: #ffdee0;
     margin-left: 4px;
     float: left;
     width: 100px;
+  }
+
+  .payment-tabs{
+
+    label{
+      display: block;
+      float: none;
+    }
+    .each-wrap{
+      margin-left :10px;
+    }
   }
 
 }

@@ -29,6 +29,7 @@ class Purchase < ActiveRecord::Base
     event :attempt_to_buy do
       transition :instigated => :begin_processing
       transition :begin_processing => :begin_processing
+      transition :rejected => :begin_processing
     end
     
     event :success do

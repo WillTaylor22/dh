@@ -55,7 +55,39 @@
           </div>
 
         </li>
-        <%= f.submit "Find Jobs", class: 'btn red-button' %>
+
+        <li class="numbers-li budget">
+          <legend>Which days can you work?</legend>
+
+          <%= hidden_field_tag "user[day_ids][]", nil %>
+          <% for day in Day.all %>
+          <div>
+            <%= check_box_tag "user[day_ids][]", day.id, resource.days.include?(day), id: dom_id(day), checked: true %>
+            <%= label_tag dom_id(day), day.name %>
+          </div>
+          <% end %>
+        </li>
+
+        <li class="numbers-li budget">
+          <legend>Which shifts will you work?</legend>
+
+          <%= hidden_field_tag "user[shiftslot_ids][]", nil %>
+          <% for shiftslot in Shiftslot.all %>
+          <div>
+            <%= check_box_tag "user[shiftslot_ids][]", shiftslot.id, resource.shiftslots.include?(shiftslot), id: dom_id(shiftslot), checked: true %>
+            <%= label_tag dom_id(shiftslot), shiftslot.name %>
+          </div>
+          <% end %>
+        <li class="numbers-li budget">
+          <legend>Do you have a valid UK driver's license?</legend>
+
+            <%= check_box :user, :valid_license, :checked => true %>
+            <%= label_tag :user_valid_license, "Yes"  %>
+        </li>
+        <br>
+        <br>
+        <br>
+        <%= f.submit "Find Jobs", class: 'btn big red-button' %>
       </ol>
     <% end %>
   </div>
