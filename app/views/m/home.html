@@ -1,0 +1,291 @@
+<div data-role="page" id="home">
+
+  <header data-role="header">
+    <h1>Driver Hunt</h1>
+    <% if user_signed_in? %>
+      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+    <% end %>
+  </header>
+
+  <section class="above-fold">
+    <%= image_tag 'logo-white.png' %>
+    <h2>Find and chat to drivers in minutes</h2>
+  </section>
+  <section class="segment how-it-works">
+    <h2>How it works</h2>
+    <div id="method-box-wrap">
+      <div id="method-box" class="cf">
+        <div class="method-item">
+          <%= image_tag 'hire/job.png' %>
+          <p>Post your job</p>
+        </div>
+        <div class="chevron">></div>
+        <div class="method-item">
+          <%= image_tag 'hire/people.png' %>
+          <p>Compare drivers</p>
+        </div>
+        <div class="chevron">></div>
+        <div class="method-item">
+          <%= image_tag 'hire/money.png' %>
+          <p>Pay once satisfied</p>
+        </div>
+      </div>
+    </div>
+
+    <form action="post-job" method="GET" data-ajax="false" class="category-and-address-section">
+
+      <label for="other-category">I need...</label>     
+      <select name="category" id="job_category" name="category" class="form-control">
+        <option value="default">Select type of driver</option>
+        <%= options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]}, params[:category]) %>
+      </select>
+
+      <div class="row" id="address-row">
+        <div class="col-xs-12">
+          <%= label :postcode, "Near this postcode or address:" %>
+          <div class="input-group">
+          <%= text_field_tag :postcode, nil, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
+          </div>
+        </div>       
+      </div>
+
+      <a href="#post-job">
+        <button type="submit" id="hire-button" class="btn btn-default red-button">Post Job</button>
+      </a>
+    </form>
+  </section>
+  <section class="segment hire-professionals" data-role="content">
+
+    <h2>Hire talented professionals</h2>
+
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+        <div class="img-wrap">
+          <%= image_tag 'examples/example-6.jpg' %>
+          <p class="caption">John - Car driver</p>
+        </div>
+        
+        <div class="img-wrap">
+        <%= image_tag 'examples/example-4.jpg' %>
+          <p class="caption">James - Lorry driver</p>
+        </div>
+
+        <div class="img-wrap">
+        <%= image_tag 'examples/example-7.jpg' %>
+          <p class="caption">Thomas - Motorcycle rider</p>
+        </div>
+
+
+      </div>
+      <div class="ui-block-b">
+        <div class="img-wrap">
+        <%= image_tag 'examples/example-5.jpg' %>
+          <p class="caption">Muhat - Bike courier</p>
+        </div>
+
+        <div class="img-wrap">
+        <%= image_tag 'examples/example-3.jpg' %>
+          <p class="caption">Jason - Moped rider</p>
+        </div>
+
+        <div class="img-wrap">
+        <%= image_tag 'examples/example-1.jpg' %>
+          <p class="caption">Adam - Van driver</p>
+        </div>
+
+    </div><!-- /grid-a -->
+
+  </section>
+  <section class="segment get-now" data-role="content">
+    <h2>Get your drivers now...</h2>
+
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+        <div class="img-wrap">
+          <%= image_tag 'home/get-started/icon-1.png' %>
+          <p>See their license online</p>
+        </div>
+        <div class="img-wrap">
+          <%= image_tag 'home/get-started/icon-3.png' %>
+          <p>No agency fees</p>
+        </div>
+      </div>
+      <div class="ui-block-b">
+        <div class="img-wrap">
+          <%= image_tag 'home/get-started/icon-2.png' %>
+          <p>Chat to drivers direct</p>
+        </div>
+        <div class="img-wrap">
+          <%= image_tag 'home/get-started/icon-4.png' %>
+          <p>Car, Bike, Taxi, Van, Lorry</p>
+        </div>
+    </div><!-- /grid-a -->
+
+  </section>
+
+  <%= render "footer" %>
+  
+</div> <!-- page -->
+
+<div data-role="page" id="post-job">
+
+  <section class="above-fold">
+    <h2>Post A Job</h2>
+  </section>  
+
+  <form action="/m/jobs" data-ajax="false" method='POST'>
+    
+  <fieldset data-role="controlgroup">
+    <legend>I am looking for:</legend>
+    <% for category in Category.all %>
+      <input type="radio" name="job[category_id]" id="category-<%= category.id %>" value="<%= category.id %>" checked="checked" />
+      <label for="category-<%= category.id %>"><%= category.name_of_user.titleize + "s" %></label>
+    <% end %>
+  </fieldset>
+
+  <fieldset data-role="controlgroup">
+    <legend>Near this postcode or address:</legend>
+    <input type="text" name="job[postcode]">
+  </fieldset>
+
+
+  <fieldset data-role="controlgroup">
+    <legend>Who provides the vehicle?</legend>
+    <input type="radio" name="job[employer_provides_vehicle]" id="employer_provides_vehicle-driver" value="" />
+    <label for="employer_provides_vehicle-driver">Driver Provides Vehicle</label>
+    <input type="radio" name="job[employer_provides_vehicle]" id="employer_provides_vehicle-hunter" value="" />
+    <label for="employer_provides_vehicle-hunter">Hunter Provides Vehicle</label>
+  </fieldset>
+
+  <fieldset data-role="controlgroup">
+    <legend>Which days do you need drivers on?</legend>
+    <label for="job-days-mon">Monday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-mon" checked="checked" value="1"/>
+    <label for="job-days-tue">Tuesday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-tues" checked="checked" value="2"/>
+    <label for="job-days-wed">Wednesday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-wed" checked="checked" value="3"/>
+    <label for="job-days-thu">Thursday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-thu" checked="checked" value="4"/>
+    <label for="job-days-fri">Friday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-fri" checked="checked" value="5"/>
+    <label for="job-days-sat">Saturday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-sat" checked="checked" value="6"/>
+    <label for="job-days-sun">Sunday</label>
+    <input type="checkbox" name="job[day_ids][]" id="job-days-sun" checked="checked"  value="7"/>
+  </fieldset>
+
+  <fieldset data-role="controlgroup">
+    <legend>Which shifts do you need?</legend>
+    <label for="job-shiftslot-1">Morning</label>
+    <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-1" checked="checked" value="1"/>
+    <label for="job-shiftslot-2">Afternoon</label>
+    <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-2" checked="checked" value="2"/>
+    <label for="job-shiftslot-3">Evening</label>
+    <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-3" checked="checked" value="3"/>
+    <label for="job-shiftslot-4">Night</label>
+    <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-4" checked="checked" value="4"/>
+  </fieldset>
+
+  <input type="submit" value="Post Job Now">
+  <p>By posting a job you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+
+  </form>
+
+  <!-- <fieldset data-role="controlgroup">
+    <legend>Display how much you pay them?</legend>
+    <input type="radio" name="job[rate_option]" id="rate-exact" value="" />
+    <label for="rate-exact">Show Hourly Wage + Commission</label>
+    <input type="radio" name="job[rate_option]" id="rate-range" value="" />
+    <label for="rate-range">Show Approximate Wage</label>
+    <input type="radio" name="job[rate_option]" id="rate-noshow" value="" />
+    <label for="rate-noshow">Do Not Show</label>
+  </fieldset>
+
+  <fieldset data-role="controlgroup">
+
+  <legend>Display how much you pay them?</legend>
+    <label for="slider-0">Hourly wage:</label>
+    <input type="range" name="slider" id="slider-0" value="650" min="0" max="2000" />
+    <label for="slider-0">Commission per delivery:</label>
+    <input type="range" name="slider" id="slider-0" value="0" min="0" max="10000" />
+  </fieldset>
+
+  -->
+
+</div> <!-- page -->
+
+<div data-role="page" id="user">
+  <header data-role="header">
+    <h1>Logged in as <%= current_user.full_name if current_user %></h1>
+    <a href="#home" data-icon="home" data-iconpos="notext"></a>
+  </header>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <a href="/user/sign_out">Sign out</a>
+      <li><%= link_to "Log Out", destroy_user_session_path(mobile: true), method: :delete, data: {ajax: "false"} %></li>
+      <li><%= link_to "View My Profile", m_dashboard_path(anchor: 'profile') %></li>
+    </ul>
+  </div>
+
+</div>
+
+<div data-role="page" id="find-jobs">
+
+  <header data-role="header">
+    <h1>Sign Up to Find Jobs</h1>
+  </header>
+
+  <section data-role="content">
+    <%= link_to user_omniauth_authorize_path(:facebook, mobile: true), data: {ajax: 'false'} do %> 
+      <button class="btn facebook-button">
+        <%= image_tag "facebook.png" %>
+        &nbsp;Sign up with Facebook
+      </button>
+    <% end %>
+
+    <p class="tiny-title">or sign up with email:</p>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form', data: {ajax: 'false'}}, :authenticity_token => true) do |f| %>
+      <%= render 'signup_form', f: f %>
+    <% end %>
+    <br>
+    <p class="tiny-title">or do you already have an account?<br><a href="#sign-in">Sign in to your existing account</a></p>
+  </section>
+
+  <div data-role="footer">
+    <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+  </div>    
+
+</div> <!-- page -->
+
+
+<div data-role="page" id="sign-in">
+
+  <header data-role="header">
+    <h1>Sign In</h1>
+  </header>
+
+  <div data-role='content'>
+    <%= link_to user_omniauth_authorize_path(:facebook, mobile: true), data: {ajax: 'false'} do %> 
+    <button class="btn facebook-button">
+      <%= image_tag "facebook.png" %>
+      &nbsp;Sign in with Facebook
+    </button>
+    <% end %>
+
+    <p class="tiny-title">or sign in with email:</p>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form', data: {ajax: 'false'}}, :authenticity_token => true) do |f| %>
+      <%= render 'login_form', f: f %>
+    <% end %>
+
+    <hr>
+
+    <p id="no-account">Don't have an account?<a href="#find-jobs"> Sign up now!</a></p>
+  </div>
+
+  <div class="modal-footer">
+    <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+  </div>
+</div> <!-- page -->

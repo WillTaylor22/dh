@@ -1,0 +1,57 @@
+<div data-role="page" id="signup">
+
+  <header data-role="header">
+    <h1>Sign up for free to post!</h1>
+  </header>
+
+  <section data-role="content">
+    <%= link_to user_omniauth_authorize_path(:facebook, job_id: params[:job], mobile: true), data: {ajax: 'false'} do %> 
+      <button class="btn facebook-button">
+        <%= image_tag "facebook.png" %>
+        &nbsp;Sign up with Facebook
+      </button>
+    <% end %>
+
+    <p class="tiny-title">or sign up with email:</p>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, :authenticity_token => true) do |f| %>
+      <%= f.hidden_field :job_id, value: params[:job] %>
+      <%= render 'signup_form', f: f %>
+    <% end %>
+    <br>
+    <p class="tiny-title">or do you already have an account?<br><a href="#login">Login to existing account</a></p>
+  </section>
+
+  <div data-role="footer">
+    <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+  </div>
+</div> <!-- page -->
+
+
+<div data-role="page" id="login">
+
+  <header data-role="header">
+    <h1>Sign up for free to post!</h1>
+  </header>
+
+  <div data-role='content'>
+    <button class="btn facebook-button">
+      <%= image_tag "facebook.png" %>
+      &nbsp;Login with Facebook
+    </button>
+
+    <p class="tiny-title">or login with email:</p>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
+      <%= f.hidden_field :job_id, value: params[:job] %>
+      <%= render 'login_form', f: f %>
+    <% end %>
+
+    <hr>
+
+    <p id="no-account">Don't have an account?<a href="#signup"> Sign up now!</a></p>
+  </div>
+
+  <div class="modal-footer">
+    <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+  </div>
+</div> <!-- page -->

@@ -49,6 +49,13 @@ Driverhunt::Application.routes.draw do
     resources :categories
   end
 
+  namespace :m do
+    get "/", to: 'pages#home', as: 'root'
+    get "/dashboard", to: 'pages#dashboard', as: 'dashboard'
+    get "/job-signup", to: 'pages#signup_after_job_post', as: 'signup_after_job_post'
+    resources :jobs
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

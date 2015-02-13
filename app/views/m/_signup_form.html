@@ -1,0 +1,20 @@
+<%= hidden_field :mobile, value: 1 %>
+<p id="signup-errors"></p>
+<div class="form-group">
+  <i class="glyphicon glyphicon-envelope"></i>
+  <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
+</div>
+<div class="form-group">
+  <i class="glyphicon glyphicon-user"></i>
+  <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
+</div>
+<div class="form-group">
+  <i class="glyphicon glyphicon-lock"></i>
+  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12341234' %>
+</div>
+<div class="form-group">
+  <i class="glyphicon glyphicon-lock"></i>
+  <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password', value: '12341234' %>
+</div>
+
+<%= f.submit "Create account", class: 'btn green-button' %>

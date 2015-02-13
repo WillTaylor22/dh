@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require lib/jquery.readyselector
-//= require_tree .
+//= require_tree ./lib
+//= require_tree ./main

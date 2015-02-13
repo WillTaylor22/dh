@@ -1,0 +1,3 @@
+class MController < ApplicationController
+
+end

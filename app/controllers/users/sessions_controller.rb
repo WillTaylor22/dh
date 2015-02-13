@@ -1,7 +1,11 @@
 class Users::SessionsController < Devise::SessionsController
   clear_respond_to
-  respond_to :json, :html
+  respond_to :json, :html, :js
   before_action :redirect_if_not_signed_in
+
+  # Whole bunch of actions here that aren't being shown.
+  # TODO: Edit the "CREATE" action for the route of logging in after creating a job.
+  #       Applies to mobile and main
 
   private
 

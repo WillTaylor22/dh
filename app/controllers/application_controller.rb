@@ -5,7 +5,20 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    dashboard_path
+    stored_location_for(resource) ||
+      if params[:mobile]
+        if params[:job_id]
+          m_dashboard_path   # TODO: Add job anchor to this.
+        else
+          m_dashboard_path
+        end
+      else
+        if params[:job_id]
+          job_path(@job)     # TODO: Test this.
+        else
+          dashboard_path
+        end
+      end
   end
 
   protected
@@ -21,5 +34,16 @@ class ApplicationController < ActionController::Base
         :activity_level, :valid_license,
         :category_id, day_ids: [], shiftslot_ids: []) }
   end
+
+  private
+  # Overwriting the sign_out redirect path method
+  def after_sign_out_path_for(resource_or_scope)
+    if params[:mobile]
+      m_root_path
+    else
+      root_path
+    end
+  end
+
 
 end
