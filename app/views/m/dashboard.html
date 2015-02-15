@@ -1,1 +1,20 @@
-dashboard
+  <header data-role="header">
+    <% if user_signed_in? %>
+      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+    <% end %>
+  </header>
+
+  <section class="above-fold">
+    <%= image_tag 'logo-white.png', class: 'main-logo' %>
+    <h2>Find and chat to drivers in minutes</h2>
+  </section>
+
+  <div data-role="content">
+    <h3>Welcome to DriverHunt.com</h3>
+
+    <p>Thank you for your details.</p>
+    <p>Our team will verify your infomation and get back to you with matches to your search.</p>
+
+    <p>We're looking forward to working with you soon!</p>
+    <p>&nbsp;&nbsp;&nbsp;- The Driver Hunt team</p>
+  </div>

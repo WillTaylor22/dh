@@ -5,6 +5,15 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript">
+  console.log("ready")
+    console.log(screen.width)
+  <!--
+  if (screen.width <= 800) {
+    window.location.href = '/m/'
+  }
+  //-->
+  </script>
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
 
@@ -52,8 +61,6 @@
 <section id="hire">
   <div class="container">
     <h1 class="homepage-header">Find drivers in no time!</h1>
-
-    
     <div id="method-box-wrap">
       <div id="method-box" class="cf">
         <div class="method-item">
@@ -68,7 +75,7 @@
         <div class="chevron">></div>
         <div class="method-item">
           <%= image_tag 'hire/money.png' %>
-          <p>Pay only once satisfied</p>
+          <p>Pay once satisfied</p>
         </div>
       </div>
     </div>
@@ -110,7 +117,7 @@
 <section id="work-signup">
   <div class="container">
     <h1 class="homepage-header">Sign up for free today!</h1>
-      <%= link_to user_omniauth_authorize_path(:facebook) do %>
+      <%= link_to user_omniauth_authorize_path(:facebook, signup: true) do %>
         <button class="btn facebook-button">
           <%= image_tag "facebook.png" %>
           &nbsp;Sign up with Facebook
@@ -129,17 +136,15 @@
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-user"></i>
-        <!-- <input type="text" class="form-control" id="username" placeholder="Username"> -->
         <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
-
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-lock"></i>
-        <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password', value: '12341234' %>
       </div>
       <div class="form-group">
         <i class="glyphicon glyphicon-lock"></i>
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password', value: '12341234' %>
       </div>
 
       <div id="work-type">

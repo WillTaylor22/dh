@@ -1,33 +1,30 @@
 <div data-role="page" id="home">
 
   <header data-role="header">
-    <h1>Driver Hunt</h1>
     <% if user_signed_in? %>
       <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
     <% end %>
   </header>
 
   <section class="above-fold">
-    <%= image_tag 'logo-white.png' %>
+    <%= image_tag 'logo-white.png', class: 'main-logo' %>
     <h2>Find and chat to drivers in minutes</h2>
   </section>
   <section class="segment how-it-works">
     <h2>How it works</h2>
     <div id="method-box-wrap">
       <div id="method-box" class="cf">
-        <div class="method-item">
+        <div class="method-item cf">
           <%= image_tag 'hire/job.png' %>
           <p>Post your job</p>
         </div>
-        <div class="chevron">></div>
-        <div class="method-item">
+        <div class="method-item cf">
           <%= image_tag 'hire/people.png' %>
-          <p>Compare drivers</p>
+          <p>Compare & chat to drivers</p>
         </div>
-        <div class="chevron">></div>
-        <div class="method-item">
+        <div class="method-item cf">
           <%= image_tag 'hire/money.png' %>
-          <p>Pay once satisfied</p>
+          <p class="raised">Buy the perfect driver<br> when 100% satisfied</p>
         </div>
       </div>
     </div>
@@ -219,11 +216,13 @@
   <header data-role="header">
     <h1>Logged in as <%= current_user.full_name if current_user %></h1>
     <a href="#home" data-icon="home" data-iconpos="notext"></a>
+    <% if user_signed_in? %>
+      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+    <% end %>
   </header>
 
   <div data-role="content">
     <ul data-role="listview">
-      <a href="/user/sign_out">Sign out</a>
       <li><%= link_to "Log Out", destroy_user_session_path(mobile: true), method: :delete, data: {ajax: "false"} %></li>
       <li><%= link_to "View My Profile", m_dashboard_path(anchor: 'profile') %></li>
     </ul>
@@ -235,13 +234,17 @@
 
   <header data-role="header">
     <h1>Sign Up to Find Jobs</h1>
+    <a href="#home" data-icon="home" data-iconpos="notext"></a>
+    <% if user_signed_in? %>
+      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+    <% end %>
   </header>
 
   <section data-role="content">
-    <%= link_to user_omniauth_authorize_path(:facebook, mobile: true), data: {ajax: 'false'} do %> 
+    <%= link_to user_omniauth_authorize_path(:facebook, mobile: true, signup: true), data: {ajax: 'false'} do %> 
       <button class="btn facebook-button">
-        <%= image_tag "facebook.png" %>
-        &nbsp;Sign up with Facebook
+        <%#= image_tag "facebook.png" %>
+        Sign up with Facebook
       </button>
     <% end %>
 
@@ -254,7 +257,9 @@
   </section>
 
   <div data-role="footer">
-    <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+    <div data-role="content">
+      <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+    </div>
   </div>    
 
 </div> <!-- page -->
@@ -264,13 +269,17 @@
 
   <header data-role="header">
     <h1>Sign In</h1>
+    <a href="#home" data-icon="home" data-iconpos="notext"></a>
+    <% if user_signed_in? %>
+      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+    <% end %>
   </header>
 
   <div data-role='content'>
     <%= link_to user_omniauth_authorize_path(:facebook, mobile: true), data: {ajax: 'false'} do %> 
     <button class="btn facebook-button">
-      <%= image_tag "facebook.png" %>
-      &nbsp;Sign in with Facebook
+      <%#= image_tag "facebook.png" %>
+      Sign in with Facebook
     </button>
     <% end %>
 
@@ -286,6 +295,8 @@
   </div>
 
   <div class="modal-footer">
-    <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+    <div data-role="content">
+      <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+    </div>
   </div>
 </div> <!-- page -->

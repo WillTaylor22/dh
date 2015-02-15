@@ -22,13 +22,13 @@ class PagesController < ApplicationController
     @purchased = current_user.drivers
   end
 
-  def drivers
-    @drivers = User.all
-    # @search = User.search do
-    #   fulltext params[:search]
-    # end
-    # @drivers = @search.results
-  end
+  # def drivers
+  #   @drivers = User.all
+  #   # @search = User.search do
+  #   #   fulltext params[:search]
+  #   # end
+  #   # @drivers = @search.results
+  # end
 
   def job
     @job = Job.find(params[:id])

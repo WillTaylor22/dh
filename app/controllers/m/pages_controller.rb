@@ -13,6 +13,9 @@ class M::PagesController < MController
   def signup_after_job_post
   end
 
+  def onboarding
+  end
+
   # Unless job.user, assign user
 
 end

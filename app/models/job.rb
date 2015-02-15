@@ -29,6 +29,16 @@ class Job < ActiveRecord::Base
 
   acts_as_mappable lng_column_name: :longitude, lat_column_name: :latitude
 
+  #### JOB CREATE ###
+
+  def self.assign_user_to_job(job_id, user)
+    @job = self.find(job_id)
+    @job.user = user
+    @job.save
+  end
+
+  ### end JOB CREATE ###
+
   #### JOB DETAIL ###
 
   def distance_from_user(user)

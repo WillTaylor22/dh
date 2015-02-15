@@ -1,0 +1,77 @@
+<div id="mobile">
+
+  <section class="above-fold">
+    <h2>Search Driving Jobs</h2>
+  </section>  
+
+
+  <div class="main-form">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= hidden_field :mobile, true %>
+      <%= hidden_field :onboarding, true %>
+      <ol class="numbers">
+        <li class="numbers-li">
+          <legend class="no-bottom">Contact details for employers</legend>
+          <p class="secret"><i>Kept secret. Only provided to a hunter if they hire you.</i></p>
+        
+          <%= f.label :phone_number %>
+          <%= f.text_field :phone_number, class: 'form-control', placeholder: "Enter your phone number", value: current_user.phone_number %>
+
+        </li>
+
+        <!-- Work required -->
+        <li class="numbers-li">
+          <legend>What type of job do you want?</legend>
+
+          <%= f.select :category_id,
+          options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil], :selected => resource.category_id), {}, {class: 'form-control', id: 'job_category'} %>
+
+          <div id="other-wrap">
+            <br>
+            <label for="other-category">Other type of work:</label>
+            <input type="text" id="other-category" name="other_category" class="form-control">
+          </div>          
+
+              <%= f.label :postcode, "Near this postcode or address:" %>
+              <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH', value: resource.postcode %>
+                <button id="find-postcode" class="btn btn-default" type="button">Find Location</button>
+              <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
+
+        </li>
+
+        <li class="numbers-li budget">
+          <legend>Which days can you work?</legend>
+
+          <%= hidden_field_tag "user[day_ids][]", nil %>
+          <% for day in Day.all %>
+          <div>
+            <%= check_box_tag "user[day_ids][]", day.id, resource.days.include?(day), id: dom_id(day), checked: true %>
+            <%= label_tag dom_id(day), day.name %>
+          </div>
+          <% end %>
+        </li>
+
+        <li class="numbers-li budget">
+          <legend>Which shifts will you work?</legend>
+
+          <%= hidden_field_tag "user[shiftslot_ids][]", nil %>
+          <% for shiftslot in Shiftslot.all %>
+          <div>
+            <%= check_box_tag "user[shiftslot_ids][]", shiftslot.id, resource.shiftslots.include?(shiftslot), id: dom_id(shiftslot), checked: true %>
+            <%= label_tag dom_id(shiftslot), shiftslot.name %>
+          </div>
+          <% end %>
+        <li class="numbers-li budget">
+          <legend>Do you have a valid UK driver's license?</legend>
+
+            <%= check_box :user, :valid_license, :checked => true %>
+            <%= label_tag :user_valid_license, "Yes"  %>
+        </li>
+        <br>
+        <br>
+        <br>
+        <%= f.submit "Find Jobs", class: 'btn big red-button' %>
+      </ol>
+    <% end %>
+  </div>
+</div>

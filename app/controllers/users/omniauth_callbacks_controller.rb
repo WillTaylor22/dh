@@ -19,9 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.persisted?
       job_id = request.env["omniauth.params"]['job_id']
       if job_id # Job sign in:
-        @job = Job.find(job_id)
-        @job.user = user
-        @job.save
+        @job = Job.assign_user_to_job(job_id, user)
         flash.notice = "Job posted!"
         sign_in user
         if request.env["omniauth.params"]['mobile'] # Mobile
@@ -30,12 +28,20 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           redirect_to job_path(@job)
         end
       else # not-job sign in
-        flash.notice =  "Signed in!"
         sign_in user
-        if request.env["omniauth.params"]['mobile'] # Mobile
-          redirect_to m_dashboard_path
+        if request.env["omniauth.params"]['signup'] # Signup, so need to do onboarding
+          if request.env["omniauth.params"]['mobile'] # Mobile
+            redirect_to m_onboarding_path
+          else
+            redirect_to onboarding_path
+          end
         else
-          redirect_to dashboard_path
+          flash.notice =  "Signed in!"
+          if request.env["omniauth.params"]['mobile'] # Mobile
+            redirect_to m_dashboard_path
+          else
+            redirect_to dashboard_path
+          end
         end
       end
     else

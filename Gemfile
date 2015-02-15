@@ -56,6 +56,7 @@ gem 'carrierwave'
 gem "mini_magick"
 
 gem 'pry_debug'
+gem 'pry-nav'
 
 gem 'sunspot_rails'
 group :development do

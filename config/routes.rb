@@ -53,6 +53,7 @@ Driverhunt::Application.routes.draw do
     get "/", to: 'pages#home', as: 'root'
     get "/dashboard", to: 'pages#dashboard', as: 'dashboard'
     get "/job-signup", to: 'pages#signup_after_job_post', as: 'signup_after_job_post'
+    get '/job-finder', to: 'pages#onboarding', as: "onboarding"
     resources :jobs
   end
 

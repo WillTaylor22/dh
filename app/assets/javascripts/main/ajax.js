@@ -4,7 +4,7 @@ $( document ).ajaxComplete(function( event, xhr, settings ) {
     if( xhr.status == 201 ){
       // Homepage: sign up goes to dashboard
       if( $(".homepage.home").length ){
-        window.location.href = '/dashboard'
+        window.location.href = '/job-finder'
       }
       // Postproject: sign up submits the project
       if( $(".homepage.post_job").length ){        
@@ -13,7 +13,8 @@ $( document ).ajaxComplete(function( event, xhr, settings ) {
         $("#new_job").submit();
       }
     } else {
-      var ul = $('<ul id="signup-errors">').prependTo('#signup-form');
+      var ul = $('#signup-errors')
+      ul.html("")
       var json = JSON.parse(xhr.responseText);
       $.each( json.errors, function(key, item){
         ul.append(
