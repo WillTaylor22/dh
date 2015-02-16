@@ -58,10 +58,10 @@ gem "mini_magick"
 gem 'pry_debug'
 gem 'pry-nav'
 
-gem 'sunspot_rails'
-group :development do
-  gem 'sunspot_solr'
-end
+# gem 'sunspot_rails'
+# group :development do
+#   gem 'sunspot_solr'
+# end
 
 # gem 'mysql2',          '0.3.12b5', :platform => :ruby
 # gem 'thinking-sphinx', '~> 3.1.0'
@@ -88,3 +88,4 @@ gem 'hirb' # better irb
 
 gem 'geokit-rails'
 
+gem 'activeadmin', github: 'activeadmin'

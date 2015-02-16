@@ -33,7 +33,12 @@
 #  category_id            :integer
 #
 
+require 'open-uri'
+
 class User < ActiveRecord::Base
+  scope :drivers, where(:hunter => nil)
+  scope :hunters, where(:hunter => true)
+
 
   ###### LOGIN ###
 
@@ -63,12 +68,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.from_omniauth(auth)
+  def self.from_omniauth(auth, params)
 
-    puts "In self.from_omniauth"
-
-    # u = User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-    User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    u = User.where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
       user.username = auth.info.first_name.downcase + auth.info.last_name.downcase + '-' + Devise.friendly_token[0,4].downcase
@@ -76,19 +78,18 @@ class User < ActiveRecord::Base
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.password = Devise.friendly_token[0,20]
-      # user.photo = "Banana"
-      puts "auth.info.image"
-      puts user.photo
-      user.photo = (auth.info.image + "?type=large").gsub("­http","htt­ps")
-      puts "user.photo right after"
-      puts user.photo
+      user.remote_photo_url = (auth.info.image + "?type=large").gsub("http","https")
     end
+    
+    #
+    # Change hunter attribute
+    # Outside of above block, because "hunter" should change
+    # even if user already exists.
+    #
+    u.hunter = params["hunter"]
 
-    # puts u.photo
-
-    # puts "output is:"
-    # puts where(provider: auth.provider, uid: auth.uid).first
-    # u.destroy
+    u.save 
+    u
   end
 
   def self.new_with_session(params, session)

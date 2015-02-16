@@ -14,7 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #
 
   def facebook
-    user = User.from_omniauth(request.env["omniauth.auth"])
+    user = User.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
 
     if user.persisted?
       job_id = request.env["omniauth.params"]['job_id']

@@ -1,6 +1,8 @@
 Driverhunt::Application.routes.draw do
 
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   resources :conversations do
     resources :messages
   end
@@ -44,7 +46,7 @@ Driverhunt::Application.routes.draw do
   resources :experience_items
   resources :jobs
 
-  namespace :admin do
+  namespace :admin_old do
     resources :jobs
     resources :categories
   end

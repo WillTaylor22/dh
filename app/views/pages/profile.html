@@ -120,7 +120,7 @@
           </p>
 
           <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
-          <%= if @user.valid_license %>
+          <% if @user.valid_license %>
           <p><strong>Valid UK drivers license:</strong> <%= @user.valid_license ? "Yes" : "No" %></p>
           <% end %>
 

@@ -27,7 +27,7 @@ class JobsController < ApplicationController
     @job.skill_list.add(params[:job][:skill_list])
     @job.save
     if params[:facebook] == 'true'
-      redirect_to user_omniauth_authorize_path(:facebook, job_id: @job.id) and return 
+      redirect_to user_omniauth_authorize_path(:facebook, job_id: @job.id, hunter: true) and return 
     end
     respond_with(@job)
   end

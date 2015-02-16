@@ -36,6 +36,7 @@
     <%= form_for @job do |f| %>
       <%= f.hidden_field :user_id, value: current_user.try(:id) %>
       <input type="hidden" id="facebook" name="facebook">
+
     <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
  
       <ol class="numbers">
@@ -260,6 +261,7 @@
               <div class="col-sm-6 grey-border-left">
                 <p class="tiny-title">or sign up with email:</p>
                 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true, :authenticity_token => true) do |f| %>
+                  <%= f.hidden_field :hunter, value: true %>
                   <p id="signup-errors"></p>    
                   <div class="form-group">
                     <i class="glyphicon glyphicon-envelope"></i>

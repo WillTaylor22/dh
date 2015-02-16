@@ -35,6 +35,7 @@ class Job < ActiveRecord::Base
     @job = self.find(job_id)
     @job.user = user
     @job.save
+    @job
   end
 
   ### end JOB CREATE ###
