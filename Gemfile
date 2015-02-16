@@ -89,3 +89,7 @@ gem 'hirb' # better irb
 gem 'geokit-rails'
 
 gem 'activeadmin', github: 'activeadmin'
+
+gem 'exception_notification'
+gem "letter_opener", :group => :development # Open email in browser
+

@@ -80,4 +80,12 @@ Driverhunt::Application.configure do
 
   # Set mailer
   config.action_mailer.default_url_options = { host: 'driverhunt.herokuapp', port: 3000 }
+
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[Error] ",
+      :sender_address => %{"Geoffrey" <noreply@driverhunt.com>},
+      :exception_recipients => %w{wrftaylor@gmail.com}
+    }
+
 end
