@@ -27,7 +27,8 @@ Driverhunt::Application.routes.draw do
   get '/job/:id', to: 'pages#job', as: 'job'
   get '/buy/:username', to: 'pages#buy', as: 'buy'
   post '/charge', to: 'stripe#charge', as: 'charge'
-  post '/terms', to: 'homepage#terms', as: 'terms'
+  get '/terms', to: 'homepage#terms', as: 'terms'
+  get '/privacy', to: 'homepage#privacy', as: 'privacy'
 
   # profile editing
   get '/edit_name', to: 'profile#edit_name', as: 'edit_name'
