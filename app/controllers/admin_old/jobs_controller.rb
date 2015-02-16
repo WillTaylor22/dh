@@ -1,4 +1,4 @@
-class Admin::JobsController < AdminController
+class Admin::JobsController < AdminOldController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:create]
 
