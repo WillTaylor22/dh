@@ -1,6 +1,7 @@
 class HomepageController < ApplicationController
 
-  layout false
+  layout :resolve_layout
+  
 
   def home
   end
@@ -16,6 +17,18 @@ class HomepageController < ApplicationController
   end
 
   def privacy
+  end
+
+
+  private
+
+  def resolve_layout
+    case action_name
+    when "home", "help"
+      false
+    else
+      "outside"
+    end
   end
 
 end

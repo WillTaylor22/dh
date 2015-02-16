@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Hunt</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= controller_name %> <%= action_name %>">
+
+<section class="header blank-header">
+  <div class="pp-container">
+    <%= image_tag 'logo-white.png', class: 'pp-logo post-job-logo' %>
+  </div>
+</section>
+
+<div class="pp-container cf">
+  
+  <% if notice %><p class="notice"><%= notice %></p><% end %>
+  <% if alert %><p class="alert"><%= alert %></p><% end %>
+  <% if !notice && !alert %><div class="filler"></div><% end %>
+
+  <%= yield %>
+
+</div>
+
+
+<!-- Footer -->
+<%= render "footer" %>
+
+</body>
+</html>

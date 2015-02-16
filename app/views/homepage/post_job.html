@@ -1,413 +1,341 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Driverhunt</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="<%= controller_name %> <%= action_name %>">
+<% if @job.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
 
-<section class="header blank-header">
-  <div class="pp-container">
-    <%= image_tag 'logo-white.png', class: 'pp-logo post-job-logo' %>
-  </div>
-</section>
-
-<div class="pp-container cf">
-  
-  <% if notice %><p class="notice"><%= notice %></p><% end %>
-  <% if alert %><p class="alert"><%= alert %></p><% end %>
-  <% if !notice && !alert %><div class="filler"></div><% end %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
-      <ul>
-      <% @job.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <!-- Left: job form -->
-  <div class="main-form">
-    <%= form_for @job do |f| %>
-      <%= f.hidden_field :user_id, value: current_user.try(:id) %>
-      <input type="hidden" id="facebook" name="facebook">
-
-    <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
- 
-      <ol class="numbers">
-        <!-- Work required -->
-        <li class="numbers-li category-and-address-section">
-          <legend>Who do you need?</legend>
-
-          <%= f.select :category_id,
-          options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]} << ["Other...", nil], :selected => resource.category_id || params[:category]), {}, {class: 'form-control', id: 'job_category'} %>
-
-          <div id="other-wrap">
-            <br>
-            <label for="other-category">Other type of work:</label>
-            <input type="text" id="other-category" name="other_category" class="form-control" value="<%= params[:other_category] %>">
-          </div>          
-
-          <div class="row" id="address-row">
-            <div class="col-sm-8">
-              <%= f.label :postcode, "Near this postcode or address:" %>
-              <div class="input-group">
-              <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH', value: params[:postcode] %>
-              <span class="input-group-btn">
-                <button id="find-postcode" class="btn btn-default" type="button">Find</button>
-              </span>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
-            </div>          
-          </div>
-
-        </li>
-        <!-- Job description -->
-        <li class="numbers-li">
-          <legend>Tell us more about the job</legend>
-          <div class="form-group">
-            <%= f.label :name do %>
-              Job Name: <a class="info" tooltip="How would you describe the job in a couple of words? For example, you could put 'Pizza Delivery', or 'PCO-Licensed Taxi Driver', or 'Help Me Move House'">?</a>
-            <% end %>
-            <%= f.text_field :name, value: (params[:category] != '' ? Category.job_name(params[:category]) : params[:other_category]), class: 'form-control' %>
-          </div>
-          <div id="skills-input" class="form-group">
-            <label for="project-name">Enter some skills that relate to the job (comma seperated): <a class="info" tooltip="You can type any skill you like here. Seperate skills with commas. To select one of the skills in the list, touch it or click it with your mouse.">?</a></label>
-
-
-            <%= f.select :skill_list, '
-              <option value="Driver\'s license">Driver\'s license</option>
-              <option value="Provisional license">Provisional license</option>
-              <option value="GPS">GPS</option>
-              <option value="Knows local area">Knows local area</option>
-              <option value="PCO License">PCO License</option>
-            '.html_safe, {}, {id: 'job-skills', class: 'form-control', multiple: 'multiple'}
-           %>
-
-           <!--  <div id="skill-helper-box">
-              <p class="header">Skill Suggestions (add 3 more)</p>
-              <ul>
-                <a href=""><li>Book Writing</li></a>
-                <a href=""><li>Articles</li></a>
-                <a href=""><li>Article Rewriting</li></a>
-                <a href=""><li>Copywriting</li></a>
-                <a href=""><li>Blog</li></a>
-                <a href=""><li><i class="glyphicon glyphicon-plus"></i> More</li></a>
-              </ul>
-            </div> -->
-          </div>
-          
-          <div class="form-group">
-            <%= f.label :description do %>
-              Describe your job in detail:
-            <% end %>
-            <%= f.text_area :description, class: 'form-control', placeholder: 'Describe your project here...', rows: '4' %>
-          </div>
-        </li>
-        <!-- Budget -->
-        <li class="numbers-li budget">
-          <legend>Who provides the vehicle?</legend>
-
-          <div role="tabpanel">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-              
-              <li role="presentation" class="active"><a id="vehicle-provided-by-driver" href="#fixed" aria-controls="fixed" role="tab" data-toggle="tab">DRIVER PROVIDES OWN VEHICLE</a></li>
-              <li role="presentation"><a id="vehicle-provided-by-employer" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HUNTER PROVIDES VEHICLE</a></li>
-            </ul>
-            <%= f.hidden_field :employer_provides_vehicle, value: 0 %>
-          </div>
-
-        </li>
-
-        <li class="numbers-li budget">
-          <legend>Which days do you need drivers on?</legend>
-
-          <%= hidden_field_tag "job[day_ids][]", nil %>
-          <% for day in Day.all %>
-          <div>
-            <%= check_box_tag "job[day_ids][]", day.id, true, id: dom_id(day) %>
-            <%= label_tag dom_id(day), day.name %>
-          </div>
-          <% end %>
-        </li>
-
-        <li class="numbers-li budget">
-          <legend>Which shifts do you need?</legend>
-
-          <%= hidden_field_tag "job[shiftslot_ids][]", nil %>
-          <% for shiftslot in Shiftslot.all %>
-          <div>
-            <%= check_box_tag "job[shiftslot_ids][]", shiftslot.id, true, id: dom_id(shiftslot) %>
-            <%= label_tag dom_id(shiftslot), shiftslot.name %>
-          </div>
-          <% end %>
-        </li>
-
-        <li class="numbers-li budget">
-          <legend>How much do you pay them?</legend>
-
-          <div role="tabpanel" class="payment-tabs">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="active">
-                <a id="hour-button" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">
-                  EXACT WAGE
-                </a>
-              </li>
-              <li role="presentation">
-                <a id="range-button" href="#range" aria-controls="range" role="tab" data-toggle="tab">
-                  RANGE</a>
-                </li>
-              <li role="presentation">
-                <a id="nowage-button" href="#nowage" aria-controls="nowage" role="tab" data-toggle="tab">
-                  DO NOT INCLUDE WAGE
-                </a>
-              </li>
-            </ul>
-            <%= f.hidden_field :rate_not_included, value: '0' %>
-
-            <!-- Tab panes -->
-            <div class="tab-content cf">
-
-              <div role="tabpanel" class="tab-pane active" id="hour">
-                <div class="form-group cf">
-                  <%= label :rate_hourly_pounds, "Hourly wage:" %>
-                  <span>£</span><%= f.text_field :rate_hourly_pounds, class: 'form-control vshort', maxlength: '3' %><span>:</span>
-                  <%= f.text_field :rate_hourly_pence, class: 'form-control vshort', maxlength: '2' %><span>p</span>
-                </div>
-                <div class="form-group cf">
-                  <%= label :rate_commission_pounds, "Commission per delivery:" %>
-                  <span>£</span><%= f.text_field :rate_commission_pounds, class: 'form-control vshort', maxlength: '6' %><span>:</span>
-                  <%= f.text_field :rate_commission_pence, class: 'form-control vshort', maxlength: '2' %><span>p</span>
-                </div>
-              </div>
-
-              <div role="tabpanel" class="tab-pane cf" id="range">
-                <div class="pull-left">
-                  <%= label :rate_min, "Minimum - Maximum:" %>
-                  <span>£</span><%= f.text_field :rate_min, class: 'form-control short' %><span>&nbsp;- £</span><%= f.text_field :rate_max, class: 'form-control short' %>
-                </div>
-                <div class="pull-left each-wrap">
-                  <label for="job[rate_interval]">&nbsp;</label>
-                  <select name="job[rate_interval]" id="job[rate_interval]" class="form-control">
-                    <option value="Day">Daily</option>
-                    <option value="Week" selected="selected">Weekly</option>
-                    <option value="Month">Monthly</option>
-                    <option value="Year">Annually</option>
-                  </select>
-                </div>
-              </div>
-
-              <div role="tabpanel" class="tab-pane cf" id="nowage">
-              </div>
-
-            </div>
-          </div>
-
-        </li>
-        
-        <!-- Upsell -->
-        <!-- <li>
-          <legend>Get the most from your project! (optional)</legend>
-        </li> -->
-        <div id="post-project-div">
-          <p id="terms">
-          <% if user_signed_in? %>
-            <button class="btn btn-default red-button big">Post Job Now</button>
-          <% else %>
-            <button type="button" class="btn btn-default big red-button" data-toggle="modal" data-target="#login-modal">
-            Post Project Now
-            </button>
-          <% end %>
-            By clicking 'Post Project Now', you are indicating that you have read and agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
-        </div>
-
-        <!-- Button trigger modal -->
-        
-      </ol>
-    <!-- </form> -->
+    <ul>
+    <% @job.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
     <% end %>
+    </ul>
   </div>
+<% end %>
 
-  <!-- Modal -->
-  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Sign up for free to post!</h4>
+<!-- Left: job form -->
+<div class="main-form">
+  <%= form_for @job do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.try(:id) %>
+    <input type="hidden" id="facebook" name="facebook">
+
+  <!-- <form id="post-project-form" action="/dashboard" method="GET"> -->
+
+    <ol class="numbers">
+      <!-- Work required -->
+      <li class="numbers-li category-and-address-section">
+        <legend>Who do you need?</legend>
+
+        <%= f.select :category_id,
+        options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]} << ["Other...", nil], :selected => resource.category_id || params[:category]), {}, {class: 'form-control', id: 'job_category'} %>
+
+        <div id="other-wrap">
+          <br>
+          <label for="other-category">Other type of work:</label>
+          <input type="text" id="other-category" name="other_category" class="form-control" value="<%= params[:other_category] %>">
+        </div>          
+
+        <div class="row" id="address-row">
+          <div class="col-sm-8">
+            <%= f.label :postcode, "Near this postcode or address:" %>
+            <div class="input-group">
+            <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH', value: params[:postcode] %>
+            <span class="input-group-btn">
+              <button id="find-postcode" class="btn btn-default" type="button">Find</button>
+            </span>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
+          </div>          
         </div>
-        <div class="modal-body tab-content" role="tabpanel">
+
+      </li>
+      <!-- Job description -->
+      <li class="numbers-li">
+        <legend>Tell us more about the job</legend>
+        <div class="form-group">
+          <%= f.label :name do %>
+            Job Name: <a class="info" tooltip="How would you describe the job in a couple of words? For example, you could put 'Pizza Delivery', or 'PCO-Licensed Taxi Driver', or 'Help Me Move House'">?</a>
+          <% end %>
+          <%= f.text_field :name, value: (params[:category] != '' ? Category.job_name(params[:category]) : params[:other_category]), class: 'form-control' %>
+        </div>
+        <div id="skills-input" class="form-group">
+          <label for="project-name">Enter some skills that relate to the job (comma seperated): <a class="info" tooltip="You can type any skill you like here. Seperate skills with commas. To select one of the skills in the list, touch it or click it with your mouse.">?</a></label>
 
 
-          <section role="tabpanel" class="tab-pane active" id="modal-signup">
-            <div class="row">
-              <div class="col-sm-6">
-                <button class="btn facebook-button facebook-login">
-                  <%= image_tag "facebook.png" %>
-                  &nbsp;Sign up with Facebook
-                </button>
+          <%= f.select :skill_list, '
+            <option value="Driver\'s license">Driver\'s license</option>
+            <option value="Provisional license">Provisional license</option>
+            <option value="GPS">GPS</option>
+            <option value="Knows local area">Knows local area</option>
+            <option value="PCO License">PCO License</option>
+          '.html_safe, {}, {id: 'job-skills', class: 'form-control', multiple: 'multiple'}
+         %>
+
+         <!--  <div id="skill-helper-box">
+            <p class="header">Skill Suggestions (add 3 more)</p>
+            <ul>
+              <a href=""><li>Book Writing</li></a>
+              <a href=""><li>Articles</li></a>
+              <a href=""><li>Article Rewriting</li></a>
+              <a href=""><li>Copywriting</li></a>
+              <a href=""><li>Blog</li></a>
+              <a href=""><li><i class="glyphicon glyphicon-plus"></i> More</li></a>
+            </ul>
+          </div> -->
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :description do %>
+            Describe your job in detail:
+          <% end %>
+          <%= f.text_area :description, class: 'form-control', placeholder: 'Describe your project here...', rows: '4' %>
+        </div>
+      </li>
+      <!-- Budget -->
+      <li class="numbers-li budget">
+        <legend>Who provides the vehicle?</legend>
+
+        <div role="tabpanel">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            
+            <li role="presentation" class="active"><a id="vehicle-provided-by-driver" href="#fixed" aria-controls="fixed" role="tab" data-toggle="tab">DRIVER PROVIDES OWN VEHICLE</a></li>
+            <li role="presentation"><a id="vehicle-provided-by-employer" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HUNTER PROVIDES VEHICLE</a></li>
+          </ul>
+          <%= f.hidden_field :employer_provides_vehicle, value: 0 %>
+        </div>
+
+      </li>
+
+      <li class="numbers-li budget">
+        <legend>Which days do you need drivers on?</legend>
+
+        <%= hidden_field_tag "job[day_ids][]", nil %>
+        <% for day in Day.all %>
+        <div>
+          <%= check_box_tag "job[day_ids][]", day.id, true, id: dom_id(day) %>
+          <%= label_tag dom_id(day), day.name %>
+        </div>
+        <% end %>
+      </li>
+
+      <li class="numbers-li budget">
+        <legend>Which shifts do you need?</legend>
+
+        <%= hidden_field_tag "job[shiftslot_ids][]", nil %>
+        <% for shiftslot in Shiftslot.all %>
+        <div>
+          <%= check_box_tag "job[shiftslot_ids][]", shiftslot.id, true, id: dom_id(shiftslot) %>
+          <%= label_tag dom_id(shiftslot), shiftslot.name %>
+        </div>
+        <% end %>
+      </li>
+
+      <li class="numbers-li budget">
+        <legend>How much do you pay them?</legend>
+
+        <div role="tabpanel" class="payment-tabs">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a id="hour-button" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">
+                EXACT WAGE
+              </a>
+            </li>
+            <li role="presentation">
+              <a id="range-button" href="#range" aria-controls="range" role="tab" data-toggle="tab">
+                RANGE</a>
+              </li>
+            <li role="presentation">
+              <a id="nowage-button" href="#nowage" aria-controls="nowage" role="tab" data-toggle="tab">
+                DO NOT INCLUDE WAGE
+              </a>
+            </li>
+          </ul>
+          <%= f.hidden_field :rate_not_included, value: '0' %>
+
+          <!-- Tab panes -->
+          <div class="tab-content cf">
+
+            <div role="tabpanel" class="tab-pane active" id="hour">
+              <div class="form-group cf">
+                <%= label :rate_hourly_pounds, "Hourly wage:" %>
+                <span>£</span><%= f.text_field :rate_hourly_pounds, class: 'form-control vshort', maxlength: '3' %><span>:</span>
+                <%= f.text_field :rate_hourly_pence, class: 'form-control vshort', maxlength: '2' %><span>p</span>
               </div>
-              <div class="col-sm-6 grey-border-left">
-                <p class="tiny-title">or sign up with email:</p>
-                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true, :authenticity_token => true) do |f| %>
-                  <%= f.hidden_field :hunter, value: true %>
-                  <p id="signup-errors"></p>    
-                  <div class="form-group">
-                    <i class="glyphicon glyphicon-envelope"></i>
-                    <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
-                  </div>
-                  <div class="form-group">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
-                  </div>
-                  <div class="form-group">
-                    <i class="glyphicon glyphicon-lock"></i>
-                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
-                  </div>
-                  <div class="form-group">
-                    <i class="glyphicon glyphicon-lock"></i>
-                    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
-                  </div>
-
-                  <%= f.submit "Create account", class: 'btn green-button' %>
-                <% end %>
-                <br>
-                <p class="tiny-title">or do you already have an account?<br><a href="#modal-login" aria-controls="modal-login" role="tab" data-toggle="tab">Login to existing account</a></p>
-
+              <div class="form-group cf">
+                <%= label :rate_commission_pounds, "Commission per delivery:" %>
+                <span>£</span><%= f.text_field :rate_commission_pounds, class: 'form-control vshort', maxlength: '6' %><span>:</span>
+                <%= f.text_field :rate_commission_pence, class: 'form-control vshort', maxlength: '2' %><span>p</span>
               </div>
             </div>
 
-          </section>
-
-          <section role="tabpanel" class="tab-pane" id="modal-login">
-            <div class="row">
-              <div class="col-sm-6">
-                <button class="btn facebook-button facebook-login">
-                  <%= image_tag "facebook.png" %>
-                  &nbsp;Login with Facebook
-                </button>
+            <div role="tabpanel" class="tab-pane cf" id="range">
+              <div class="pull-left">
+                <%= label :rate_min, "Minimum - Maximum:" %>
+                <span>£</span><%= f.text_field :rate_min, class: 'form-control short' %><span>&nbsp;- £</span><%= f.text_field :rate_max, class: 'form-control short' %>
               </div>
-              <div class="col-sm-6 grey-border-left">
-                <p class="tiny-title">or login with email:</p>
-
-                <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
-                  <p id="login-errors"></p>    
-                  <div class="form-group">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email'
-                     %>
-                  </div>
-                  <div class="form-group password-wrap">
-                    <i class="glyphicon glyphicon-lock"></i>
-                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>    
-                  </div>
-
-                  <div id="remember-me" class="checkbox">
-                    <label>
-                      <%= f.check_box :remember_me %> Remember me
-                    </label>
-                  </div>
-
-                  <div class="cf">
-                    <%= f.submit "Login", id: 'create-account', class: 'btn red-button'  %>
-                    <a id="forgot-password" href="">Forgot password?</a>
-                  </div>
-                <!-- </form> -->
-                <% end %>
-
-                <hr>
-
-                <p id="no-account">Don't have an account?<a href="#modal-signup" aria-controls="modal-signup" role="tab" data-toggle="tab"> Sign up now!</a></p>
+              <div class="pull-left each-wrap">
+                <label for="job[rate_interval]">&nbsp;</label>
+                <select name="job[rate_interval]" id="job[rate_interval]" class="form-control">
+                  <option value="Day">Daily</option>
+                  <option value="Week" selected="selected">Weekly</option>
+                  <option value="Month">Monthly</option>
+                  <option value="Year">Annually</option>
+                </select>
               </div>
             </div>
 
+            <div role="tabpanel" class="tab-pane cf" id="nowage">
+            </div>
 
-          </section>
+          </div>
+        </div>
 
-        </div>
-        <div class="modal-footer">
-          <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
-        </div>
+      </li>
+      
+      <!-- Upsell -->
+      <!-- <li>
+        <legend>Get the most from your project! (optional)</legend>
+      </li> -->
+      <div id="post-project-div">
+        <p id="terms">
+        <% if user_signed_in? %>
+          <button class="btn btn-default red-button big">Post Job Now</button>
+        <% else %>
+          <button type="button" class="btn btn-default big red-button" data-toggle="modal" data-target="#login-modal">
+          Post Project Now
+          </button>
+        <% end %>
+          By clicking 'Post Project Now', you are indicating that you have read and agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
       </div>
-    </div>
-  </div>
 
-  <!-- Information to help with the form -->
-  <div class="form-helpers">
-    <div id="info-box">
-        <p class="header"><strong>FREE</strong> TO POST A PROJECT</p>
-
-        <h1>Try it today!</h1>
-        <ul>
-          <li>Drivers near you and from your community.</li>
-          <li>View profiles, feedback, and chat direct to them.</li>
-          <li>No on-going agency fees. Once the driver is yours, he's yours!</li>
-          <li>Pay only a finders fee once you're 100% satisfied.</li>
-          
-        </ul>      
-        <!-- <p class="minimum-fees">* minimum fees may apply.</p> -->
-
-    </div>
-  </div>
-
+      <!-- Button trigger modal -->
+      
+    </ol>
+  <!-- </form> -->
+  <% end %>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sign up for free to post!</h4>
+      </div>
+      <div class="modal-body tab-content" role="tabpanel">
 
-<!-- Footer -->
 
-<section id="footer">
-  
-  <!-- Counter -->
+        <section role="tabpanel" class="tab-pane active" id="modal-signup">
+          <div class="row">
+            <div class="col-sm-6">
+              <button class="btn facebook-button facebook-login">
+                <%= image_tag "facebook.png" %>
+                &nbsp;Sign up with Facebook
+              </button>
+            </div>
+            <div class="col-sm-6 grey-border-left">
+              <p class="tiny-title">or sign up with email:</p>
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true, :authenticity_token => true) do |f| %>
+                <%= f.hidden_field :hunter, value: true %>
+                <p id="signup-errors"></p>    
+                <div class="form-group">
+                  <i class="glyphicon glyphicon-envelope"></i>
+                  <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
+                </div>
+                <div class="form-group">
+                  <i class="glyphicon glyphicon-user"></i>
+                  <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
+                </div>
+                <div class="form-group">
+                  <i class="glyphicon glyphicon-lock"></i>
+                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
+                </div>
+                <div class="form-group">
+                  <i class="glyphicon glyphicon-lock"></i>
+                  <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
+                </div>
 
-  <section id="counter">
-    <div class="counter-left"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-          <h1>23,776</h1>
-          <p>Users Online</p>
-        </div>
-        <div class="col-sm-4">
-          <h1>14,229,454</h1>
-          <p>Users</p>
-        </div>
-        <div class="col-sm-4">
-          <h1>6,986,530</h1>
-          <p>Projects</p>
-        </div>
+                <%= f.submit "Create account", class: 'btn green-button' %>
+              <% end %>
+              <br>
+              <p class="tiny-title">or do you already have an account?<br><a href="#modal-login" aria-controls="modal-login" role="tab" data-toggle="tab">Login to existing account</a></p>
+
+            </div>
+          </div>
+
+        </section>
+
+        <section role="tabpanel" class="tab-pane" id="modal-login">
+          <div class="row">
+            <div class="col-sm-6">
+              <button class="btn facebook-button facebook-login">
+                <%= image_tag "facebook.png" %>
+                &nbsp;Login with Facebook
+              </button>
+            </div>
+            <div class="col-sm-6 grey-border-left">
+              <p class="tiny-title">or login with email:</p>
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
+                <p id="login-errors"></p>    
+                <div class="form-group">
+                  <i class="glyphicon glyphicon-user"></i>
+                  <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email'
+                   %>
+                </div>
+                <div class="form-group password-wrap">
+                  <i class="glyphicon glyphicon-lock"></i>
+                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>    
+                </div>
+
+                <div id="remember-me" class="checkbox">
+                  <label>
+                    <%= f.check_box :remember_me %> Remember me
+                  </label>
+                </div>
+
+                <div class="cf">
+                  <%= f.submit "Login", id: 'create-account', class: 'btn red-button'  %>
+                  <a id="forgot-password" href="">Forgot password?</a>
+                </div>
+              <!-- </form> -->
+              <% end %>
+
+              <hr>
+
+              <p id="no-account">Don't have an account?<a href="#modal-signup" aria-controls="modal-signup" role="tab" data-toggle="tab"> Sign up now!</a></p>
+            </div>
+          </div>
+
+
+        </section>
+
+      </div>
+      <div class="modal-footer">
+        <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
       </div>
     </div>
-  </section>
-
-  <div class="pp-container">
-    <div class="row">
-      <div class="col-sm-2 col-sm-push-1">Find freelancers</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance projects</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance jobs</div>
-      <div class="col-sm-2 col-sm-push-1">Freelance contests</div>
-      <div class="col-sm-2 col-sm-push-1">Hire Freelancers</div>
-    </div>
-    <div class="row">
-      <div class="com-sm-2 col-sm-push-5">Freelance work</div>
-      
-    </div>
-    <div class="row">
-      Copyright 2015
-    </div>
   </div>
+</div>
 
-</section>
+<!-- Information to help with the form -->
+<div class="form-helpers">
+  <div id="info-box">
+      <p class="header"><strong>FREE</strong> TO POST A PROJECT</p>
 
-</body>
-</html>
+      <h1>Try it today!</h1>
+      <ul>
+        <li>Drivers near you and from your community.</li>
+        <li>View profiles, feedback, and chat direct to them.</li>
+        <li>No on-going agency fees. Once the driver is yours, he's yours!</li>
+        <li>Pay only a finders fee once you're 100% satisfied.</li>
+        
+      </ul>      
+      <!-- <p class="minimum-fees">* minimum fees may apply.</p> -->
+
+  </div>
+</div>
