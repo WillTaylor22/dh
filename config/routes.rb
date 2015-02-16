@@ -47,11 +47,6 @@ Driverhunt::Application.routes.draw do
   resources :experience_items
   resources :jobs
 
-  namespace :admin_old do
-    resources :jobs
-    resources :categories
-  end
-
   namespace :m do
     get "/", to: 'pages#home', as: 'root'
     get "/dashboard", to: 'pages#dashboard', as: 'dashboard'
