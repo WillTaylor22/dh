@@ -192,6 +192,9 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    paper_trail (3.0.6)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     pg (0.18.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
@@ -309,6 +312,7 @@ DEPENDENCIES
   letter_opener
   mini_magick
   omniauth-facebook
+  paper_trail
   pg
   private_pub
   pry-nav

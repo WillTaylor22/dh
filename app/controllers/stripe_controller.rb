@@ -3,11 +3,11 @@ class StripeController < ApplicationController
   def charge
     @driver = User.find_by(username: payment_params[:user])
     @purchase = Purchase.find_or_create_by(:buyer => current_user, :driver => @driver)
-    unless @purchase.bought?
-      @purchase.attempt_to_buy!
-    else
+    if @purchase.bought?
       flash[:notice] = "Details already purchased."
       redirect_to user_path(username: @driver.username) and return
+    else
+      @purchase.attempt_to_buy!
     end
 
     Stripe.api_key = "sk_test_j42oA8TbOvtNtHh0KjVCXlyE"
@@ -17,7 +17,7 @@ class StripeController < ApplicationController
       customer_id = current_user.stripe_customer_id
       if customer_id
         Stripe::Charge.create(
-          :amount   => 2000,
+          :amount   => 3000,
           :currency => "gbp",
           :customer => customer_id
         )
@@ -29,7 +29,7 @@ class StripeController < ApplicationController
         )
 
         Stripe::Charge.create(
-            :amount => 2000,
+            :amount => 3000,
             :currency => "gbp",
             :customer => customer.id
         )

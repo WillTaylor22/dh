@@ -14,7 +14,7 @@ class Purchase < ActiveRecord::Base
 
   belongs_to :buyer, :foreign_key => :buyer_id, class_name: 'User'
   belongs_to :driver, :foreign_key => :driver_id, class_name: 'User'
-
+  has_paper_trail
 
   # States: instigated, begin_processing, rejected, bought
   # Transitions: attempt_to_buy: instigated -> begin. Success. begin -> bought. Fail begin -> rejected
