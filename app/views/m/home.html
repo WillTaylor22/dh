@@ -37,13 +37,9 @@
         <%= options_for_select(Category.all.map{|c|[c.name_of_user.titleize + "s", c.id]}, params[:category]) %>
       </select>
 
-      <div class="row" id="address-row">
-        <div class="col-xs-12">
-          <%= label :postcode, "Near this postcode or address:" %>
-          <div class="input-group">
-          <%= text_field_tag :postcode, nil, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH' %>
-          </div>
-        </div>       
+      <div id="address-row">
+        <%= label :postcode, "Near this postcode or address:" %>
+        <%= text_field_tag :postcode, nil, class: 'postcode-finder', placeholder: 'E.g. SW1 3BH' %>
       </div>
 
       <a href="#post-job">
@@ -212,23 +208,7 @@
 
 </div> <!-- page -->
 
-<div data-role="page" id="user">
-  <header data-role="header">
-    <h1>Logged in as <%= current_user.full_name if current_user %></h1>
-    <a href="#home" data-icon="home" data-iconpos="notext"></a>
-    <% if user_signed_in? %>
-      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
-    <% end %>
-  </header>
-
-  <div data-role="content">
-    <ul data-role="listview">
-      <li><%= link_to "Log Out", destroy_user_session_path(mobile: true), method: :delete, data: {ajax: "false"} %></li>
-      <li><%= link_to "View My Profile", m_dashboard_path(anchor: 'profile') %></li>
-    </ul>
-  </div>
-
-</div>
+<%= render "user" %>
 
 <div data-role="page" id="find-jobs">
 
@@ -263,7 +243,6 @@
   </div>    
 
 </div> <!-- page -->
-
 
 <div data-role="page" id="sign-in">
 

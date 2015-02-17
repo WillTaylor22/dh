@@ -1,20 +1,39 @@
-  <header data-role="header">
-    <% if user_signed_in? %>
-      <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
-    <% end %>
-  </header>
-
-  <section class="above-fold">
-    <%= image_tag 'logo-white.png', class: 'main-logo' %>
-    <h2>Find and chat to drivers in minutes</h2>
-  </section>
+<div data-role="page" id="home">
+  <%= render "menu" %>
+  <%= render "header", title: 'Driver Hunt Home' %>
 
   <div data-role="content">
-    <h3>Welcome to DriverHunt.com</h3>
+    <h2><a href="#chat">New Messages</a></h2>
+    <ul data-role="listview">
+      <li><%= link_to "Message - Person", m_dashboard_path(anchor: 'profile') %></li>
+      <li><%= link_to "Message - Person", m_dashboard_path(anchor: 'profile') %></li>
+    </ul>
+    <br><br>
 
-    <p>Thank you for your details.</p>
-    <p>Our team will verify your infomation and get back to you with matches to your search.</p>
+    <h2>Jobs you've posted</h2>
+    <ul data-role="listview">
+      <li><%= link_to "Job Name", m_dashboard_path(anchor: 'profile') %></li>
+      <li><%= link_to "Job Name", m_dashboard_path(anchor: 'profile') %></li>
+    </ul>
+    <br><br>
 
-    <p>We're looking forward to working with you soon!</p>
-    <p>&nbsp;&nbsp;&nbsp;- The Driver Hunt team</p>
+    <h2>Jobs you've applied to</h2>
+    <ul data-role="listview">
+      <li><%= link_to "Job Name", m_dashboard_path(anchor: 'profile') %></li>
+      <li><%= link_to "Job Name", m_dashboard_path(anchor: 'profile') %></li>
+    </ul>
   </div>
+</div>
+
+<%= render "user" %>
+
+<%= render "post_job" %>
+
+<%= render "chat" %>
+
+<%= render "my_jobs" %>
+<%= render "browse_jobs" %>
+<%= render "profile" %>
+<%= render "help" %>
+
+

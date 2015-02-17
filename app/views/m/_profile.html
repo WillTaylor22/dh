@@ -1,0 +1,101 @@
+<div data-role="page" id="profile">
+  <%= render "menu" %>
+  <%= render "header", title: 'Profile' %>
+
+  <div data-role="content">
+    <h2>Profile</h2>
+
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+        <%#= link_to m_upload_photo_path, class: 'change-picture' do %>
+          <!-- <i class="glyphicon glyphicon-pencil"></i>Change Picture -->
+        <%# end %>
+        <%= image_tag @user.photo_url(:profile).to_s %>
+      </div>
+      <div class="ui-block-b">
+        <h1 class="top-title">
+          <%= @user.full_name %>
+          <% if @user == current_user %>
+            <%= link_to edit_name_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> <%= current_user.first_name ? 'edit' : 'add name' %>]
+            <% end %>
+          <% end %>
+        </h1>
+        <h2 id="personal-summary">
+          <% if @user == current_user && current_user.summary %>
+            <%= current_user.summary %> 
+            <%= link_to edit_summary_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> edit]
+            <% end %>
+          <% elsif @user == current_user %>
+            <%= link_to edit_summary_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> Add summary]
+            <% end %> <span class="example">For example: "Taxi Driver"</span>
+          <% elsif @user.summary %>
+            <%= @user.summary %>
+          <% end %>
+        </h2>
+        <p class="username"><strong>Username:</strong> <%= @user.username %> <%= image_tag "profile/trust_symbols.png" %></p>
+        <p id="location">
+          <% if @user == current_user && current_user.postcode %>
+            <strong>Location:</strong> <%= @user.city %>, <%= @user.country %>
+            <%= link_to edit_postcode_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> edit]
+            <% end %>
+          <% elsif @user == current_user %>
+            <strong>Location:</strong> <%= link_to edit_postcode_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> Add location]
+            <% end %>
+          <% elsif @user.summary %>
+            <strong>Location:</strong> <%= @user.city %>, <%= @user.country %>
+          <% end %>
+        </p>
+
+        <p><strong>Member since:</strong> <%= @user.created_at.strftime("%B %Y") %></p>
+        <% if @user.valid_license %>
+        <p><strong>Valid UK drivers license:</strong> <%= @user.valid_license ? "Yes" : "No" %></p>
+        <% end %>
+
+        <div class="description">
+          <% if current_user == @user && current_user.long_description %>
+            <%= simple_format current_user.long_description %>
+            <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+              [<i class="glyphicon glyphicon-pencil"></i> edit]
+            <% end %>
+          <% elsif current_user == @user %>
+              <%= link_to edit_description_path, remote: true, class: 'edit' do %>
+                [<i class="glyphicon glyphicon-pencil"></i> Add description]
+              <% end %>
+             <span class="example">Example: "I have 3 years experience, my own car, and a PCO license."</span>
+          <% elsif @user.long_description %>
+            <%= simple_format @user.long_description %>
+          <% end %>
+        </div>
+      </div> <!-- Right block -->
+    </div><!-- Grid block -->
+
+    
+    <% if current_user.owns(@user) %>
+      <div class="contact-details">
+        <h2>Contact card:</h2>
+        <div class="form-group">
+          <label for="">Phone Number:</label>
+          <input type="text" class="form-control" disabled="disabled" value="<%= @user.phone_number %>">
+        </div>
+        <div class="form-group">
+          <label for="">Email address:</label>
+          <input type="text" class="form-control" disabled="disabled" value="<%= @user.email %>">
+        </div>
+      </div>
+    <% end %>
+
+    <div data-role="controlgroup">
+      <a href="#buy">Buy this Driver</a>
+      <a href="#chat">Chat</a>
+      <a href="#resume">Résumé</a>
+      <a href="#feedback">Feedback</a>
+    </div>
+
+  </div>
+
+</div>
