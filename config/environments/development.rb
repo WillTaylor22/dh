@@ -31,21 +31,21 @@ Driverhunt::Application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 
-  config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[Error] ",
-      :sender_address => %{"Geoffrey" <noreply@driverhunt.com>},
-      :exception_recipients => %w{wrftaylor@gmail.com}
-    }
-  
-  # config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.delivery_method = :sendmail
-  # Defaults to:
-  # config.action_mailer.sendmail_settings = {
-  #   :location => '/usr/sbin/sendmail',
-  #   :arguments => '-i -t'
-  # }
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
+  # config.middleware.use ExceptionNotification::Rack,
+  #   :email => {
+  #     :email_prefix => "[Error] ",
+  #     :sender_address => %{"Geoffrey" <noreply@driverhunt.com>},
+  #     :exception_recipients => %w{wrftaylor@gmail.com}
+  #   }
+  # 
+  # # config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.delivery_method = :sendmail
+  # # Defaults to:
+  # # config.action_mailer.sendmail_settings = {
+  # #   :location => '/usr/sbin/sendmail',
+  # #   :arguments => '-i -t'
+  # # }
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
 
 end
