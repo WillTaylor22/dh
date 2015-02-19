@@ -2,7 +2,7 @@ class M::JobsController < MController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:create]
   
-  before_filter :authenticate_user!, except: [:new]
+  before_filter :authenticate_user!, except: [:new, :create]
   layout 'mobile'
 
   respond_to :html
@@ -29,14 +29,18 @@ class M::JobsController < MController
 
   def create
     @job = Job.new(job_params)
-    @job.name = Category.find(job_params[:category_id]).name_of_user.titleize + " Needed"
+    @job.name = Category.find(job_params[:category_id] || 1).name_of_user.titleize + " Needed"
     @job.summary = job_params[:category_id] ? @job.category.name_of_user : params[:other_category] 
     @job.skill_list.add(params[:job][:skill_list])
     @job.save
-    if user_signed_in?
-      redirect_to m_dashboard_path(anchor: 'job', job: @job.id) and return
+    if @job.persisted?
+      if user_signed_in?
+        redirect_to m_dashboard_path(anchor: 'job', job: @job.id) and return
+      else
+        redirect_to m_signup_after_job_post_path(job: @job.id) and return
+      end
     else
-      redirect_to m_signup_after_job_post_path(job: @job.id) and return
+      redirect_to new_m_job_path(@job)
     end
   end
 

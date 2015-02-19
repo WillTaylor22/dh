@@ -287,32 +287,35 @@
               </button>
             </div>
             <div class="col-sm-6 grey-border-left">
-              <p class="tiny-title">or login with email:</p>
+              <button class="btn big green-button no-shadow form-control">
+                or Log in with Email
+              </button>
+              <div class="email-info">
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
+                  <p id="login-errors"></p>    
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email'
+                     %>
+                  </div>
+                  <div class="form-group password-wrap">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>    
+                  </div>
 
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
-                <p id="login-errors"></p>    
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-user"></i>
-                  <%= f.text_field :login, class: 'form-control', id: 'username', placeholder: 'Username or Email'
-                   %>
-                </div>
-                <div class="form-group password-wrap">
-                  <i class="glyphicon glyphicon-lock"></i>
-                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>    
-                </div>
+                  <div id="remember-me" class="checkbox">
+                    <label>
+                      <%= f.check_box :remember_me %> Remember me
+                    </label>
+                  </div>
 
-                <div id="remember-me" class="checkbox">
-                  <label>
-                    <%= f.check_box :remember_me %> Remember me
-                  </label>
-                </div>
-
-                <div class="cf">
-                  <%= f.submit "Login", id: 'create-account', class: 'btn red-button'  %>
-                  <a id="forgot-password" href="">Forgot password?</a>
-                </div>
-              <!-- </form> -->
-              <% end %>
+                  <div class="cf">
+                    <%= f.submit "Login", id: 'create-account', class: 'btn red-button'  %>
+                    <a id="forgot-password" href="">Forgot password?</a>
+                  </div>
+                <!-- </form> -->
+                <% end %>
+              </div>
 
               <hr>
 

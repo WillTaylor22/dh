@@ -4,7 +4,8 @@
 //= require jquery
 //= require jquery_ujs
 
-$( document ).on('pageinit', function() {
+$( document ).ready( function() {
+
 
 function show_other(){
   if( $("option[value='']:selected").length ) {
@@ -52,6 +53,13 @@ find_location_on_map();
 //     $(".end-year-wrap").show()
 //   }
 // });
+
+var email_button = $(".big.green-button")
+email_button.click(function(){
+  event.preventDefault();
+  email_button.hide();
+  $(".email-info").show();
+});
 
 }); // document ready
 

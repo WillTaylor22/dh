@@ -1,20 +1,29 @@
 <%= hidden_field :mobile, value: 1 %>
 <p id="signup-errors"></p>
-<div class="form-group">
-  <i class="glyphicon glyphicon-envelope"></i>
-  <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
+
+<div data-role="fieldcontain">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, placeholder: 'Enter First Name' %>
 </div>
-<div class="form-group">
-  <i class="glyphicon glyphicon-user"></i>
-  <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
+
+<div data-role="fieldcontain">
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, placeholder: 'Enter Last Name' %>
 </div>
-<div class="form-group">
-  <i class="glyphicon glyphicon-lock"></i>
-  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
+
+<div data-role="fieldcontain">
+  <%= f.label :email %>
+  <%= f.email_field :email, placeholder: 'Enter Email' %>
 </div>
-<div class="form-group">
-  <i class="glyphicon glyphicon-lock"></i>
-  <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
+
+<div data-role="fieldcontain">
+  <%= f.label :password %>
+  <%= f.password_field :password, autocomplete: "off", placeholder: 'Password' %>
+</div>
+
+<div data-role="fieldcontain">
+  <%= f.label :password_confirmation, "Confirm your password" %>
+  <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm password' %>
 </div>
 
 <%= f.submit "Create account", class: 'btn green-button' %>

@@ -22,6 +22,10 @@ $light-blue: #dfebee;
     }
   }
 
+  .centered{
+    text-align: center;
+  }
+
   .pull-right{
     float: right;
   }
@@ -250,6 +254,20 @@ $light-blue: #dfebee;
   p.secret i{
     color: black;
   }
+
+  // Post Job
+
+  // End Post Job
+
+  // Signup after posting a job
+
+  .email-info{
+    display: none;
+  }
+
+  // End signup after posting a job
+
+
 
   // end outside
 
