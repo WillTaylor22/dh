@@ -1,7 +1,9 @@
 <div id="job">
-<div class="cf">
-  <button class="btn red-button pull-right">Apply for Job</button>
-</div>
+<% unless @job.user == current_user %>
+  <div class="cf">
+    <button class="btn red-button pull-right">Apply for Job</button>
+  </div>
+<% end %>
 <h1 id="job-title" class="h1-28"><%= @job.name %></h1>
 <h2 id="category"><%= @job.summary %></h2>
 <div id="job-activity">
@@ -18,7 +20,7 @@
 
     <div id="average-rating">
       <p>Who provides vehicle</p>
-      <h4><%= @job.employer_provides_vehicle ? 'Us' : 'You' %></h4>
+      <h4><%= @job.employer_provides_vehicle ? 'Employer' : 'Driver' %></h4>
     </div>
 
 <!--     <div id="job-budget">
@@ -30,6 +32,7 @@
 
 </div>
 
+<% if @job.description != "" %>
 <h2 id="job-description-title" class="h2-24">Job Description</h2>
 
 <div class="row">
@@ -37,32 +40,35 @@
     <%= simple_format @job.description %>
   </div>
 </div>
-
-<h2 class="standard">Skills required:</h2>
-<ul id="skills-list">
-  <% @job.skill_list.each do |s| %>
-    <li><%= link_to s, '#' %></li>
+<% end %>
+<div class="tags">
+  <% if @job.skill_list.length > 0 %>
+  <h2 class="standard">Skills required:</h2>
+  <ul class="horizontal-list" id="skills-list">
+    <% @job.skill_list.each do |s| %>
+      <li><%= link_to s, '#' %></li>
+    <% end %>
+  </ul>
+  <br>
   <% end %>
-</ul>
-
-<h2 class="standard">Shifts required:</h2>
-<% if @job.shiftslots %>
-  <ul>
-    <% @job.shiftslots.each do |ss| %>
-      <li><%= ss.name %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<h2 class="standard">Days required:</h2>
-<% if @job.days %>
-  <ul>
-    <% @job.days.each do |d| %>
-      <li><%= d.name %></li>
-    <% end %>
-  </ul>
-<% end %>
-
+  <h2 class="standard">Shifts required:</h2>
+  <% if @job.shiftslots %>
+    <ul class="horizontal-list">
+      <% @job.shiftslots.each do |ss| %>
+        <li><%= ss.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <br>
+  <h2 class="standard">Days required:</h2>
+  <% if @job.days %>
+    <ul class="horizontal-list">
+      <% @job.days.each do |d| %>
+        <li><%= d.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 <div class="cf">
   <%#= link_to post_job_path(name: @job.name, category: @job.category, description: @job.description, summary: @job.summary, skills: @job.skills) do %>
     <!-- <button class="btn red-button">Post a Job like this</button> -->
@@ -72,9 +78,11 @@
 
 <div class="thick-line"></div>
 
+<% unless @job.user == current_user %>
 <div class="cf">
   <button class="btn red-button pull-right">Apply for Job</button>
 </div>
+<% end %>
 
 <!-- <div class="applicant-table">
   <div class="applicant-table-header cf">

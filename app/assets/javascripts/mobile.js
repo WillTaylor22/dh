@@ -4,7 +4,7 @@
 //= require jquery
 //= require jquery_ujs
 
-$( document ).ready(function() {
+$( document ).on('pageinit', function() {
 
 function show_other(){
   if( $("option[value='']:selected").length ) {
@@ -40,6 +40,18 @@ $(".postcode-finder").blur(function(){
 show_other();
 find_location_on_map();
 
+// var qual_current = $(".qualification-current-boolean")
+// console.log(qual_current)
+// qual_current.change(function(){
+//   console.log("change")
+//   if(qual_current.prop('checked', true)){
+//     $(".end-year-wrap").hide()
+//     console.log("true")
+//   } else {
+//     console.log("false")
+//     $(".end-year-wrap").show()
+//   }
+// });
 
 }); // document ready
 

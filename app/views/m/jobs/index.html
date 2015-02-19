@@ -1,0 +1,11 @@
+<div data-role="page">
+  <%= render "header" %>
+
+  <h1>Jobs 1 mile around you</h1>
+  <ul data-role="listview">
+    <% @jobs.each do |job| %>
+    <li><%= link_to job.name != "" ? job.name : raw("&nbsp;"), m_job_path(job) %></li>
+    <% end %>
+  </ul>
+
+</div>

@@ -130,6 +130,12 @@ h4.standard{
   }
 }
 
+.no-shadow{
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
 
 .blue-button{
   font-size: 18px;

@@ -100,7 +100,7 @@
           <ul class="nav nav-tabs" role="tablist">
             
             <li role="presentation" class="active"><a id="vehicle-provided-by-driver" href="#fixed" aria-controls="fixed" role="tab" data-toggle="tab">DRIVER PROVIDES OWN VEHICLE</a></li>
-            <li role="presentation"><a id="vehicle-provided-by-employer" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">HUNTER PROVIDES VEHICLE</a></li>
+            <li role="presentation"><a id="vehicle-provided-by-employer" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">EMPLOYER PROVIDES VEHICLE</a></li>
           </ul>
           <%= f.hidden_field :employer_provides_vehicle, value: 0 %>
         </div>
@@ -139,6 +139,11 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
+              <a id="nowage-button" href="#nowage" aria-controls="nowage" role="tab" data-toggle="tab">
+                DO NOT INCLUDE WAGE
+              </a>
+            </li>
+            <li role="presentation">
               <a id="hour-button" href="#hour" aria-controls="hour" role="tab" data-toggle="tab">
                 EXACT WAGE
               </a>
@@ -147,18 +152,13 @@
               <a id="range-button" href="#range" aria-controls="range" role="tab" data-toggle="tab">
                 RANGE</a>
               </li>
-            <li role="presentation">
-              <a id="nowage-button" href="#nowage" aria-controls="nowage" role="tab" data-toggle="tab">
-                DO NOT INCLUDE WAGE
-              </a>
-            </li>
           </ul>
           <%= f.hidden_field :rate_not_included, value: '0' %>
 
           <!-- Tab panes -->
           <div class="tab-content cf">
 
-            <div role="tabpanel" class="tab-pane active" id="hour">
+            <div role="tabpanel" class="tab-pane" id="hour">
               <div class="form-group cf">
                 <%= label :rate_hourly_pounds, "Hourly wage:" %>
                 <span>£</span><%= f.text_field :rate_hourly_pounds, class: 'form-control vshort', maxlength: '3' %><span>:</span>
@@ -208,7 +208,7 @@
           Post Project Now
           </button>
         <% end %>
-          By clicking 'Post Project Now', you are indicating that you have read and agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
+          By clicking 'Post Project Now', you are indicating that you have read and agree to the <%= link_to "Terms and Conditions", terms_path, target: "_blank" %> and <%= link_to "Privacy Policy", privacy_path, target: "_blank" %></p>
       </div>
 
       <!-- Button trigger modal -->
@@ -238,29 +238,38 @@
               </button>
             </div>
             <div class="col-sm-6 grey-border-left">
-              <p class="tiny-title">or sign up with email:</p>
-              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true, :authenticity_token => true) do |f| %>
-                <%= f.hidden_field :hunter, value: true %>
-                <p id="signup-errors"></p>    
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-envelope"></i>
-                  <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
-                </div>
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-user"></i>
-                  <%= f.text_field :username, class: 'form-control', id: 'username', placeholder: 'Username' %>
-                </div>
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-lock"></i>
-                  <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
-                </div>
-                <div class="form-group">
-                  <i class="glyphicon glyphicon-lock"></i>
-                  <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
-                </div>
+              <button class="btn big green-button no-shadow form-control">
+                or Sign up with Email
+              </button>
+              <div class="email-info">
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, remote: true, :authenticity_token => true) do |f| %>
+                  <%= f.hidden_field :hunter, value: true %>
+                  <p id="signup-errors"></p>
+                  
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <%= f.email_field :email, class: 'form-control', id: 'email', placeholder: 'Email Address' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', id: 'password', placeholder: 'Password' %>
+                  </div>
+                  <div class="form-group">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', id: 'confirm-password', placeholder: 'Confirm password' %>
+                  </div>
 
-                <%= f.submit "Create account", class: 'btn green-button' %>
-              <% end %>
+                  <%= f.submit "Create account", class: 'btn green-button' %>
+                <% end %>
+              </div>
               <br>
               <p class="tiny-title">or do you already have an account?<br><a href="#modal-login" aria-controls="modal-login" role="tab" data-toggle="tab">Login to existing account</a></p>
 
@@ -316,7 +325,7 @@
 
       </div>
       <div class="modal-footer">
-        <p id="terms-create-account">By registering you confirm that you accept the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+        <p id="terms-create-account">By registering you confirm that you accept the <%= link_to "Terms and Conditions", terms_path, target: "_blank" %> and <%= link_to "Privacy Policy", privacy_path, target: "_blank" %></p>
       </div>
     </div>
   </div>

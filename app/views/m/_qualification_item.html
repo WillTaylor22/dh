@@ -1,0 +1,9 @@
+<div class="experience-or-quality-item">
+  <h3>
+    <%= item.qualification_title %>
+    <%= link_to '', m_qualification_item_path(item), method: :delete, class: 'pull-right', data: {role: "button", inline: "true", icon: "delete", iconpos: 'notext', mini: 'true', confirm: "Are you sure?"} %>
+    <%= link_to '', edit_m_qualification_item_path(item), class: 'pull-right', data: {role: "button", inline: "true", icon: "edit", iconpos: 'notext',mini: 'true'} %>
+  </h3>
+  <h4><span class="no-weight">from</span> <%= item.location %></h4>
+  <p class="date"><%= item.start_date.strftime("%Y") %> - <%= item.end_date_or_present %></p>
+</div>

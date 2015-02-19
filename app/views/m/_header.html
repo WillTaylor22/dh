@@ -1,5 +1,18 @@
 <header data-role="header">
-  <h1><%= title %></h1>
-  <a href="#menu" data-icon="bars" data-iconpos="notext"></a>
-  <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+  <%= link_to image_tag('logo.png', class: 'header-logo'), m_dashboard_path, data: {role: 'none'}, class: 'header-logo-wrap' %>
+  <% if current_user %>
+    <a href="#user" data-icon="user" data-iconpos="notext" class="ui-btn-right"></a>
+  <% else %>
+    <%#= link_to "Sign In", m_sign_in_path, class: "ui-btn-right" %>
+  <% end %>
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to "Jobs", m_jobs_path %></li>
+      <li><a href="#chat">Chat</a></li>
+      <li><%= link_to "Profile", m_profile_path %></li>
+      <li><%= link_to "Post a Job", m_post_job_path %></li>
+    </ul>
+  </div>
 </header>
+<% if notice %><p class="notice"><%= notice %></p><% end %>
+<% if alert %><p class="alert"><%= alert %></p><% end %>

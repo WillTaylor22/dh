@@ -43,31 +43,24 @@ class Job < ActiveRecord::Base
   #### JOB DETAIL ###
 
   def distance_from_user(user)
-    if user.latitude
-      distance = distance_from([user.latitude, user.longitude])
-      if distance == nil
-        return nil
-      else
-        value = distance.to_s[0..3] if distance >= 1000
-        value = distance.to_s[0..2] if distance >= 100
-        value = distance.to_s[0..1] if distance >= 10
-        value = distance.to_s[0..2] if distance < 10
-      end
-      return "#{value} miles"
-    end
+    return "Unavailable" unless user && user.latitude && self.latitude
+    distance = distance_from([user.latitude, user.longitude])
+    value = distance.to_s[0..3] if distance >= 1000
+    value = distance.to_s[0..2] if distance >= 100
+    value = distance.to_s[0..1] if distance >= 10
+    value = distance.to_s[0..2] if distance < 10
+    value = 0 if distance == 0
+    ActionController::Base.helpers.pluralize(value, 'mile')
   end
 
   # Gives raw value
   def distance(user)
-    if user.latitude && latitude
-      distance_from([user.latitude, user.longitude])
-    else
-      nil
-    end
+    return nil unless user.latitude && latitude
+    distance_from([user.latitude, user.longitude])
   end
 
   def bearing_from_user(user)
-    return nil if !latitude
+    return nil if (!latitude || (latitude == user.latitude && longitude == user.longitude))
     # bearing = (([latitude, longitude]).heading_to([user.latitude, user.longitude]) + 180)%360
     bearing = (bearing_to([user.latitude, user.longitude]) + 180)%360
 

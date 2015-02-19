@@ -21,10 +21,10 @@ Driverhunt::Application.routes.draw do
   get '/dashboard', to: 'pages#my_jobs'
   get '/chat', to: 'pages#chat'
   # get '/drivers', to: 'pages#drivers'
-  get '/jobs', to: 'pages#jobs', as: "jobs"
+  # get '/jobs', to: 'pages#jobs', as: "jobs"
+  # get '/job/:id', to: 'pages#job', as: 'job' # now using resources
   get '/help', to: 'homepage#help'
   get '/u/:username', to: 'pages#profile', as: 'user'
-  get '/job/:id', to: 'pages#job', as: 'job'
   get '/buy/:username', to: 'pages#buy', as: 'buy'
   post '/charge', to: 'stripe#charge', as: 'charge'
   get '/terms', to: 'homepage#terms', as: 'terms'
@@ -50,9 +50,18 @@ Driverhunt::Application.routes.draw do
 
   namespace :m do
     get "/", to: 'pages#home', as: 'root'
+    get "/sign-in", to: 'pages#sign_in', as: 'sign_in'
+    get "/post-job", to: 'pages#post_job', as: 'post_job'
     get "/dashboard", to: 'pages#dashboard', as: 'dashboard'
     get "/job-signup", to: 'pages#signup_after_job_post', as: 'signup_after_job_post'
     get '/job-finder', to: 'pages#onboarding', as: "onboarding"
+    get '/profile', to: 'pages#profile', as: "profile"
+    get '/edit', to: 'pages#edit', as: "edit"
+    get '/terms', to: 'pages#terms', as: 'terms'
+    get '/privacy', to: 'pages#privacy', as: 'privacy'
+    # get '/job/:id', to: 'pages#job', as: 'job'
+    resources :qualification_items
+    resources :experience_items
     resources :jobs
   end
 

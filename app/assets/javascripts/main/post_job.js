@@ -34,4 +34,12 @@ $(".homepage.post_job").ready(function() {
     $("#new_job").submit();
   });
 
+  var email_button = $(".big.green-button")
+  email_button.click(function(){
+    event.preventDefault();
+    email_button.hide();
+    $(".email-info").show();
+  });
+  
+
 });

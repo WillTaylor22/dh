@@ -1,0 +1,10 @@
+<div class="experience-or-quality-item">
+  <h3>
+    <%= item.job_title %>
+    <%= link_to '', m_experience_item_path(item), method: :delete, class: 'pull-right', data: {role: "button", inline: "true", icon: "delete", iconpos: 'notext', mini: 'true', confirm: "Are you sure?"} %>
+    <%= link_to '', edit_m_experience_item_path(item), class: 'pull-right', data: {role: "button", inline: "true", icon: "edit", iconpos: 'notext',mini: 'true'} %>
+  </h3>
+  <h4><span class="no-weight">at</span> <%= item.location %></h4>
+  <p class="date"> <%= item.start_date.strftime("%b %Y") %> - <%= item.end_date_or_present %> (<%= item.timespan %>)</p>
+  <p><%= item.description %></p>
+</div>

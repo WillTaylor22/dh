@@ -1,0 +1,38 @@
+<div data-role="page" id="edit">
+  <%= render "logo" %>
+  <div data-role="content">
+    <h1>Edit your profile</h1>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <input type="hidden" name="mobile" value="true">
+
+      <div data-role="fieldcontain">
+        <label for="first_name">First Name:</label>
+        <%= f.text_field :first_name, class: 'form-control', id: 'first_name', placeholder: 'Enter first name', value: current_user.first_name %>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="first_name">Last Name:</label>
+        <%= f.text_field :last_name, class: 'form-control', id: 'last_name', placeholder: 'Enter last name', value: current_user.last_name %>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="short-summary">Postcode or address (only your city is shown on your profile):</label>
+        <%= f.text_field :postcode, class: 'form-control', id: 'postcode', placeholder: 'E.g. "SE10 3BD"', value: current_user.postcode %>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="short-summary">Short summary:</label>
+        <%= f.text_field :summary, class: 'form-control', id: 'short-summary', placeholder: 'E.g. "Taxi Driver"', value: current_user.summary %>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="long-description">Description:</label>
+        <%= f.text_area :long_description, class: 'form-control', id: 'long-description', placeholder: 'Example: "I have 3 years experience, my own car, and a PCO license."', rows: '5', value: current_user.long_description %>
+      </div>
+
+      <%= f.submit "Save", class: 'green-button' %>
+
+      <p class="pull-right">or <a href="" data-rel="back">cancel</a></p>
+    <% end %>
+  </div>
+</div>

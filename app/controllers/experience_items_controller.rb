@@ -23,17 +23,17 @@ class ExperienceItemsController < ApplicationController
   def create
     @experience_item = ExperienceItem.new(experience_item_params)
     @experience_item.save
-    redirect_to user_path current_user.username, :anchor => 'resume'
+    redirect_to redirect_path
   end
 
   def update
     @experience_item.update(experience_item_params)
-    redirect_to user_path current_user.username, :anchor => 'resume'
+    redirect_to redirect_path
   end
 
   def destroy
     @experience_item.destroy
-    redirect_to user_path current_user.username, :anchor => 'resume'
+    redirect_to redirect_path
   end
 
   def add
@@ -52,5 +52,13 @@ class ExperienceItemsController < ApplicationController
 
     def experience_item_params
       params.require(:experience_item).permit(:user_id, :job_title, :location, :description, :start_date, :end_date, :current)
+    end
+
+    def redirect_path
+      if params[:mobile]
+        m_profile_path(:anchor => 'resume')
+      else
+        user_path(current_user.username, :anchor => 'resume')
+      end
     end
 end

@@ -1,0 +1,114 @@
+<div data-role="page" id="profile">
+  <%= render "user" %>
+  <%= render "header" %>
+
+  <div data-role="content">
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+        <div class="profile-picture-wrap">
+          <%#= link_to m_upload_photo_path, class: 'change-picture' do %>
+            <!-- <i class="glyphicon glyphicon-pencil"></i>Change Picture -->
+          <%# end %>
+        <%= image_tag current_user.photo_url(:profile).to_s %>
+        </div>
+      </div>
+      <div class="ui-block-b">
+        <h1 class="top-title">
+          <%= current_user.full_name %>
+        </h1>
+        <h2 id="personal-summary">
+            <%= current_user.summary %> 
+        </h2>
+        <p class="username"><strong>Username:</strong> <%= current_user.username %>
+          <%#= image_tag "profile/trust_symbols.png" %>
+        </p>
+        <p id="location">
+          <% if current_user.postcode %>
+            <strong>Location:</strong> <%= current_user.city %>, <%= current_user.country %>
+          <% end %>
+        </p>
+
+        <p><strong>Member since:</strong> <%= current_user.created_at.strftime("%B %Y") %></p>
+        <% if current_user.valid_license %>
+        <p><strong>Valid UK drivers license:</strong> <%= current_user.valid_license ? "Yes" : "No" %></p>
+        <% end %>
+
+        <div class="description">
+          <%= simple_format current_user.long_description %>
+        </div>
+      </div> <!-- Right block -->
+    </div><!-- Grid block -->
+
+    
+    <%# if current_user.owns(current_user) %>
+      <!-- <div class="contact-details">
+        <h2>Contact card:</h2>
+        <label for="">Phone Number:</label>
+        <input type="text" class="form-control" disabled="disabled" value="<%= current_user.phone_number %>">
+        <label for="">Email address:</label>
+        <input type="text" class="form-control" disabled="disabled" value="<%= current_user.email %>">
+      </div> -->
+    <%# end %>
+
+    <div data-role="controlgroup">
+      <!-- <a href="#buy" data-role='button'>Buy this Driver</a> -->
+      <!-- <a href="#chat" data-role='button'>Chat</a> -->
+      <%= link_to 'Edit Profile', m_edit_path, data: { role: 'button' } %>
+      <a href="#resume" data-role='button'>View Résumé</a>
+      <!-- <a href="#reviews" data-role='button'>Reviews</a> -->
+    </div>
+
+  </div>
+
+</div>
+
+<div data-role="page" id="resume">
+  
+  <%= render "header" %>
+
+  <div data-role="content">
+    
+    <h2>Experience
+      <%= link_to 'Add Experience', new_m_experience_item_path, class: 'pull-right', data: {role: "button", inline: "true", icon: "plus", mini: 'true'} %>
+    </h2>
+    
+    
+    <div class="experience-items">
+      <% if @experience_items.each do |item| %>
+        <%= render 'experience_item', item: item %>
+      <% end.empty? %>
+        <%= link_to new_m_experience_item_path, class: 'empty-section' do %>
+          <span class="empty-section-text">+ Add work experience to your résumé</span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <h2 class="standard">Qualifications
+      <%= link_to 'Add Qualification', new_m_qualification_item_path, class: 'pull-right', data: {role: "button", inline: "true", icon: "plus", mini: 'true'} %>
+    </h2>
+
+    <div class="qualification-items">
+      <% if @qualification_items.each do |item| %>
+        <%= render 'qualification_item', item: item %>
+      <% end.empty? %>
+        <%= link_to new_m_qualification_item_path, class: 'empty-section' do %>
+          <span class="empty-section-text">+ Add qualifications to your résumé</span>
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+<div data-role="page" id="reviews">
+  <%= render "header" %>
+  
+  <div data-role="content">
+    <h1>Score: 0/5</h1>
+    <%= image_tag "profile/rating.png" %><br>
+    <p>This user has not yet received feedback</p>
+    <a href="">(0 reviews)</a> 
+  </div>
+  
+
+</div>

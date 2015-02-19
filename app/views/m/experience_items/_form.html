@@ -1,0 +1,56 @@
+<%= form_for(@experience_item) do |f| %>
+<% if @experience_item.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@experience_item.errors.count, "error") %> prohibited this experience_item from being saved:</h2>
+
+    <ul>
+    <% @experience_item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= f.hidden_field :user_id, value: current_user.id %>
+<input type="hidden" name="mobile" value="true">
+
+<div data-role="fieldcontain">
+  <%= f.label :job_title %>
+  <%= f.text_field :job_title, class: 'form-control' %>
+</div>
+
+<div data-role="fieldcontain">
+  <%= f.label :location, 'Company or location' %>
+  <%= f.text_field :location, class: 'form-control' %>
+</div>
+
+<div data-role="fieldcontain">
+  <%= f.label :description %>
+  <%= f.text_field :description, class: 'form-control' %>
+</div>
+
+<div data-role="fieldcontain" class="half-width">
+  <%= f.label :start_date %>
+  <%= f.date_select :start_date, start_year: Date.today.year - 35, end_year: Date.today.year, discard_day: true %>
+</div>
+
+<div data-role="fieldcontain">
+  <fieldset data-role="controlgroup">
+    <legend>Is this your current job?</legend>
+    <%= f.check_box :current %> <%= f.label :current, 'Yes', class: 'light-label' %>
+  </fieldset>
+</div>
+
+<div class="end-year-wrap">
+  <i>or</i>
+  <div data-role="fieldcontain" class="half-width">
+    <%= f.label :end_date %>
+    <%= f.date_select :end_date, start_year: Date.today.year - 35, end_year: Date.today.year, discard_day: true %>
+  </div>
+</div>
+<br>
+
+<%= f.submit "Save", class: 'green-button' %>
+<p class="pull-right">or <a href="" data-rel="back">cancel</a></p>
+
+<% end %>

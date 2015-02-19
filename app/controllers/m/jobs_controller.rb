@@ -2,11 +2,17 @@ class M::JobsController < MController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:create]
   
+  before_filter :authenticate_user!, except: [:new]
+  layout 'mobile'
+
   respond_to :html
+  helper_method :sort_column, :sort_direction
 
   def index
-    @jobs = Job.all
-    respond_with(@jobs)
+    # @jobs = Job.all
+    # respond_with(@jobs)
+    @category = retrieve_category_from_params
+    @jobs = Job.filter_by_params(params, current_user)
   end
 
   def show
@@ -57,4 +63,9 @@ class M::JobsController < MController
         :rate_min, :rate_max, :rate_interval, :shiftslot_ids => [],
         :day_ids => [])
     end
+
+    def retrieve_category_from_params
+      Category.find_by(vehicle: params[:category].titleize) if params[:category]
+    end
+
 end

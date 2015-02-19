@@ -1,0 +1,60 @@
+<div data-role="page">
+  <%= render "header" %>
+
+  <div data-role="content">
+    <% unless @job.user == current_user %>
+      <!-- <div class="cf">
+        <button class="btn red-button pull-right">Apply for Job</button>
+      </div> -->
+    <% end %>
+
+    <h1><%= @job.name %></h1>
+    <h2><%= @job.summary %></h2>
+    <p><strong>Job ID:</strong> <%= @job.id + 11337 %></p>
+
+    <p><strong>Status:</strong> <span class="green">OPEN</span> (Opened <%= time_ago_in_words(@job.created_at) %> ago)</p>
+
+    <p><strong>Distance from you:</strong> <%= @job.distance_from_user(current_user) %> <%= @job.bearing_from_user(current_user) %></p>
+
+    <p><strong>Who provides vehicle:</strong> <%= @job.employer_provides_vehicle ? 'Employer' : 'Driver' %></p>
+
+    <% if @job.description != "" %>
+      <h3>Job Description</h3>
+      <%= simple_format @job.description %>
+    <% end %>
+
+    <% if @job.skill_list.length > 0 %>
+      <h4>Skills required:</h4>
+      <ul>
+        <% @job.skill_list.each do |s| %>
+          <li><%= link_to s, '#' %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @job.shiftslots.length > 0 %>
+    <h4>Shifts required:</h4>
+      <ul>
+        <% @job.shiftslots.each do |ss| %>
+          <li><%= ss.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if @job.days.length > 0 %>
+    <h4>Days required:</h4>
+      <ul>
+        <% @job.days.each do |d| %>
+          <li><%= d.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% unless @job.user == current_user %>
+     <!--  <div class="cf">
+        <button class="btn red-button pull-right">Apply for Job</button>
+      </div> -->
+    <% end %>
+
+  </div>
+</div>

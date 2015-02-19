@@ -1,0 +1,88 @@
+<div data-role="page" id="post-job">
+
+  <section class="above-fold">
+    <h2>Post A Job</h2>
+  </section>  
+
+  <div data-role="content">
+    <form action="/m/jobs" data-ajax="false" method='POST'>
+      
+    <fieldset data-role="controlgroup">
+      <legend>I am looking for:</legend>
+      <% Category.all.each_with_index do |category, index| %>
+        <input type="radio" name="job[category_id]" id="category-<%= category.id %>" value="<%= category.id %>" <% if index + 1 == params[:category].to_i %>checked="checked"<% end %>/>
+        <label for="category-<%= category.id %>"><%= category.name_of_user.titleize + "s" %></label>
+      <% end %>
+    </fieldset>
+
+    <fieldset data-role="controlgroup">
+      <legend>Near this postcode or address:</legend>
+      <input type="text" name="job[postcode]" placeholder="Enter postcode" value="<%= params[:postcode] %>">
+    </fieldset>
+
+
+    <fieldset data-role="controlgroup">
+      <legend>Who provides the vehicle?</legend>
+      <input type="radio" name="job[employer_provides_vehicle]" id="employer_provides_vehicle-driver" value="" />
+      <label for="employer_provides_vehicle-driver">Driver Provides Vehicle</label>
+      <input type="radio" name="job[employer_provides_vehicle]" id="employer_provides_vehicle-hunter" value="" />
+      <label for="employer_provides_vehicle-hunter">Employer Provides Vehicle</label>
+    </fieldset>
+
+    <fieldset data-role="controlgroup">
+      <legend>Which days do you need drivers on?</legend>
+      <label for="job-days-mon">Monday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-mon" checked="checked" value="1"/>
+      <label for="job-days-tue">Tuesday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-tue" checked="checked" value="2"/>
+      <label for="job-days-wed">Wednesday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-wed" checked="checked" value="3"/>
+      <label for="job-days-thu">Thursday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-thu" checked="checked" value="4"/>
+      <label for="job-days-fri">Friday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-fri" checked="checked" value="5"/>
+      <label for="job-days-sat">Saturday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-sat" checked="checked" value="6"/>
+      <label for="job-days-sun">Sunday</label>
+      <input type="checkbox" name="job[day_ids][]" id="job-days-sun" checked="checked"  value="7"/>
+    </fieldset>
+
+    <fieldset data-role="controlgroup">
+      <legend>Which shifts do you need?</legend>
+      <label for="job-shiftslot-1">Morning</label>
+      <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-1" checked="checked" value="1"/>
+      <label for="job-shiftslot-2">Afternoon</label>
+      <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-2" checked="checked" value="2"/>
+      <label for="job-shiftslot-3">Evening</label>
+      <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-3" checked="checked" value="3"/>
+      <label for="job-shiftslot-4">Night</label>
+      <input type="checkbox" name="job[shiftslot_ids][]" id="job-shiftslot-4" checked="checked" value="4"/>
+    </fieldset>
+
+    <input type="submit" value="Post Job Now">
+    <p>By posting a job you confirm that you accept the <%= link_to "Terms and Conditions", m_terms_path, target: "_blank" %></a> and <%= link_to "Privacy Policy", m_privacy_path, target: "_blank" %></p>
+    </form>
+  </div>
+
+  <!-- <fieldset data-role="controlgroup">
+    <legend>Display how much you pay them?</legend>
+    <input type="radio" name="job[rate_option]" id="rate-exact" value="" />
+    <label for="rate-exact">Show Hourly Wage + Commission</label>
+    <input type="radio" name="job[rate_option]" id="rate-range" value="" />
+    <label for="rate-range">Show Approximate Wage</label>
+    <input type="radio" name="job[rate_option]" id="rate-noshow" value="" />
+    <label for="rate-noshow">Do Not Show</label>
+  </fieldset>
+
+  <fieldset data-role="controlgroup">
+
+  <legend>Display how much you pay them?</legend>
+    <label for="slider-0">Hourly wage:</label>
+    <input type="range" name="slider" id="slider-0" value="650" min="0" max="2000" />
+    <label for="slider-0">Commission per delivery:</label>
+    <input type="range" name="slider" id="slider-0" value="0" min="0" max="10000" />
+  </fieldset>
+
+  -->
+
+</div> <!-- page -->

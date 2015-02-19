@@ -231,14 +231,17 @@ div#post-project-div{
 
 #login-modal{
   .tiny-title{
-    margin-bottom: 0;
+    margin-top: 20px;
     color: #555555;
   }
-  .facebook-button{
+  .facebook-button, .big.green-button{
     height: 50px;
     width: 100%;
     font-size: 20px;
     margin-top: 80px;
+  }
+  .email-info{
+    display: none;
   }
   .grey-border-left{
     border-left: 1px solid #d1d1d1;

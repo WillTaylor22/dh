@@ -1,0 +1,386 @@
+<div id="job">
+<% unless @job.user == current_user %>
+  <div class="cf">
+    <button class="btn red-button pull-right">Apply for Job</button>
+  </div>
+<% end %>
+<h1 id="job-title" class="h1-28"><%= @job.name %></h1>
+<h2 id="category"><%= @job.summary %></h2>
+<div id="job-activity">
+  <div id="time-left">
+    <p><%= time_ago_in_words(@job.created_at) %> ago</p>
+    <h4>OPEN</h4>
+  </div>
+
+  <div id="job-interest">
+    <div id="applicants">
+      <p>Distance from you</p>
+      <h4><%= @job.distance_from_user(current_user) %> <%= @job.bearing_from_user(current_user) %></h4>
+    </div>
+
+    <div id="average-rating">
+      <p>Who provides vehicle</p>
+      <h4><%= @job.employer_provides_vehicle ? 'Employer' : 'Driver' %></h4>
+    </div>
+
+<!--     <div id="job-budget">
+      <p>Project Budget (USD)</p>
+      <h4>$10 - $30</h4>
+    </div> -->
+
+  </div>
+
+</div>
+
+<% if @job.description != "" %>
+<h2 id="job-description-title" class="h2-24">Job Description</h2>
+
+<div class="row">
+  <div class="col-sm-8">
+    <%= simple_format @job.description %>
+  </div>
+</div>
+<% end %>
+<div class="tags">
+  <% if @job.skill_list.length > 0 %>
+  <h2 class="standard">Skills required:</h2>
+  <ul class="horizontal-list" id="skills-list">
+    <% @job.skill_list.each do |s| %>
+      <li><%= link_to s, '#' %></li>
+    <% end %>
+  </ul>
+  <br>
+  <% end %>
+  <% if @job.shiftslots %>
+  <h2 class="standard">Shifts required:</h2>
+    <ul class="horizontal-list">
+      <% @job.shiftslots.each do |ss| %>
+        <li><%= ss.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <br>
+  <% if @job.days %>
+  <h2 class="standard">Days required:</h2>
+    <ul class="horizontal-list">
+      <% @job.days.each do |d| %>
+        <li><%= d.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+<div class="cf">
+  <%#= link_to post_job_path(name: @job.name, category: @job.category, description: @job.description, summary: @job.summary, skills: @job.skills) do %>
+    <!-- <button class="btn red-button">Post a Job like this</button> -->
+  <%# end %>
+  <span class="pull-right"><strong>Job ID:</strong> <%= @job.id + 11337 %></span>
+</div>
+
+<div class="thick-line"></div>
+
+<% unless @job.user == current_user %>
+<div class="cf">
+  <button class="btn red-button pull-right">Apply for Job</button>
+</div>
+<% end %>
+
+<!-- <div class="applicant-table">
+  <div class="applicant-table-header cf">
+    <div class="applicant">Freelancers Bidding (12)</div>
+    <div class="reputation">Reputation <i class="glyphicon glyphicon-chevron-down"></i></div>
+    <div class="bid">Bid (USD)</div>
+  </div>
+  <div class="applicant-table-row cf">
+    <div class="applicant">
+      <div class="photo">
+        <%= image_tag 'chat/chat_icon.png' %>
+      </div>
+      <div class="details">
+        <a href="#">posspooja</a> <%= image_tag 'profile/greatbritian.png' %> <span class="application-time-ago">1 minute ago</span>
+      </div>
+    </div>
+    <div class="reputation">
+      <div class="rating cf">
+        <%= image_tag "profile/rating.png" %> <span class='rating-number'>4.7</span>
+      </div>
+      <p class="reviews"><a href="">(0 reviews)</a></p>
+      <p class="completion-rate">81% Completion Rate</p>
+    </div>
+    <div class="bid">
+      <h4>$39</h4>
+      <p>in 1 days</p>
+    </div>
+  </div>
+  <div class="applicant-table-row cf">
+    <div class="applicant">
+      <div class="photo">
+        <%= image_tag 'chat/chat_icon.png' %>
+      </div>
+      <div class="details">
+        <a href="#">posspooja</a> <%= image_tag 'profile/greatbritian.png' %> <span class="application-time-ago">1 minute ago</span>
+      </div>
+    </div>
+    <div class="reputation">
+      <div class="rating cf">
+        <%= image_tag "profile/rating.png" %> <span class='rating-number'>4.7</span>
+      </div>
+      <p class="reviews"><a href="">(0 reviews)</a></p>
+      <p class="completion-rate">81% Completion Rate</p>
+    </div>
+    <div class="bid">
+      <h4>$39</h4>
+      <p>in 1 days</p>
+    </div>
+  </div>
+  <div class="applicant-table-row cf">
+    <div class="applicant">
+      <div class="photo">
+        <%= image_tag 'chat/chat_icon.png' %>
+      </div>
+      <div class="details">
+        <a href="#">posspooja</a> <%= image_tag 'profile/greatbritian.png' %> <span class="application-time-ago">1 minute ago</span>
+      </div>
+    </div>
+    <div class="reputation">
+      <div class="rating cf">
+        <%= image_tag "profile/rating.png" %> <span class='rating-number'>4.7</span>
+      </div>
+      <p class="reviews"><a href="">(0 reviews)</a></p>
+      <p class="completion-rate">81% Completion Rate</p>
+    </div>
+    <div class="bid">
+      <h4>$39</h4>
+      <p>in 1 days</p>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- 
+  <div class="row">
+    <div class="col-sm-7">
+      <p id="breadcrumb"><a href="">Jobs</a> > <a href="">Blackberry</a></p>
+
+      <p id="job-description">
+        Blackberry is a line of mobile email and smart phone devices. It is a popular platform for mobile operating systems among U.S. business users. You can develop applications that run on Blackberry. If your business involves development for the Blackberry, you may use some programming help which can help you target the Blackberry device. You can find expert Blackberry freelancers in this site. Simply post a job today to start!
+      </p>
+      <p>
+        <a href="">Hire Blackberry Developers</a> on Freelancer United Kingdom<br>
+        <a href="">Find Blackberry Developers</a> on Freelancer United Kingdom
+      </p>
+    </div>
+
+    
+
+    <div id="signup" class="col-sm-5">
+      <h2>Are you a Blackberry Developer?</h2>
+      <h3>You could be earnin money working on these jobs!</h3>
+      <button class="btn btn-default red-button">Signup Now</button>
+      <p>Our Blackberry Community:</p>
+      <ul>
+        <li>19,867 Blackberry Projects to date</li>
+        <li>7,121,771 Blackberry projects value to date</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="see-more-searches" class="col-xs-12">      
+        <ul>
+          <span>See more: </span>
+          <li><a href="">blackberry app</a></li>
+          <li><a href="">blackberry application</a></li>
+          <li><a href="">blackberry sip</a></li>
+          <li><a href="">blackberry apps</a></li>
+          <li><a href="">blackberry voip</a></li>
+          <li><a href="">sip blackberry</a></li>
+          <li><a href="">blackberry app</a></li>
+          <li><a href="">blackberry application</a></li>
+          <li><a href="">blackberry sip</a></li>
+          <li><a href="">blackberry apps</a></li>
+          <li><a href="">blackberry voip</a></li>
+          <li><a href="">sip blackberry</a></li>
+          <li><a href="">blackberry app</a></li>
+          <li><a href="">blackberry application</a></li>
+          <li><a href="">blackberry sip</a></li>
+          <li><a href="">blackberry apps</a></li>
+          <li><a href="">blackberry voip</a></li>
+          <li><a href="">sip blackberry</a></li>
+          <li><a href="">blackberry application</a></li>
+          <li><a href="">blackberry sip</a></li>
+          <li><a href="">blackberry apps</a></li>
+          <li><a href="">blackberry voip</a></li>
+          <li><a href="">sip blackberry</a></li>
+        </ul>
+    </div>
+  </div>
+  
+
+  <div id="search-box">
+    <div id="first-search-row" class="cf">
+      <div id="search-projects" class="input-group">
+        <input type="text" class="form-control" placeholder="Search for projects and contests">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+        </span>
+      </div>
+      <nav id="pagination-wrap">
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div id="showing">
+        <p>Show</p>
+        <select class="form-control">
+          <option>5</option>
+          <option selected="selected">10</option>
+          <option>20</option>
+          <option>100</option>
+        </select>
+      </div>
+      
+    </div>
+    <div class="input-group tab-search">
+      <input type="text" class="form-control" placeholder="Type to filter projects and contests by skills">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+      </span>
+    </div>
+    <div id="third-search-row" class="row">
+      <div class="col-sm-6">
+        <div id="project-type-wrap" class="search-item">
+          <label class="main-label" for="project-type">Project type</label>
+          <label class="checkbox-label">
+            <input type="checkbox"> Fixed
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox"> Hourly
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox"> Contests
+          </label>
+        </div>
+        <div id="duration" class="search-item">
+          <label class="main-label" for="duration">Duration</label>
+          <div class="right-box">
+            <select class="form-control">
+              <option>All durations</option>
+              <option>10</option>
+              <option>20</option>
+              <option>100</option>
+            </select>
+          </div>
+        </div>
+        <div id="listing-types" class="search-item">
+          <label class="main-label" for="listing-type">Listing types</label>
+          <div class="input-group tab-search">
+            <input id="listing-type" type="text" class="form-control" placeholder="Type to filter project listing types">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="search-item">
+          <label for="avg-price" class="main-label">Avg Price</label>
+          <div class="right-box">
+            <select id="avg-price" class="form-control">
+              <option>All Prices</option>
+              <option>10</option>
+              <option>20</option>
+              <option>100</option>
+            </select>
+          </div>
+        </div>
+        <div class="search-item">
+          <label for="avg-hourly-rate" class="main-label">Avg Hourly Rate</label>
+          <div class="right-box">
+            <select id="avg-hourly-rate"class="form-control">
+              <option>All Hourly Rates</option>
+              <option>10</option>
+              <option>20</option>
+              <option>100</option>
+            </select>
+          </div>
+        </div>
+        <div class="search-item">
+          <label for="languages" class="main-label">Languages</label>
+          <div class="right-box">
+            <div class="input-group tab-search">
+              <input type="text" class="form-control" placeholder="Type to filter projects and contests by skills">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="cf"><a href="" class="pull-right">Clear</a></p>
+  </div>-->
+<!-- 
+  <div id="jobs-table">
+      
+    <div class="row jt-header cf">
+      <div class="name">Project Name</div>
+      <div class="bids">Bids</div>
+      <div class="skills">Skills</div>
+      <div class="started">Started <i class="glyphicon glyphicon-chevron-down"></i></div>
+      <div class="price">Price (GBP)</div>
+    </div>
+    <div class="row cf">
+      <div class="name">How to increase adsense CPC</div>
+      <div class="bids">4</div>
+      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
+      <div class="started">Today</div>
+      <div class="price">£165 - 498</div>
+    </div>
+    <div class="row cf odd">
+      <div class="name">How to increase adsense CPC</div>
+      <div class="bids">4</div>
+      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
+      <div class="started">Today</div>
+      <div class="price">£165 - 498</div>
+    </div>
+    <div class="row cf">
+      <div class="name">How to increase adsense CPC</div>
+      <div class="bids">4</div>
+      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
+      <div class="started">Today</div>
+      <div class="price">£165 - 498</div>
+    </div>
+    <div class="row cf odd">
+      <div class="name">How to increase adsense CPC</div>
+      <div class="bids">4</div>
+      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
+      <div class="started">Today</div>
+      <div class="price">£165 - 498</div>
+    </div>
+    <div class="row cf">
+      <div class="name">How to increase adsense CPC</div>
+      <div class="bids">4</div>
+      <div class="skills">Website Design, Internet Marketing, SEO, Google Adsense, Social Media Marketing</div>
+      <div class="started">Today</div>
+      <div class="price">£165 - 498</div>
+    </div>
+
+  </div>-->
+
+
+
+</div>

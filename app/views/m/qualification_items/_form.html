@@ -1,0 +1,51 @@
+<%= form_for(@qualification_item) do |f| %>
+  <% if @qualification_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@qualification_item.errors.count, "error") %> prohibited this qualification_item from being saved:</h2>
+
+      <ul>
+      <% @qualification_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<input type="hidden" name="mobile" value="true">
+
+<%= f.hidden_field :user_id, value: current_user.id %>
+
+<div data-role="fieldcontain">
+  <%= f.label :qualification_title, 'Qualification' %>
+  <%= f.text_field :qualification_title %>
+</div>
+
+<div data-role="fieldcontain">
+  <%= f.label :location, 'Institution' %>
+  <%= f.text_field :location %>
+</div>
+
+<div data-role="fieldcontain">
+  <%= f.label :start_date, 'Start Year' %>
+  <%= f.date_select :start_date, start_year: Date.today.year - 35, end_year: Date.today.year, discard_month: true, discard_day: true %>
+</div>
+
+<div data-role="fieldcontain">
+  <fieldset data-role="controlgroup">
+    <legend>Currently studying?</legend>
+    <%= f.check_box :current, class: 'qualification-current-boolean' %> <%= f.label :current, 'Yes', class: 'light-label' %>
+  </fieldset>
+</div>
+
+<div class="end-year-wrap">
+  <i>or</i>
+  <div data-role="fieldcontain">
+    <%= f.label :end_date, 'End Year' %>
+    <%= f.date_select :end_date, start_year: Date.today.year - 35, end_year: Date.today.year, discard_month: true, discard_day: true %>
+  </div>
+</div>
+<br>
+<%= f.submit "Save", class: 'green-button' %>
+<p class="pull-right">or <a href="" data-rel="back">cancel</a></p>
+
+<% end %>

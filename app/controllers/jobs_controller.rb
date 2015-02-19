@@ -2,6 +2,8 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:create]
   
+  before_filter :authenticate_user!
+  
   respond_to :html
 
   def index
@@ -23,6 +25,9 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
+    if @job.name == ""
+      @job.name = job_params[:category_id] ? @job.category.name_of_user + " needed" : params[:other_category] 
+    end
     @job.summary = job_params[:category_id] ? @job.category.name_of_user : params[:other_category] 
     @job.skill_list.add(params[:job][:skill_list])
     @job.save

@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
 
   before_action :authenticate_user!
-  helper_method :sort_column, :sort_direction
 
   def my_jobs
   end
@@ -30,14 +29,12 @@ class PagesController < ApplicationController
   #   # @drivers = @search.results
   # end
 
-  def job
-    @job = Job.find(params[:id])
-  end
+  # def job
+  #   @job = Job.find(params[:id])
+  # end
 
-  def jobs
-    @category = retrieve_category_from_params
-    @jobs = Job.filter_by_params(params, current_user)
-  end
+  # def jobs
+  # end
 
   def buy
     @user = User.find_by(:username => params[:username])

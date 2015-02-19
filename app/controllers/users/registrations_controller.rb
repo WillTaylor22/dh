@@ -11,7 +11,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    customised_params = sign_up_params
+    customised_params["username"] = sign_up_params["email"].downcase
+    build_resource(customised_params)
+
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message :notice, :signed_up if is_flashing_format?
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
+        expire_data_after_sign_in!
+        respond_with after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
     if params[:job_id]
       resource.hunter = true
       resource.save
@@ -31,7 +51,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.category
         resource.summary = resource.category.name_of_user
       else
-        resource.summary =  params[:other_category]
+        resource.summary = params[:other_category]
       end
       resource.save!
     end
@@ -60,6 +80,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     if params[:user][:photo].present?
       :crop
+    elsif !params[:onboarding] && params[:mobile]
+      m_profile_path
     elsif params[:onboarding]
       if params[:mobile]
         m_dashboard_path
@@ -68,7 +90,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.category ? jobs_path(category: resource.category.vehicle) : jobs_path
       end
     else
-      # user_path resource.username
+      user_path resource.username
     end
   end
 
@@ -104,6 +126,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
       onboarding_path # Not used - redirect done in AJAX
     end
   end
+
+  # def after_failed_sign_up_path_for(resource)
+  #   puts "in after_failed_sign_up_path_for"
+  #   if params[:mobile]
+  #     resource # Todo: set this to go to mobile site
+  #   else
+  #     resource
+  #   end
+  # end
 
 
   def set_minimum_password_length
