@@ -1,13 +1,15 @@
 class M::PagesController < MController
 
   # require signup for inside
-
+  respond_to :html
   layout 'mobile'
 
   def home
   end
 
   def sign_in
+    resource ||= User.new
+    respond_with(resource)
   end
 
   def signup_after_job_post

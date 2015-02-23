@@ -5,25 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
-
-  def after_sign_in_path_for(resource)
-    puts "in after_sign_in_path_for"
-    stored_location_for(resource) ||
-      if params[:mobile]
-        if params[:job_id]
-          m_dashboard_path   # TODO: Add job anchor to this.
-        else
-          m_dashboard_path
-        end
-      else
-        if params[:job_id]
-          job_path(@job)     # TODO: Test this.
-        else
-          dashboard_path
-        end
-      end
-  end
-
+  
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username,
       :email, :password, :password_confirmation, :remember_me,

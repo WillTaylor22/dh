@@ -42,19 +42,21 @@
 <div data-role="page" id="login">
 
   <header data-role="header">
-    <h1>Sign up for free to post!</h1>
+    <h1>Log in to post your job!</h1>
   </header>
 
-  <div data-role='content'>
-    <button class="btn facebook-button">
-      <%#= image_tag "facebook.png" %>
-      &nbsp;Login with Facebook
-    </button>
+  <div data-role='content'>    
+    <%= link_to user_omniauth_authorize_path(:facebook, job_id: params[:job], mobile: true, hunter:true), data: {ajax: 'false'} do %> 
+      <button class="btn facebook-button">
+        <%#= image_tag "facebook.png" %>
+        Log in with Facebook
+      </button>
+    <% end %>
 
     <p class="centered">or</p>
 
     <button class="btn big green-button no-shadow form-control">
-      or sign up with Email
+      or Log in with Email
     </button>
 
     <div class="email-info">

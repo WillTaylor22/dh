@@ -32,6 +32,7 @@ class M::JobsController < MController
     @job.name = Category.find(job_params[:category_id] || 1).name_of_user.titleize + " Needed"
     @job.summary = job_params[:category_id] ? @job.category.name_of_user : params[:other_category] 
     @job.skill_list.add(params[:job][:skill_list])
+    @job.user = current_user if user_signed_in?
     @job.save
     if @job.persisted?
       if user_signed_in?
