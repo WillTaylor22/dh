@@ -1,31 +1,31 @@
-<div data-role="page" id="signup">
+<div data-role="page" data-url="<%= request.path %>" id="signup">
 
   <header data-role="header">
     <h1>Sign up for free to post!</h1>
   </header>
 
   <section data-role="content">
-    <%= link_to user_omniauth_authorize_path(:facebook, job_id: params[:job], mobile: true, hunter:true), data: {ajax: 'false'} do %> 
+
+   <!--  <%= link_to user_omniauth_authorize_path(:facebook, job_id: params[:job], mobile: true, hunter:true), data: {ajax: 'false'} do %> 
       <button class="btn facebook-button">
         <%#= image_tag "facebook.png" %>
         Sign up with Facebook
       </button>
     <% end %>
-
-    <p class="centered">or</p>
+     
+    <!-- <p class="centered">or</p> 
 
     <button class="btn big green-button no-shadow form-control">
       or Sign up with Email
     </button>
 
-    <div class="email-info">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, :authenticity_token => true) do |f| %>
+    <div class="email-info"> -->
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form' }, :authenticity_token => true, data: { ajax: 'false' }) do |f| %>
         <input type="hidden" name="hunter", value="true">
-        <input type="hidden" name="job_id", value="<%= params[:job] %>">
-
-        <%= render 'signup_form', f: f %>
+        <input type="text" name="job_id", value="<%= params[:job] %>">
+        <%= render 'm_signup_form', f: f %>
       <% end %>
-    </div>
+    <!-- </div> -->
     
     <br>
     <p class="tiny-title">or do you already have an account?<br><a href="#login">Login to existing account</a></p>
@@ -46,7 +46,7 @@
   </header>
 
   <div data-role='content'>    
-    <%= link_to user_omniauth_authorize_path(:facebook, job_id: params[:job], mobile: true, hunter:true), data: {ajax: 'false'} do %> 
+   <!--  <%= link_to user_omniauth_authorize_path(:facebook, job_id: params[:job], mobile: true, hunter:true), data: {ajax: 'false'} do %> 
       <button class="btn facebook-button">
         <%#= image_tag "facebook.png" %>
         Log in with Facebook
@@ -59,16 +59,17 @@
       or Log in with Email
     </button>
 
-    <div class="email-info">
+    <div class="email-info"> -->
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form'}, remote: true, :authenticity_token => true) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), :authenticity_token => true, data: { ajax: 'false' }) do |f| %>
         <%= f.hidden_field :job_id, value: params[:job] %>
-        <%= render 'login_form', f: f %>
+        <%= render 'm_login_form', f: f %>
         <input type="hidden" name="hunter", value="true">
-      
+        <input type="text" name="job_id", value="<%= params[:job] %>">
+
       <% end %>
 
-    </div>
+    <!-- </div> -->
 
     <hr>
 

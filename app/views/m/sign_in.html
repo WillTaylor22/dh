@@ -18,9 +18,8 @@
     <% end %>
 
     <p class="tiny-title">or sign up with email:</p>
-    <p><%= resource.to_yaml %></p>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'email-signup', id: 'signup-form', data: {ajax: 'false'}}, :authenticity_token => true) do |f| %>
-      <%= render 'signup_form', f: f %>
+      <%= render 'm_signup_form', f: f %>
     <% end %>
     <br>
     <p class="tiny-title">or do you already have an account?<br><a href="#sign-in">Sign in to your existing account</a></p>
@@ -55,7 +54,7 @@
     <p class="tiny-title">or sign in with email:</p>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'email-signup cf', id: 'login-form', data: {ajax: 'false'}}, :authenticity_token => true) do |f| %>
-      <%= render 'login_form', f: f %>
+      <%= render 'm_login_form', f: f %>
     <% end %>
 
     <hr>

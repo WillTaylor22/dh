@@ -13,6 +13,11 @@ class M::PagesController < MController
   end
 
   def signup_after_job_post
+    # resource = User.find params[:id]
+    # puts "I am in signup after job post"
+    resource ||= User.new
+    # puts resource.to_yaml
+    respond_with(resource)
   end
 
   def onboarding

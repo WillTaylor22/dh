@@ -1,5 +1,11 @@
 <%= hidden_field :mobile, value: 1 %>
-<p id="signup-errors"></p>
+<% if resource.errors.any? %>
+<ul class="login-errors">
+  <% resource.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
 
 <div data-role="fieldcontain">
   <%= f.label :first_name %>

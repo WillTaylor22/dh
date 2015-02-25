@@ -1,5 +1,12 @@
 <%= hidden_field :mobile, value: 1 %>
-<p class="login-errors"></p>    
+<p class=""></p>    
+<% if resource.errors.any? %>
+<ul class="login-errors">
+  <% resource.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
 
 <%= f.text_field :login, class: 'form-control', placeholder: 'Email' %>
 <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password' %>    

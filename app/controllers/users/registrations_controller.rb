@@ -28,11 +28,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with after_inactive_sign_up_path_for(resource)
       end
     else
-      puts "we're riding the fail whale"
+      # Sign up failed
       clean_up_passwords resource
       set_minimum_password_length
       if params[:mobile]
-        redirect_to m_sign_in_path(resource)
+        puts "in mobile"
+        if params[:job_id] # = params[:job[ -> job path
+          puts "in job"
+          puts resource.to_yaml
+          # redirect_to m_signup_after_job_post_path(resource, job: params[:job_id])
+          render 'm/signup_after_job_post', layout: 'mobile' # m_signup_after_job_post_path(resource, job: params[:job_id])
+        else
+          puts "in not-job"
+          redirect_to m_sign_in_path(resource)
+        end
       else
         respond_with resource
       end
