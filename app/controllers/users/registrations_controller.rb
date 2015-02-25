@@ -100,7 +100,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if params[:mobile]
         m_dashboard_path
       else
-        flash[:notice] = "Great! Here are the jobs near you."
+        flash[:notice] = "Great! Our team has received your details will find you jobs near you. Here are some other available jobs"
         resource.category ? jobs_path(category: resource.category.vehicle) : jobs_path
       end
     else
