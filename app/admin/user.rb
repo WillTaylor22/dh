@@ -5,14 +5,58 @@ ActiveAdmin.register User do
 
   menu priority: 1
 
+  permit_params :first_name, :last_name, :username, :email, :phone_number,
+    :activity_level, :category_id, :summary, :long_description, :postcode,
+    :notes
+
+
   index do
     column :full_name
-    column :phone_number
     column :email
-    column :category
+    column :phone_number
+    column "Jobs" do |driver|
+      driver.category.try(:vehicle)
+    end
+    column :who_provides_vehicle
+    column "Days" do |driver|
+      driver.days.map{|i| i.name[0..2]}.join(",")
+    end
+    column "Shifts" do |driver|
+      driver.shiftslots.map{|i| i.name[0..2]}.join(",")
+    end
+    column :postcode
     column "Joined", :created_at
     actions
   end
+
+  form do |f|
+    f.semantic_errors # shows errors on :base
+    f.inputs "User Info" do         # builds an input field for every attribute
+      f.input :first_name
+      f.input :last_name
+      f.input :username
+      f.input :email
+      f.input :phone_number
+      f.input :activity_level
+      f.input :category_id
+      f.input :summary
+      f.input :long_description
+      # f.input :sign_in_count
+      # f.input :created_at
+      # f.input :updated_at
+      f.input :postcode
+      f.input :notes
+      # f.input :latitude
+      # f.input :longitude
+      # f.input :city
+      # f.input :country
+      # f.input :photo
+      # f.input :stripe_customer_id
+      # f.input :valid_license
+    end
+    f.actions         # adds the 'Submit' and 'Cancel' buttons
+  end
+
 end
 
   # See permitted parameters documentation:

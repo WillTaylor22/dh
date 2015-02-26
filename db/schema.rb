@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216184007) do
+ActiveRecord::Schema.define(version: 20150226003849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,8 @@ ActiveRecord::Schema.define(version: 20150216184007) do
     t.string   "activity_level"
     t.boolean  "valid_license"
     t.boolean  "hunter"
+    t.text     "notes"
+    t.string   "who_provides_vehicle"
   end
 
   add_index "users", ["category_id"], name: "index_users_on_category_id", using: :btree

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: ed1fbca8c64af827616c58f274d7be256ca513b6
+  revision: a0bf8da21b7a6f37e1ad28790187e0244a0d5466
   specs:
     activeadmin (1.0.0.pre)
       arbre (~> 1.0, >= 1.0.2)
@@ -17,10 +17,18 @@ GIT
       sass-rails
 
 GIT
-  remote: https://github.com/stripe/stripe-ruby
-  revision: 085ad6cfb303f9e470d161f1b62370e746702432
+  remote: git://github.com/stefanpenner/country_select.git
+  revision: 68ae9f919e35b3268c1398490d45c6a88f1e3ca1
   specs:
-    stripe (1.18.0)
+    country_select (2.1.1)
+      countries (>= 0.9.3, < 0.10.0)
+      sort_alphabetical (~> 1.0)
+
+GIT
+  remote: https://github.com/stripe/stripe-ruby
+  revision: 2df5817192e58265bcdff06956250e8d37b354f8
+  specs:
+    stripe (1.20.0)
       json (~> 1.8.1)
       mime-types (>= 1.25, < 3.0)
       rest-client (~> 1.4)
@@ -52,7 +60,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    acts-as-taggable-on (3.4.3)
+    acts-as-taggable-on (3.4.4)
       activerecord (>= 3.2, < 5)
     addressable (2.3.7)
     annotate (2.6.5)
@@ -61,7 +69,7 @@ GEM
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (4.0.2)
-    bcrypt (3.1.9)
+    bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -87,8 +95,11 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.1)
     cookiejar (0.3.2)
+    countries (0.9.3)
+      currencies (~> 0.4.2)
+    currencies (0.4.2)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     devise (3.4.1)
@@ -107,14 +118,14 @@ GEM
     em-socksify (0.3.0)
       eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
-    eventmachine (1.0.6)
+    eventmachine (1.0.7)
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (2.2.2)
+    execjs (2.3.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    faye (1.1.0)
+    faye (1.1.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
       eventmachine (>= 0.12.0)
@@ -137,7 +148,7 @@ GEM
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
-    hashie (3.3.2)
+    hashie (3.4.0)
     hike (1.2.3)
     hirb (0.7.3)
     http_parser.rb (0.6.0)
@@ -156,7 +167,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
-    jwt (1.2.1)
+    jwt (1.3.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -169,12 +180,12 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_magick (4.0.3)
+    mini_magick (4.1.0)
     minitest (4.7.5)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    netrc (0.10.2)
+    netrc (0.10.3)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -184,7 +195,7 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
-    omniauth-facebook (2.0.0)
+    omniauth-facebook (2.0.1)
       omniauth-oauth2 (~> 1.2)
     omniauth-oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
@@ -207,7 +218,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
-    pry_debug (0.1.0)
+    pry_debug (0.0.1)
       pry (~> 0.9.0)
     rack (1.5.2)
     rack-test (0.6.3)
@@ -223,7 +234,7 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_serve_static_assets (0.0.3)
+    rails_serve_static_assets (0.0.4)
     rails_stdout_logging (0.0.3)
     railties (4.0.8)
       actionpack (= 4.0.8)
@@ -241,7 +252,7 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
-    rest-client (1.7.2)
+    rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     sass (3.2.19)
@@ -254,6 +265,8 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     slop (3.6.0)
+    sort_alphabetical (1.0.1)
+      unicode_utils (>= 1.2.2)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -276,16 +289,17 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.5.3)
       coffee-rails
-    tzinfo (0.3.42)
+    tzinfo (0.3.43)
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicode_utils (1.4.0)
     uniform_notifier (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
-    websocket-driver (0.5.1)
+    websocket-driver (0.5.3)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.1)
+    websocket-extensions (0.1.2)
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
@@ -302,6 +316,7 @@ DEPENDENCIES
   bullet
   carrierwave
   coffee-rails (~> 4.0.0)
+  country_select!
   devise
   exception_notification
   geocoder
