@@ -255,8 +255,8 @@ class User < ActiveRecord::Base
   end
 
   def list_of_shifts
-    return "All" if days.length == 4
-    days.map{|i| i.name}.join(", ")
+    return "All" if shiftslots.length == 4
+    shiftslots.map{|i| i.name}.join(", ")
   end
 
   ###### END ###

@@ -641,9 +641,9 @@
 <strong>Tel:</strong> <%= @user.phone_number %><br>
 <strong>Email:</strong> <%= @user.email %><br>
 <strong>Postcode:</strong> <%= @user.postcode %><br>
-<strong>Type of jobs looking for: <%= @user.list_of_categories %></strong><br>
+<strong>Type of jobs looking for:</strong> <%= @user.list_of_categories %><br>
 <% if @user.vehicles.length > 0 %>
-<strong><%= pluralize(@user.vehicles, "Vehicle") %> owned:</strong> <%= @user.list_of_vehicles %><br>
+<strong><%= "Vehicle".pluralize(@user.vehicles.length) %> owned:</strong> <%= @user.list_of_vehicles %><br>
 <% else %>
 <strong>Employer provides vehicles</strong><br>
 <% end %>
