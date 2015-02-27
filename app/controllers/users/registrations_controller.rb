@@ -68,6 +68,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.summary = params[:other_category]
       end
       resource.save!
+      
+      # UserMailer.driver_created(resource).deliver
+
     end
   end
 

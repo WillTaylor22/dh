@@ -96,3 +96,5 @@ gem 'exception_notification'
 gem "letter_opener", :group => :development # Open email in browser
 
 gem 'paper_trail'
+
+gem 'mailcatcher'

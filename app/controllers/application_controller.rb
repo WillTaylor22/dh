@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
         :first_name, :last_name, :summary, :long_description, :postcode,
         :photo, :crop_x, :crop_y, :crop_w, :crop_h, :phone_number, :category,
         :activity_level, :valid_license, :hunter,
-        :category_id, day_ids: [], shiftslot_ids: []) }
+        :category_id, day_ids: [], shiftslot_ids: [], vehicle_ids: []) }
   end
 
   private

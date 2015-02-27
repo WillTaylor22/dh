@@ -57,6 +57,18 @@
         </li>
 
         <li class="numbers-li budget">
+          <legend>Do you have your own vehicle?</legend>
+          <p class="grey-text">If not, you can find a job where the employer provides the vehicle</p>
+          <%= hidden_field_tag "user[vehicle_ids][]", nil %>
+          <% for vehicle in Category.all %>
+          <div>
+            <%= check_box_tag "user[vehicle_ids][]", vehicle.id, false, id: dom_id(vehicle) %>
+            <%= label_tag dom_id(vehicle), vehicle.vehicle %>
+          </div>
+          <% end %>
+        </li>
+
+        <li class="numbers-li budget">
           <legend>Which days can you work?</legend>
 
           <%= hidden_field_tag "user[day_ids][]", nil %>

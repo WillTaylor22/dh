@@ -17,7 +17,9 @@ ActiveAdmin.register User do
     column "Jobs" do |driver|
       driver.category.try(:vehicle)
     end
-    column :who_provides_vehicle
+    column "Vehicles" do |driver|
+      driver.vehicles.map{|i| i.vehicle}.join(",")
+    end
     column "Days" do |driver|
       driver.days.map{|i| i.name[0..2]}.join(",")
     end

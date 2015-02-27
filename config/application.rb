@@ -27,6 +27,30 @@ module Driverhunt
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
       html_tag
     }
+  
+    config.action_mailer.default_url_options = {:host => 'localhost:8080'}
+    config.action_mailer.delivery_method = :smtp
+    
+    # config.action_mailer.smtp_settings = {
+    #   :address              => "smtp.gmail.com",
+    #   :domain               => "mail.google.com",
+    #   :port                 => 587,
+    #   :domain               => "gmail.com",
+    #   :user_name            => "XX",
+    #   :password             => "XX",
+    #   :authentication       => 'login',
+    #   :enable_starttls_auto => true
+    # }
+
+    config.action_mailer.smtp_settings = {
+
+      :port                 => 587,
+      :address              => "smtp.mandrillapp.com",
+      :user_name            => "Will@driverhunt.com",
+      :password             => "2LaL2d9ihHWLN84QO3Xs8g",
+      :authentication       => :plain
+
+    }
 
   end
 end

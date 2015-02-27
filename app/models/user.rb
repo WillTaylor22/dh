@@ -113,6 +113,12 @@ class User < ActiveRecord::Base
   ###### ONBOARDING ###
 
   belongs_to :category
+  has_and_belongs_to_many :vehicles,
+    class_name: 'Category',
+    join_table: 'users_vehicles',
+    association_foreign_key: 'vehicle_id'
+
+
   has_and_belongs_to_many :shiftslots
   has_and_belongs_to_many :days
 

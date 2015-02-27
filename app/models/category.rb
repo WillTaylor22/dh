@@ -11,8 +11,9 @@
 #
 
 class Category < ActiveRecord::Base
-  has_many :users
   has_many :jobs
+  has_many :users
+  has_and_belongs_to_many :users_vehicles, :foreign_key => :vehicle_id
 
   #### JOB POST ###
 

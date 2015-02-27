@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226003849) do
+ActiveRecord::Schema.define(version: 20150227004444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,13 +238,20 @@ ActiveRecord::Schema.define(version: 20150226003849) do
     t.boolean  "valid_license"
     t.boolean  "hunter"
     t.text     "notes"
-    t.string   "who_provides_vehicle"
   end
 
   add_index "users", ["category_id"], name: "index_users_on_category_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+
+  create_table "users_vehicles", id: false, force: true do |t|
+    t.integer "user_id",    null: false
+    t.integer "vehicle_id", null: false
+  end
+
+  add_index "users_vehicles", ["user_id"], name: "index_users_vehicles_on_user_id", using: :btree
+  add_index "users_vehicles", ["vehicle_id"], name: "index_users_vehicles_on_vehicle_id", using: :btree
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false
