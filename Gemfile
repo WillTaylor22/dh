@@ -93,8 +93,7 @@ gem 'country_select', github: 'stefanpenner/country_select'
 # gem 'country-select'
 
 gem 'exception_notification'
-gem "letter_opener", :group => :development # Open email in browser
 
 gem 'paper_trail'
 
-gem 'mailcatcher'
+gem 'mailcatcher', :group => :development # Open email in browser
