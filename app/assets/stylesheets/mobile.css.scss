@@ -177,6 +177,9 @@ $light-blue: #dfebee;
     >li.numbers-li{
       margin-top: 70px;
       color: white;
+      .grey-text{
+        color: #333;
+      }
       font-weight: normal;
       font-size: 14px;
       padding-left: 10px;

@@ -28,7 +28,8 @@ Driverhunt::Application.configure do
   config.assets.debug = true
 
   # Mailer from:
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { host: 'localhost', port: 1025 }
 
 
   # config.middleware.use ExceptionNotification::Rack,

@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username,
       :email, :password, :password_confirmation, :remember_me,
-      :photo, :hunter, :first_name, :last_name) }
+      :photo, :hunter, :first_name, :last_name, :summary,
+      :long_description, :postcode, :phone_number, :category,
+      :activity_level, :valid_license, :hunter, :category_id,
+      day_ids: [], shiftslot_ids: [], vehicle_ids: [], category_ids: []) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username,
      :email, :password, :remember_me) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, 
@@ -17,7 +20,7 @@ class ApplicationController < ActionController::Base
         :first_name, :last_name, :summary, :long_description, :postcode,
         :photo, :crop_x, :crop_y, :crop_w, :crop_h, :phone_number, :category,
         :activity_level, :valid_license, :hunter,
-        :category_id, day_ids: [], shiftslot_ids: [], vehicle_ids: []) }
+        :category_id, day_ids: [], shiftslot_ids: [], vehicle_ids: [], category_ids: []) }
   end
 
   private

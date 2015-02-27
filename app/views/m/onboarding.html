@@ -21,22 +21,42 @@
 
         <!-- Work required -->
         <li class="numbers-li">
-          <legend>What type of job do you want?</legend>
+          <legend>What types of job do you want?</legend>
 
-          <%= f.select :category_id,
+          <%= hidden_field_tag "user[category_ids][]", nil %>
+          <% for category in Category.all %>
+          <div>
+            <%= check_box_tag "user[category_ids][]", category.id, false, id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.vehicle + " Jobs" %>
+          </div>
+          <% end %>
+
+          <%#= f.select :category_id,
           options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil], :selected => resource.category_id), {}, {class: 'form-control', id: 'job_category'} %>
 
-          <div id="other-wrap">
+          <!-- <div id="other-wrap">
             <br>
             <label for="other-category">Other type of work:</label>
             <input type="text" id="other-category" name="other_category" class="form-control">
-          </div>          
+          </div>   -->        
 
               <%= f.label :postcode, "Near this postcode or address:" %>
               <%= f.text_field :postcode, class: 'postcode-finder form-control', placeholder: 'E.g. SW1 3BH', value: resource.postcode %>
                 <button id="find-postcode" class="btn btn-default" type="button">Find Location</button>
               <img id="location-map" src="https://maps.googleapis.com/maps/api/staticmap?center=N1+6DR&size=153x153&markers=color:red|N1+6DR" alt="">
 
+        </li>
+
+        <li class="numbers-li budget">
+          <legend>Do you have your own vehicle?</legend>
+          <p class="grey-text">If not, you can find a job where the employer provides the vehicle</p>
+          <%= hidden_field_tag "user[vehicle_ids][]", nil %>
+          <% for vehicle in Category.all %>
+          <div>
+            <%= check_box_tag "user[vehicle_ids][]", vehicle.id, false, id: dom_id(vehicle, :vehicle) %>
+            <%= label_tag dom_id(vehicle, :vehicle), vehicle.vehicle %>
+          </div>
+          <% end %>
         </li>
 
         <li class="numbers-li budget">

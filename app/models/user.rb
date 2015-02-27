@@ -112,12 +112,12 @@ class User < ActiveRecord::Base
 
   ###### ONBOARDING ###
 
-  belongs_to :category
+  # belongs_to :category
+  has_and_belongs_to_many :categories
   has_and_belongs_to_many :vehicles,
     class_name: 'Category',
     join_table: 'users_vehicles',
     association_foreign_key: 'vehicle_id'
-
 
   has_and_belongs_to_many :shiftslots
   has_and_belongs_to_many :days
@@ -238,5 +238,28 @@ class User < ActiveRecord::Base
   end
 
   ###### END BUY ###
+
+  ###### EMAIL ###
+
+  def list_of_categories
+    categories.map{|i| i.vehicle}.join(", ")
+  end
+
+  def list_of_vehicles
+    vehicles.map{|i| i.vehicle}.join(", ")
+  end
+
+  def list_of_days
+    return "All" if days.length == 7
+    days.map{|i| i.name}.join(", ")
+  end
+
+  def list_of_shifts
+    return "All" if days.length == 4
+    days.map{|i| i.name}.join(", ")
+  end
+
+  ###### END ###
+
 
 end

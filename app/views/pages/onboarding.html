@@ -28,16 +28,24 @@
 
         <!-- Work required -->
         <li class="numbers-li category-and-address-section">
-          <legend>What type of job do you want?</legend>
+          <legend>What types of job do you want?</legend>
 
-          <%= f.select :category_id,
+          <%= hidden_field_tag "user[category_ids][]", nil %>
+          <% for category in Category.all %>
+          <div>
+            <%= check_box_tag "user[category_ids][]", category.id, false, id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.vehicle + " Jobs" %>
+          </div>
+          <% end %>
+  
+          <%#= f.select :category_id,
           options_for_select(Category.all.map{|c|[c.vehicle + " Jobs", c.id]} << ["Other...", nil], :selected => resource.category_id), {}, {class: 'form-control', id: 'job_category'} %>
 
-          <div id="other-wrap">
+          <!-- <div id="other-wrap">
             <br>
             <label for="other-category">Other type of work:</label>
             <input type="text" id="other-category" name="other_category" class="form-control">
-          </div>          
+          </div>      -->     
 
           <div class="row" id="address-row">
             <div class="col-sm-8">
@@ -62,8 +70,8 @@
           <%= hidden_field_tag "user[vehicle_ids][]", nil %>
           <% for vehicle in Category.all %>
           <div>
-            <%= check_box_tag "user[vehicle_ids][]", vehicle.id, false, id: dom_id(vehicle) %>
-            <%= label_tag dom_id(vehicle), vehicle.vehicle %>
+            <%= check_box_tag "user[vehicle_ids][]", vehicle.id, false, id: dom_id(vehicle, :vehicle) %>
+            <%= label_tag dom_id(vehicle, :vehicle), vehicle.vehicle %>
           </div>
           <% end %>
         </li>

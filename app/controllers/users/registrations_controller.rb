@@ -62,10 +62,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     super
     if params[:onboarding]
-      if resource.category
-        resource.summary = resource.category.name_of_user
-      else
-        resource.summary = params[:other_category]
+      if resource.categories.length > 0
+        resource.summary = resource.categories.map{|i| i.name_of_user}.join(',')
+      # else
+      #   resource.summary = params[:other_category]
       end
       resource.save!
       
@@ -104,7 +104,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         m_dashboard_path
       else
         flash[:notice] = "Great! Our team has received your details will find you jobs near you. Here are some other available jobs"
-        resource.category ? jobs_path(category: resource.category.vehicle) : jobs_path
+        resource.categories.length > 0 ? jobs_path(category: resource.categories.first) : jobs_path
       end
     else
       user_path resource.username

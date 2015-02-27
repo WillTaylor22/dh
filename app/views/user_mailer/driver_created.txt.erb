@@ -1,45 +1,44 @@
-Use this area to offer a short preview of your email's content.
-
-View this email in your browser (*|ARCHIVE|*)
+Welcome to Driver Hunt!
 
 
-**
+** Hi <%= @user.first_name %>,
 ------------------------------------------------------------
 
 
-** Hi *|FNAME|*,
-
-Great to meet you today. Welcome to Driver Hunt.
+** Welcome to Driver Hunt
 ------------------------------------------------------------
-What is Driver Hunt? Well, finding good drivers was hard. Now it's easy. Here's how it works:
-1. Post your driver job adverts totally free.
-2. We find you local drivers that match your needs.
-3. The drivers on Driver Hunt have reviews, feedback scores, and employment histories... so you can skip the weak ones and find the perfect match.
-4. If you do find the perfect driver, you can buy their contact details for a one-time fee of £30 (this helps us run the site). Saving you hundreds of pounds in lost orders and dissatisfied customers!
 
-Don't waste money on job ads! Have a look at www.DriverHunt.com (http://www.driverhunt.com) .
+Below are your details. We'll use these to find you a local job that matches your abilities.
 
-If there's anything I can do to help, just email me and I'll help you as quickly as I can.
+Name: <%= @user.full_name %>
+Tel: <%= @user.phone_number %>
+Email: <%= @user.email %>
+Postcode: <%= @user.postcode %>
+Type of jobs looking for: <%= @user.list_of_categories %>
+<% if @user.vehicles.length > 0 %> <%= pluralize(@user.vehicles, "Vehicle") %> owned: <%= @user.list_of_vehicles %>
+<% else %> Employer provides vehicles
+<% end %> Days available: <%= @user.list_of_days %>
+Times of day available: <%= @user.list_of_shifts %>
+<% if @user.notes %> Notes: <%= simple_format @user.notes %>
+<% end %>
 
-Best,
+Best regards,
 
 Will Taylor
+
 Founder, Driver Hunt
 
-Website: www.driverhunt.com
-Email: will@driverhunt.com
-Mobile: 07772622352
+T: 07772622352
+E: will@driverhunt.com
+W: www.driverhunt.com
 
 ============================================================
-Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.
-*|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
+Copyright © <%= Time.now.year %> Driver Hunt, All rights reserved.
+You're receiving this email because you have signed up to Driver Hunt.
 
 Our mailing address is:
-*|LIST_ADDRESS|* *|END:IF|*
-
-** unsubscribe from this list (*|UNSUB|*)
-** update subscription preferences (*|UPDATE_PROFILE|*)
-
-This email was sent to *|EMAIL|* (mailto:*|EMAIL|*)
-why did I get this? (*|ABOUT_LIST|*)     unsubscribe from this list (*|UNSUB|*)     update subscription preferences (*|UPDATE_PROFILE|*)
-*|LIST_ADDRESSLINE_TEXT|*
+Driver Hunt
+17 Corsham Street
+Islington
+London, London N1 6DR
+United Kingdom
