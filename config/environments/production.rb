@@ -79,24 +79,36 @@ Driverhunt::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Set mailer
-  config.action_mailer.default_url_options = { host: 'driverhunt.herokuapp', port: 3000 }
-
-  config.middleware.use ExceptionNotification::Rack,
-    :email => {
-      :email_prefix => "[Error] ",
-      :sender_address => %{"Geoffrey" <noreply@driverhunt.com>},
-      :exception_recipients => %w{wrftaylor@gmail.com}
-    }
+  # config.action_mailer.default_url_options = { host: 'driverhunt.herokuapp', port: 3000 }
+  # config.action_mailer.delivery_method = :sendmail
+  # config.middleware.use ExceptionNotification::Rack,
+  #   :email => {
+  #     :email_prefix => "[Error] ",
+  #     :sender_address => %{"Geoffrey" <noreply@driverhunt.com>},
+  #     :exception_recipients => %w{wrftaylor@gmail.com}
+  #   }
   
   # config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.delivery_method = :sendmail
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
   #   :location => '/usr/sbin/sendmail',
   #   :arguments => '-i -t'
   # }
+  
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.smtp_settings = {
+
+    :port                 => 587,
+    :address              => "smtp.mandrillapp.com",
+    :user_name            => "Will@driverhunt.com",
+    :password             => "2LaL2d9ihHWLN84QO3Xs8g",
+    :authentication       => :plain
+
+  }
+
 
 
 end
