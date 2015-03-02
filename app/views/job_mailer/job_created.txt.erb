@@ -1,26 +1,23 @@
-Welcome to Driver Hunt!
+You have just posted a job!
 
 
 ** Hi <%= @user.first_name %>,
 ------------------------------------------------------------
 
-
-** Welcome to Driver Hunt
+** You have just posted a job
 ------------------------------------------------------------
 
-Below are your details. We'll use these to find you a local job that matches your abilities.
+Below are the job details. We'll use these to find you a local&nbsp;driver that matches your needs.
 
-Name: <%= @user.full_name %>
-Tel: <%= @user.phone_number %>
-Email: <%= @user.email %>
-Postcode: <%= @user.postcode %>
-Type of jobs looking for: <%= @user.list_of_categories %>
-<% if @user.vehicles.length > 0 %> <%= pluralize(@user.vehicles, "Vehicle") %> owned: <%= @user.list_of_vehicles %>
-<% else %> Employer provides vehicles
-<% end %> Days available: <%= @user.list_of_days %>
-Times of day available: <%= @user.list_of_shifts %>
-<% if @user.notes %> Notes: <%= simple_format @user.notes %>
-<% end %>
+
+Job Name: <%= @job.name %>
+Description: <%= @job.description %>
+Type of job: <%= @job.category.name_of_user %>
+Who provides vehicle: <%= @job.employer_provides_vehicle ? 'Employer' : 'Driver' %>
+Postcode: <%= @job.postcode %>
+Days required: <%= @job.list_of_days %>
+Times of day required: <%= @job.list_of_shifts %>
+
 
 Best regards,
 
