@@ -14,7 +14,9 @@ Driverhunt::Application.routes.draw do
 
   devise_for :users, controllers: { sessions: "users/sessions",
     registrations: 'users/registrations',
-    omniauth_callbacks: "users/omniauth_callbacks" }
+    omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: 'users/passwords'
+     }
   root 'homepage#home'
   get '/post-job', to: 'homepage#post_job', as: "post_job"
   get '/job-finder', to: 'pages#onboarding', as: "onboarding"

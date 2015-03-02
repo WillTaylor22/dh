@@ -1,0 +1,44 @@
+Welcome to Driver Hunt!
+
+
+** Hi <%= @user.first_name %>,
+------------------------------------------------------------
+
+
+** Welcome to Driver Hunt
+------------------------------------------------------------
+
+Below are your details. We'll use these to find you a local job that matches your abilities.
+
+Name: <%= @user.full_name %>
+Tel: <%= @user.phone_number %>
+Email: <%= @user.email %>
+Postcode: <%= @user.postcode %>
+Type of jobs looking for: <%= @user.list_of_categories %>
+<% if @user.vehicles.length > 0 %> <%= pluralize(@user.vehicles, "Vehicle") %> owned: <%= @user.list_of_vehicles %>
+<% else %> Employer provides vehicles
+<% end %> Days available: <%= @user.list_of_days %>
+Times of day available: <%= @user.list_of_shifts %>
+<% if @user.notes %> Notes: <%= simple_format @user.notes %>
+<% end %>
+
+Best regards,
+
+Will Taylor
+
+Founder, Driver Hunt
+
+T: 07772622352
+E: will@driverhunt.com
+W: www.driverhunt.com
+
+============================================================
+Copyright © <%= Time.now.year %> Driver Hunt, All rights reserved.
+You're receiving this email because you have signed up to Driver Hunt.
+
+Our mailing address is:
+Driver Hunt
+17 Corsham Street
+Islington
+London, London N1 6DR
+United Kingdom

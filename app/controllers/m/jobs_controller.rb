@@ -36,6 +36,7 @@ class M::JobsController < MController
     @job.save
     if @job.persisted?
       if user_signed_in?
+        JobMailer.job_created(@job).deliver
         redirect_to m_dashboard_path(anchor: 'job', job: @job.id) and return
       else
         redirect_to m_signup_after_job_post_path(job: @job.id) and return

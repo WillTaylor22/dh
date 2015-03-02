@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :only => [:create]
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:create]
   
   respond_to :html
 
@@ -31,6 +31,12 @@ class JobsController < ApplicationController
     @job.summary = job_params[:category_id] ? @job.category.name_of_user : params[:other_category] 
     @job.skill_list.add(params[:job][:skill_list])
     @job.save
+
+    # If signup via email:
+    if @job.persisted? && @job.user
+      JobMailer.job_created(@job).deliver
+    end
+    
     if params[:facebook] == 'true'
       redirect_to user_omniauth_authorize_path(:facebook, job_id: @job.id, hunter: true) and return 
     end

@@ -20,6 +20,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       job_id = request.env["omniauth.params"]['job_id']
       if job_id # Job sign in:
         @job = Job.assign_user_to_job(job_id, user)
+        if @job.persisted? && @job.user
+          JobMailer.job_created(@job).deliver
+        end
         flash.notice = "Job posted!"
         sign_in user
         if request.env["omniauth.params"]['mobile'] # Mobile

@@ -1,6 +1,8 @@
 class Users::SessionsController < Devise::SessionsController
   clear_respond_to
   respond_to :json, :html, :js
+
+  layout 'outside'
   # before_action :redirect_if_not_signed_in
 
   # POST /resource/sign_in
@@ -25,7 +27,9 @@ class Users::SessionsController < Devise::SessionsController
         resource.hunter = true
         resource.save
         @job = Job.assign_user_to_job(params[:job_id], resource)
+        JobMailer.job_created(@job).deliver      
       end
+      
       stored_location_for(resource) ||
         if params[:mobile] # post-Job path
           if params[:job_id]

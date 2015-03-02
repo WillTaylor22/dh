@@ -131,6 +131,20 @@ class Job < ActiveRecord::Base
     @jobs
   end
 
+  ##### Email ####
+
+  def list_of_days
+    return "All" if days.length == 7 || days == nil
+    days.map{|i| i.name}.join(", ")
+  end
+
+  def list_of_shifts
+    return "All" if shiftslots.length == 4 || days == nil
+    shiftslots.map{|i| i.name}.join(", ")
+  end
+
+  ##### End of email ####
+
   private
   def update_summary
     self.summary = category.name_of_user if !category.nil?

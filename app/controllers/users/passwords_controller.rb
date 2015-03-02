@@ -1,6 +1,12 @@
 class Users::PasswordsController < Devise::PasswordsController
+  clear_respond_to
+  respond_to :json, :html
+
+  layout 'outside'
+
   # GET /resource/password/new
   # def new
+  #   puts "here!"
   #   super
   # end
 

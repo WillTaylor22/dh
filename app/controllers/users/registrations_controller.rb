@@ -1,6 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   clear_respond_to
   respond_to :json, :html
+
+  layout 'outside'
   # before_filter :configure_sign_up_params, only: [:create]
   # before_filter :configure_account_update_params, only: [:update]
 
@@ -21,36 +23,38 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)
+
+        if params[:job_id]
+          resource.hunter = true
+          resource.save
+          @job = Job.assign_user_to_job(params[:job_id], resource)
+
+          # Job posted
+          JobMailer.job_created(@job).deliver
+        end
+
+
         respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
         expire_data_after_sign_in!
         respond_with after_inactive_sign_up_path_for(resource)
       end
-    else
-      # Sign up failed
+    else # User failed to be created
+
       clean_up_passwords resource
       set_minimum_password_length
       if params[:mobile]
-        puts "in mobile"
         if params[:job_id] # = params[:job[ -> job path
-          puts "in job"
-          puts resource.to_yaml
-          # redirect_to m_signup_after_job_post_path(resource, job: params[:job_id])
           render 'm/signup_after_job_post', layout: 'mobile' # m_signup_after_job_post_path(resource, job: params[:job_id])
         else
-          puts "in not-job"
           redirect_to m_sign_in_path(resource)
         end
       else
         respond_with resource
       end
     end
-    if params[:job_id]
-      resource.hunter = true
-      resource.save
-      @job = Job.assign_user_to_job(params[:job_id], resource)
-    end
+    
   end
 
   # GET /resource/edit
@@ -59,17 +63,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
+  #
+  # Occourences:
+  # No extra params     => User updates their profile
+  # params[:onboarding] => User goes through onboarding after signup.
+  #
+
   def update
     super
     if params[:onboarding]
       if resource.categories.length > 0
         resource.summary = resource.categories.map{|i| i.name_of_user}.join(',')
-      # else
-      #   resource.summary = params[:other_category]
       end
       resource.save!
-      
-      # UserMailer.driver_created(resource).deliver
+
+      UserMailer.driver_created(resource).deliver
 
     end
   end

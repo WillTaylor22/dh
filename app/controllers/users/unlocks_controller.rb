@@ -1,4 +1,7 @@
 class Users::UnlocksController < Devise::UnlocksController
+
+  layout 'outside'
+
   # GET /resource/unlock/new
   # def new
   #   super
